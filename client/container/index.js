@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import BasicButton from 'component/basic-button';
 import CountAction from 'action/count';
 
-export class AppContainer extends React.PureComponent {
+export class Index extends React.PureComponent {
   static propTypes = {
     count: PropTypes.number,
   };
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
   count: state.get('count'),
 });
 
-const component = styled(AppContainer)`
+const component = styled(Index)`
   width: 360px;
   margin: 240px auto;
   font-family: 'Helvetica';

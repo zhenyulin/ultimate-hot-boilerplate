@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import AppContainer from './container/AppContainer';
+import AppContainer from './container';
 import setupStore from './store';
 
 const store = setupStore();
