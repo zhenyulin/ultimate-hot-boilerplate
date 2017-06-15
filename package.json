@@ -1,8 +1,8 @@
 {
-  "name": "minimal-express-webpack2-rhl3",
+  "name": "react-hot-loader-express-minimal-boilerplate",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/zhenyulin/minimal-express-webpack2-rhl3.git",
+  "repository": "https://github.com/zhenyulin/react-hot-loader-express-minimal-boilerplate.git",
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -18,7 +18,7 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-html-import-to-string": "^0.0.1",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "express": "^4.15.3",
