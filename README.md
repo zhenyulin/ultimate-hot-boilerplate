@@ -1,1 +1,1 @@
-# minimal-express-webpack2-rhl3
+# react-hot-loader-webpack2-express-minimum
