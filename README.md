@@ -1,1 +1,1 @@
-# react-hot-loader-webpack2-express-minimum
+# react-hot-loader-express-minimal-boilerplate
