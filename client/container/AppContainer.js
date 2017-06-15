@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import BasicButton from 'component/basic-button';
-import Action from 'action';
+import CountAction from 'action/count';
 
 export class AppContainer extends React.PureComponent {
   static propTypes = {
@@ -46,4 +46,4 @@ const component = styled(AppContainer)`
   }
 `;
 
-export default connect(mapStateToProps, Action)(component);
+export default connect(mapStateToProps, CountAction)(component);

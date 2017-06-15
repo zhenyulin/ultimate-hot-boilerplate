@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { ADD } from '../action/';
+import { ADD } from '../action/count';
 
 const initialState = Map({
   count: 0
