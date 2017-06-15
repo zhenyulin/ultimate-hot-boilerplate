@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "latest",
+    "react"
+  ],
+  "plugins": [
+    "transform-html-import-to-string",
+    "transform-class-properties",
+    "react-hot-loader/babel"
+  ]
+}

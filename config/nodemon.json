@@ -1,0 +1,17 @@
+{
+  "watch": [
+    "server",
+    "config"
+  ],
+  "ignore": [
+    "*.spec.js",
+    "server/state.json"
+  ],
+  "execMap": {
+    "js": "babel-node"
+  },
+  "env": {
+    "NODE_PATH": ".",
+    "NODE_ENV": "development"
+  }
+}
