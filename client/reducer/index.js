@@ -5,6 +5,12 @@ const initialState = Map({
   count: 0,
 });
 
+function addCount(state) {
+  return Map({
+    count: state.get('count') + 1,
+  });
+}
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD:
@@ -12,10 +18,4 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
-}
-
-function addCount(state) {
-  return Map({
-    count: state.get('count') + 1,
-  });
 }
