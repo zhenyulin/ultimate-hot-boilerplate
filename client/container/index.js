@@ -12,7 +12,7 @@ export class Index extends React.PureComponent {
   };
 
   static defaultProps = {
-    count: 0
+    count: 0,
   };
 
   render() {
@@ -20,11 +20,11 @@ export class Index extends React.PureComponent {
     const { add } = this.props;
     return (
       <div className={className}>
-          <BasicButton
-            className="statusButton"
-            func={add}
-            text={count.toString()}
-          />
+        <BasicButton
+          className="statusButton"
+          func={add}
+          text={count.toString()}
+        />
       </div>
     );
   }

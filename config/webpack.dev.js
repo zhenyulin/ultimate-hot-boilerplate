@@ -41,7 +41,6 @@ module.exports = {
       {
         test: /\.js$/,
         use: ['babel-loader'],
-        include: path.resolve('./client'),
         exclude: /node_modules/,
       },
       {
