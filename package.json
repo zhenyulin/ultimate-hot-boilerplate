@@ -6,7 +6,7 @@
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server/server.js --config config/nodemon.json",
+    "start": "rm -rf .build && webpack --config config/webpack.server.js",
     "lint": "eslint . --fix",
     "lint:watch": "esw . --watch --changed --fix",
     "stylelint": "stylelint client/**/*.js",
@@ -16,7 +16,7 @@
     "build:client": "webpack -p --config config/webpack.prod.js --progress --bail",
     "build:render": "babel client -d dist/client --ignore **/*.spec.js",
     "build": "npm run build:server && npm run build:client && npm run build:render ",
-    "serve": "NODE_PATH=./dist NODE_ENV=production node dist/server/server.js",
+    "serve": "NODE_PATH=./dist NODE_ENV=production node dist/server/index.js",
     "serve:fresh": "npm run build && npm run serve"
   },
   "jest": {
@@ -58,12 +58,14 @@
     "html-webpack-plugin": "^2.28.0",
     "jest": "^20.0.4",
     "nodemon": "^1.11.0",
+    "start-server-webpack-plugin": "^2.2.0",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-processor-styled-components": "^0.1.0",
     "webpack": "^2.6.1",
     "webpack-dev-middleware-webpack-2": "^1.5.1",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
     "express": "^4.15.3",
