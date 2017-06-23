@@ -3,8 +3,6 @@ import path from 'path';
 import webpack from 'webpack';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
@@ -30,6 +28,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
     new HTMLWebpackPlugin({
       filename: 'index.html',
       template: './client/index.html',
