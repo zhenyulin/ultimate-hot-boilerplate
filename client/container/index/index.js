@@ -40,7 +40,7 @@ export class Index extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  count: state.get('count'),
+  count: state.count.get('current'),
 });
 
 const mapDispatchToProps = dispatch => ({

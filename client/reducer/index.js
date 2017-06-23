@@ -1,21 +1,11 @@
-import { Map } from 'immutable';
-import { ADD } from '../action/count';
+import { combineReducers } from 'redux';
 
-const initialState = Map({
-  count: 0,
+import count from './count';
+import { routerReducer as router } from 'react-router-redux';
+
+const reducer = combineReducers({
+  count,
+  router,
 });
 
-function addCount(state) {
-  return Map({
-    count: state.get('count') + 1,
-  });
-}
-
-export default function reducer(state = initialState, action) {
-  switch (action.type) {
-    case ADD:
-      return addCount(state);
-    default:
-      return state;
-  }
-}
+export default reducer;
