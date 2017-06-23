@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'react-router-redux';
 
-import AppContainer from './container';
 import setupStore from './store';
+import Router from './router';
 
-const store = setupStore();
+const history = createHistory();
+const store = setupStore(history);
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store} >
-        <AppContainer />
+        <ConnectedRouter history={history}>
+          <Router />
+        </ConnectedRouter>
       </Provider>
     );
   }
