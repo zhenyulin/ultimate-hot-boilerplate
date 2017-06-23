@@ -14,5 +14,11 @@ reports/
 docker_compose/
 data/
 
-# dot files
+Dockerfile
+README.md
+LICENSE
+circle.yml
+.gitignore
+.gitlab-ci.yml
 .DS_Store
+.git

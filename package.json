@@ -1,8 +1,8 @@
 {
-  "name": "react-hot-loader-express-minimal-boilerplate",
+  "name": "react-hot-load-ssr-ultimate-boilerplate",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/zhenyulin/react-hot-loader-express-minimal-boilerplate.git",
+  "repository": "https://github.com/zhenyulin/react-hot-load-ssr-ultimate-boilerplate.git",
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
