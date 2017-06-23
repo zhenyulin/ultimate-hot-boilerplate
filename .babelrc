@@ -5,7 +5,6 @@
     "flow"
   ],
   "plugins": [
-    "transform-class-properties",
-    "react-hot-loader/babel"
+    "transform-class-properties"
   ]
 }
