@@ -1,7 +1,7 @@
 import express from 'express';
 
-import index from './handler/index';
-import info from './handler/info';
+import index from './handlers/index';
+import info from './handlers/info';
 
 const router = express.Router();
 
