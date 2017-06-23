@@ -1,1 +1,1 @@
-# react-hot-reload-webpack-express-ssr-boilerplate
+# react-hot-load-ssr-ultimate-boilerplate
