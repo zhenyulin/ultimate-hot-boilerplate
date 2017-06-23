@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createTracker } from 'redux-segment';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducer from './reducer';
 
@@ -12,11 +13,8 @@ export default function setupStore(history) {
 
   let store;
 
-  if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
-    /* eslint-disable no-underscore-dangle */
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    /* eslint-enable */
-    const enhancer = composeEnhancers(applyMiddleware(...middleware));
+  if (process.env.NODE_ENV === 'development') {
+    const enhancer = composeWithDevTools(applyMiddleware(...middleware));
     store = createStore(reducer, enhancer);
   } else {
     store = applyMiddleware(...middleware)(createStore)(reducer);
