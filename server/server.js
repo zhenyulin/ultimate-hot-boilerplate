@@ -9,7 +9,7 @@ console.time(SERVER_START);
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-  const webpackConfig = require('../../config/webpack.dev');
+  const webpackConfig = require('config/webpack.dev');
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
