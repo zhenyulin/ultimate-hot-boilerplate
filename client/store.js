@@ -3,7 +3,7 @@ import { routerMiddleware } from 'react-router-redux';
 import { createTracker } from 'redux-segment';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducer from './reducer';
+import reducer from './controllers/reducers/';
 
 export default function setupStore(history) {
   const middleware = [
@@ -21,8 +21,8 @@ export default function setupStore(history) {
   }
 
   if (module.hot) {
-    module.hot.accept('./reducer', () => {
-      const nextRootReducer = require('./reducer').default;
+    module.hot.accept('./controllers/reducers', () => {
+      const nextRootReducer = require('./controllers/reducers').default;
       store.replaceReducer(nextRootReducer);
     });
   }

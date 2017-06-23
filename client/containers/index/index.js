@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
-import BasicButton from 'component/basic-button';
-import CountAction from 'action/count';
+import BasicButton from 'components/elements/basic-button';
+import CountAction from 'controllers/actions/count';
 
 export class Index extends React.PureComponent {
   static propTypes = {

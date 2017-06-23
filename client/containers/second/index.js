@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
-import BasicButton from 'component/basic-button';
+import BasicButton from 'components/elements/basic-button';
 
 export class Index extends React.PureComponent {
   static propTypes = {

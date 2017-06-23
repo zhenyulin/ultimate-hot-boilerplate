@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
 
-import Index from './container/index';
-import Second from './container/second';
+import Index from './containers/index';
+import Second from './containers/second';
 
 export default class Router extends Component {
   render() {
