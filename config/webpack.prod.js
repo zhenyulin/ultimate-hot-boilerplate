@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
@@ -60,9 +59,5 @@ module.exports = {
       filename: 'index.html',
       template: './client/index.html',
     }),
-    new CopyWebpackPlugin([
-      { from: './client/store.js' },
-      { from: './client/router.js' },
-    ]),
   ],
 };
