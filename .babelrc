@@ -11,9 +11,8 @@
       "alias": {
        "server": "./server",
        "config": "./config",
-       "component": "./client/component",
-       "action": "./client/action",
-       "reducer": "./client/reducer",
+       "components": "./client/components",
+       "controllers": "./client/controllers"
       }
     }]
   ]
