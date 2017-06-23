@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export class FunctionButton extends React.PureComponent {
   static propTypes = {
+    className: PropTypes.string,
     func: PropTypes.func,
     text: PropTypes.string,
   };
@@ -13,7 +14,7 @@ export class FunctionButton extends React.PureComponent {
   };
 
   render() {
-    const { className, text, disabled } = this.props;
+    const { className, text } = this.props;
     const { func } = this.props;
     return (
       <button

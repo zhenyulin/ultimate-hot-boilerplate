@@ -1,5 +1,7 @@
 import express from 'express';
-import http from 'http';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware-webpack-2';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
 const PORT = 3000;
 const SERVER_START = `server started on port ${PORT}`;
@@ -7,10 +9,7 @@ console.time(SERVER_START);
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware-webpack-2');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-  const webpackConfig = require('config/webpack.dev');
+  const webpackConfig = require('../../config/webpack.dev');
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
