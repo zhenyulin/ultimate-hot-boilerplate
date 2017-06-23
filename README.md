@@ -8,4 +8,4 @@
   * React-Router v5 hot reloading both client/server side ✅
 
 ## Hot-Reload
-  [ ] add gif preview
+- [ ] add gif preview
