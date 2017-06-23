@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: () => dispatch(CountAction.add),
+  add: () => dispatch(CountAction.add()),
   navigate: location => dispatch(push(location)),
 });
 
