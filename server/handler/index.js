@@ -1,10 +1,11 @@
 import express from 'express';
-import IndexPage from '../../client/index.html';
+import render from 'client/server-render';
 
 const router = express.Router();
 
 router.get('*', (req, res) => {
-  res.send(IndexPage);
+  const page = render();
+  res.send(page);
 });
 
 export default router;
