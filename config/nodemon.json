@@ -4,8 +4,7 @@
     "config"
   ],
   "ignore": [
-    "*.spec.js",
-    "server/state.json"
+    "*.spec.js"
   ],
   "execMap": {
     "js": "babel-node"

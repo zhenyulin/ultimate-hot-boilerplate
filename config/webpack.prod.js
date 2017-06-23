@@ -12,6 +12,7 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/',
   },
+  target: 'web',
   resolve: {
     modules: [
       path.resolve('./client'),
