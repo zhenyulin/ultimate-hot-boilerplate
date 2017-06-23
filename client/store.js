@@ -6,9 +6,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './controllers/reducers/';
 
 export default function setupStore(history) {
-  const middleware = [
+  let middleware = [
     routerMiddleware(history),
-    createTracker(),
   ];
 
   let store;
@@ -17,6 +16,7 @@ export default function setupStore(history) {
     const enhancer = composeWithDevTools(applyMiddleware(...middleware));
     store = createStore(reducer, enhancer);
   } else {
+    middleware = [...middleware, createTracker()];
     store = applyMiddleware(...middleware)(createStore)(reducer);
   }
 
