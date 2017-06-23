@@ -1,8 +1,8 @@
 import http from 'http';
 
 import app from './server';
+import { PORT } from './config/constant';
 
-const PORT = 3000;
 const server = http.createServer(app);
 const SERVER_START = `server started on port ${PORT}`;
 console.time(SERVER_START);
