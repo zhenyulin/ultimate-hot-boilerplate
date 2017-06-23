@@ -5,6 +5,7 @@
     "flow"
   ],
   "plugins": [
+    "transform-html-import-to-string",
     "transform-class-properties"
   ]
 }

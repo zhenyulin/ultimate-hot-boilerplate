@@ -3,6 +3,8 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware-webpack-2';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+import router from './router';
+
 const PORT = 3000;
 const SERVER_START = `server started on port ${PORT}`;
 console.time(SERVER_START);
@@ -19,5 +21,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(express.static(`${__dirname}/../client`));
+app.use(router);
 
 app.listen(PORT, () => console.timeEnd(SERVER_START));

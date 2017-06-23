@@ -639,6 +639,10 @@ babel-plugin-transform-flow-strip-types@^6.22.0:
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.22.0"
 
+babel-plugin-transform-html-import-to-string@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-html-import-to-string/-/babel-plugin-transform-html-import-to-string-0.0.1.tgz#949152515daad764cf55c51ab1787d206decf89d"
+
 babel-plugin-transform-react-display-name@^6.23.0:
   version "6.25.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-display-name/-/babel-plugin-transform-react-display-name-6.25.0.tgz#67e2bf1f1e9c93ab08db96792e05392bf2cc28d1"
