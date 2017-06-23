@@ -1,5 +1,5 @@
 import express from 'express';
-import render from 'client/server-render';
+import render from 'server/render';
 
 const router = express.Router();
 

@@ -4,9 +4,9 @@ import { renderToString } from 'react-dom/server';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { ConnectedRouter } from 'react-router-redux';
 
-import setupStore from './store';
-import Router from './router';
-import indexPage from './index.html';
+import setupStore from '../client/store';
+import Router from '../client/router';
+import indexPage from '../client/index.html';
 
 export default function serverSideRender() {
   const history = createMemoryHistory();
