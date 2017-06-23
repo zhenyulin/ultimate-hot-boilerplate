@@ -2,30 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { push } from 'react-router-redux';
 
 import BasicButton from 'component/basic-button';
-import CountAction from 'action/count';
 
 export class Index extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    count: PropTypes.number,
-    add: PropTypes.func,
+    navigate: PropTypes.func,
   };
 
   static defaultProps = {
-    count: 0,
+
   };
 
   render() {
-    const { className, count } = this.props;
-    const { add } = this.props;
+    const { className } = this.props;
+    const { navigate } = this.props;
     return (
       <div className={className}>
         <BasicButton
           className="statusButton"
-          func={add}
-          text={count.toString()}
+          func={() => navigate('/')}
+          text="Back to Index"
         />
       </div>
     );
@@ -33,7 +32,10 @@ export class Index extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  count: state.get('count'),
+});
+
+const mapDispatchToProps = dispatch => ({
+  navigate: location => dispatch(push(location)),
 });
 
 const component = styled(Index)`
@@ -43,9 +45,9 @@ const component = styled(Index)`
   line-height: 30px;
 
   .statusButton {
-    background: lightblue;
+    background: grey;
     color: white;
   }
 `;
 
-export default connect(mapStateToProps, CountAction)(component);
+export default connect(mapStateToProps, mapDispatchToProps)(component);

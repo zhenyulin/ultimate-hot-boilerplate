@@ -41,10 +41,7 @@
         "config": "config/webpack.prod.js"
       },
       "node": {
-        "moduleDirectory": [
-          "./server",
-          "./config"
-        ]
+        "moduleDirectory": "."
       }
     }
   }

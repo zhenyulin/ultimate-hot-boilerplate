@@ -1,6 +1,20 @@
-import { createStore } from 'redux';
-import reducer from 'reducer';
+import { createStore, applyMiddleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
 
-export default function setupStore() {
-  return createStore(reducer);
+import reducer from './reducer';
+
+export default function setupStore(history) {
+  const middleware = [
+    routerMiddleware(history),
+  ];
+  const store = applyMiddleware(...middleware)(createStore)(reducer);
+
+  if (module.hot) {
+    module.hot.accept('./reducer', () => {
+      const nextRootReducer = require('./reducer').default;
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+
+  return store;
 }

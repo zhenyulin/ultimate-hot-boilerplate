@@ -7,7 +7,6 @@
   "plugins": [
     "transform-html-import-to-string",
     "transform-class-properties",
-    "react-hot-loader/babel",
     ["module-resolver", {
       "alias": {
        "server": "./server",
