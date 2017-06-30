@@ -1,13 +1,18 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const StartServerPlugin = require('start-server-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
+  watch: true,
   target: 'node',
-  entry: './server/index',
+  entry: [
+    'webpack/hot/poll?1000',
+    './server/index',
+  ],
   output: {
-    path: path.resolve('./dist'),
+    path: path.resolve('.build'),
     filename: 'server.js',
   },
   resolve: {
@@ -17,7 +22,9 @@ module.exports = {
       'node_modules',
     ],
   },
-  externals: nodeExternals(),
+  externals: [nodeExternals({
+    whitelist: ['webpack/hot/poll?1000'],
+  })],
   module: {
     rules: [
       {
@@ -27,10 +34,7 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
-          options: { minimize: true },
-        }],
+        use: 'html-loader',
       },
       {
         test: /\.md$/,
@@ -41,25 +45,31 @@ module.exports = {
         use: [
           {
             loader: 'file-loader',
-            options: { name: '[path][name]_[hash:base64:5].[ext]' },
+            options: {
+              name: '[path][name]_[hash:base64:5].[ext]',
+            },
           },
         ],
       },
     ],
   },
   plugins: [
+    new StartServerPlugin('server.js'),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         BUILD_TARGET: JSON.stringify('server'),
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      minimize: true,
-      compress: {
-        warnings: false,
+        NODE_ENV: JSON.stringify('development'),
       },
     }),
   ],
+  stats: {
+    modules: false,
+    hash: false,
+    version: false,
+    colors: true,
+    assets: false,
+  },
 };

@@ -1,31 +1,29 @@
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'react-router-redux';
 import { createTracker } from 'redux-segment';
-import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducer from './controllers/reducers/';
+import reducer from './controllers/reducers';
 
 export default function setupStore(history) {
-  let middleware = [
+  const middleware = [
     routerMiddleware(history),
+    createTracker(),
   ];
-
-  let store;
 
   if (process.env.NODE_ENV === 'development') {
     const enhancer = composeWithDevTools(applyMiddleware(...middleware));
-    store = createStore(reducer, enhancer);
-  } else {
-    middleware = [...middleware, createTracker()];
-    store = applyMiddleware(...middleware)(createStore)(reducer);
+    const store = createStore(reducer, enhancer);
+
+    if (module.hot) {
+      module.hot.accept('./controllers/reducers', () => {
+        const nextRootReducer = require('./controllers/reducers').default;
+        store.replaceReducer(nextRootReducer);
+      });
+    }
+
+    return store;
   }
 
-  if (module.hot) {
-    module.hot.accept('./controllers/reducers', () => {
-      const nextRootReducer = require('./controllers/reducers').default;
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-
-  return store;
+  return applyMiddleware(...middleware)(createStore)(reducer);
 }

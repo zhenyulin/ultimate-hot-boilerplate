@@ -8,6 +8,7 @@
   * React-Router v5 hot reloading both client/server side ✅
   * Redux DevTools Extension both client/server side ✅
   * Redux-Segment Analytics Integration ✅
+  * Path resolve no `..` both client/server side ✅
 
 ## Hot-Reload
 - [ ] add gif preview

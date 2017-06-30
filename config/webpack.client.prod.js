@@ -1,27 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-
-process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 module.exports = {
   devtool: 'source-map',
+  target: 'web',
   entry: path.resolve('./client/index.js'),
   output: {
-    path: path.resolve('./dist/client/'),
-    filename: 'bundle.js',
+    path: path.resolve('./dist/'),
+    filename: 'client.js',
     publicPath: '/',
   },
-  target: 'web',
   resolve: {
     modules: [
-      path.resolve('./client'),
+      path.resolve('./client'), // to resolve path liek '/components' on client
       'node_modules',
     ],
-    extensions: ['.js', '.jsx'],
-    alias: {
-      request: 'browser-request',
-    },
   },
   module: {
     rules: [
@@ -29,6 +22,10 @@ module.exports = {
         test: /\.js$/,
         use: ['babel-loader'],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.md$/,
+        use: 'raw-loader',
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|svg|eot|ttf|otf|wav|mp3)$/,
@@ -55,10 +52,6 @@ module.exports = {
       compress: {
         warnings: false,
       },
-    }),
-    new HTMLWebpackPlugin({
-      filename: 'index.html',
-      template: './client/index.html',
     }),
   ],
 };
