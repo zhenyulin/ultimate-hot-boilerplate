@@ -13,11 +13,7 @@
 ## Hot-Reload
 - [ ] add gif preview
 
----
-
-
 ## Boilerpate Dependencies Dictionary
-
 
 ### React Related Dependencies
  * immutable
