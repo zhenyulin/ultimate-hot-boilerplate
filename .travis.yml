@@ -4,9 +4,10 @@ services:
   - docker
 node_js:
   - "node"
-script:
+before_install:
   - docker build . -t test
-  - docker run test:latest test
+  - docker run test yarn test
+script:
   - yarn cover
 after_script:
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
