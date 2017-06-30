@@ -5,8 +5,7 @@ services:
 node_js:
   - "node"
 before_install:
-  - docker build . -t test
-  - docker run test yarn test
+  - docker build .
 script:
   - yarn cover
 after_script:
