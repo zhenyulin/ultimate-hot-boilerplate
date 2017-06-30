@@ -29,5 +29,4 @@ rules:
   - extensions: [.js, .jsx]
 settings:
   import/resolver:
-    node: {moduleDirectory: .}
-    webpack: {config: ./config/webpack.client.prod.js}
+    webpack: {config: ./config/webpack.server.dev.js}
