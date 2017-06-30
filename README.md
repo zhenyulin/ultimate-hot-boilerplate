@@ -1,6 +1,6 @@
+# ultimate-hot-boilerplate 
 [![Code Climate](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate/badges/gpa.svg)](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate) [![Build Status](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate.svg?branch=master)](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate) [![Coverage Status](https://coveralls.io/repos/github/zhenyulin/ultimate-hot-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/zhenyulin/ultimate-hot-boilerplate?branch=master) [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate) [![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
 
-# ultimate-hot-boilerplate
 
 ### Hot-Reload
   * Redux reducer hot reloading both client/server side ✅
@@ -19,7 +19,7 @@
 
 ### Boilerpate Dependencies Dictionary
 
-#### React Related Dependencies
+React Related Dependencies
  * immutable
  * prop-types
  * react
@@ -35,7 +35,7 @@
  * styled-components
  * styled-components-theme
 
-#### Express Server Dependencies
+Express Server Dependencies
  * body-parser
  * compression
  * cors
@@ -54,7 +54,7 @@
  * webpack-dev-middleware-webpack-2 `express middleware to run webpack 2 bundle task`
  * webpack-hot-middleware `express middleware to monitor bundle task and communicate with client in the browser`
 
-#### Linting
+Linting
  * babel-eslint
  * eslint
  * eslint-config-airbnb
@@ -70,19 +70,17 @@
  * stylelint-config-standard
  * stylelint-processor-styled-components
 
-#### Unit Test
+Test
  * enzyme
  * enzyme-to-json
  * jest
  * npm-watch
-
-#### E2E Test
  * cucumber
  * nightwatch
  * selenium-standalone
  * selenium-webdriver
 
-#### Babel Dependencies
+Babel Dependencies
  * babel-core
  * babel-plugin-transform-class-properties (enable `static` syntax in class)
  * babel-polyfill
@@ -91,8 +89,7 @@
  * babel-preset-react
  * babel-register
 
-
-#### Webpack Dependencies
+Webpack Dependencies
  * babel-loader
  * file-loader
  * html-loader
