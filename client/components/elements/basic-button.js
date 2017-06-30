@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-export class FunctionButton extends React.PureComponent {
+export class BasicButton extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
     func: PropTypes.func,
@@ -27,7 +27,7 @@ export class FunctionButton extends React.PureComponent {
   }
 }
 
-export default styled(FunctionButton)`
+export default styled(BasicButton)`
   height: 30px;
   width: 120px;
   border: none;
