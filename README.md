@@ -1,7 +1,8 @@
-## ultimate-hot-boilerplate [![Code Climate](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate/badges/gpa.svg)](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate) [![Build Status](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate.svg?branch=master)](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate) [![Coverage Status](https://coveralls.io/repos/github/zhenyulin/ultimate-hot-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/zhenyulin/ultimate-hot-boilerplate?branch=master) [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate) [![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
+# ultimate-hot-boilerplate
+[![Code Climate](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate/badges/gpa.svg)](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate) [![Build Status](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate.svg?branch=master)](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate) [![Coverage Status](https://coveralls.io/repos/github/zhenyulin/ultimate-hot-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/zhenyulin/ultimate-hot-boilerplate?branch=master) [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate) [![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
 
 
-## Hot-Reload
+### Hot-Reload
   * Redux reducer hot reloading both client/server side ✅
   * React component hot reloading both client/server side ✅
   * Styled-components hot reloading both client/server side ✅
@@ -12,12 +13,11 @@
   * Path resolve no `..` both client/server side ✅
 
 
-## Hot-Reload
+### Hot-Reload
 - [ ] add gif preview
 
 
-## Boilerpate Dependencies Dictionary
-
+### Boilerpate Dependencies Dictionary
 
 #### React Related Dependencies
  * immutable
