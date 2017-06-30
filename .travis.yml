@@ -5,11 +5,17 @@ services:
 node_js:
   - "node"
 before_install:
-  - docker build .
+  - docker build . -t boilderplate
+  - docker run boilderplate npm test
 script:
   - yarn cover
 after_script:
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push USER/REPO;
+    fi
 branches:
   only:
     - master

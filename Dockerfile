@@ -29,4 +29,4 @@ RUN yarn build \
 
 USER app
 EXPOSE 3000
-ENTRYPOINT yarn serve
+CMD yarn serve
