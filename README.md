@@ -2,7 +2,7 @@
 
 
 
-### Hot-Reload
+### About
   * Redux reducer hot reloading both client/server side ✅
   * React component hot reloading both client/server side ✅
   * Styled-components hot reloading both client/server side ✅
@@ -14,7 +14,7 @@
 
 
 
-### Hot-Reload
+### TODO
 - [ ] add gif preview
 
 
