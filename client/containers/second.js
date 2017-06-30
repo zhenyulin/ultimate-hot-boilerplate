@@ -31,7 +31,9 @@ export class Index extends React.PureComponent {
   }
 }
 
-const mapStateToProps = {};
+const mapStateToProps = state => ({
+
+});
 
 const mapDispatchToProps = dispatch => ({
   navigate: location => dispatch(push(location)),
