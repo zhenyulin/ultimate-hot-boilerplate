@@ -1,11 +1,15 @@
 import express from 'express';
-import render from 'server/render';
 
 const router = express.Router();
 
 router.get('*', (req, res) => {
-  const page = render();
-  res.send(page);
+  if (process.env.NODE_ENV === 'production') {
+    const render = require('server/render').default;
+    const page = render();
+    return res.send(page);
+  }
+  const page = require('client/index.html');
+  return res.send(page);
 });
 
 export default router;

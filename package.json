@@ -6,17 +6,16 @@
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf .build && webpack --config config/webpack.server.js",
+    "start": "webpack --config config/webpack.server.dev.js --progress",
+    "watch": "esw . --watch --changed --fix",
     "lint": "eslint . --fix",
-    "lint:watch": "esw . --watch --changed --fix",
     "stylelint": "stylelint client/**/*.js",
     "test": "jest server client",
     "cover": "npm run test -- --coverage",
-    "build:server": "babel server -d dist/server --copy-files --ignore **/*.spec.js",
-    "build:client": "webpack -p --config config/webpack.prod.js --progress --bail",
-    "build:render": "babel client -d dist/client --ignore **/*.spec.js",
-    "build": "npm run build:server && npm run build:client && npm run build:render ",
-    "serve": "NODE_PATH=./dist NODE_ENV=production node dist/server/index.js",
+    "build:client": "webpack -p --config config/webpack.client.prod.js --progress --bail",
+    "build:server": "webpack -p --config config/webpack.server.prod.js --progress --bail",
+    "build": "npm run build:server && npm run build:client",
+    "serve": "NODE_ENV=production node dist/server.js",
     "serve:fresh": "npm run build && npm run serve"
   },
   "jest": {
@@ -29,13 +28,10 @@
     ]
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
-    "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-html-import-to-string": "^0.0.1",
     "babel-preset-env": "^1.5.2",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
@@ -53,14 +49,15 @@
     "eslint-plugin-react": "^7.0.1",
     "eslint-watch": "^3.1.0",
     "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.28.0",
+    "html-loader": "^0.4.5",
     "jest": "^20.0.4",
+    "raw-loader": "^0.5.1",
     "redux-devtools-extension": "^2.13.2",
     "start-server-webpack-plugin": "^2.2.0",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-processor-styled-components": "^0.1.0",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0",
     "webpack-dev-middleware-webpack-2": "^1.5.1",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-node-externals": "^1.6.0"
@@ -76,6 +73,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-segment": "^1.6.2",
-    "styled-components": "^2.1.0"
+    "styled-components": "^2.1.0",
+    "styled-components-theme": "^1.0.5"
   }
 }

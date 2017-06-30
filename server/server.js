@@ -1,14 +1,15 @@
+import path from 'path';
 import express from 'express';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware-webpack-2';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import router from './router';
 
 const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
-  const webpackConfig = require('config/webpack.dev');
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware-webpack-2');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackConfig = require('config/webpack.client.dev');
   const compiler = webpack(webpackConfig);
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
@@ -17,7 +18,10 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-app.use(express.static(`${__dirname}/../client`));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve('./dist/')));
+}
+
 app.use(router);
 
 export default app;
