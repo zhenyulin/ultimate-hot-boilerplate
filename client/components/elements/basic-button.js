@@ -10,7 +10,6 @@ export class BasicButton extends React.PureComponent {
   };
 
   static defaultProps = {
-    func: () => null,
   };
 
   render() {
