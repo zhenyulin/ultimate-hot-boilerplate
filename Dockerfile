@@ -13,13 +13,12 @@ RUN apk --update add git curl bash binutils tar \
 
 # Create user and app directory
 RUN adduser -S app
-RUN mkdir -p /home/app
+RUN mkdir -p /home/app && chown -R app /home/app
 WORKDIR /home/app
 
 # Install Dependencies
 ADD package.json yarn.lock /home/app/
 RUN yarn --pure-lockfile \
-  && chown -R app /home/app \
   && yarn cache clean
 
 # Bundle app source and remove src
