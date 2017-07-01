@@ -5,7 +5,7 @@ services:
 node_js:
   - "node"
 before_install:
-  - docker build . -t boilderplate
+  - docker build .
 script:
   - yarn cover
 after_script:
