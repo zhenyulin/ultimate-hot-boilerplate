@@ -11,22 +11,18 @@ rules:
   import/extensions:
   - warn
   - {js: never}
-  import/first:
-  - error
-  - {absolute-first: off}
   import/no-extraneous-dependencies: off
   import/no-named-as-default: off
-  jest/no-disabled-tests: warn
-  jest/no-focused-tests: error
-  jest/no-identical-title: error
-  jest/valid-expect: error
   jsx-a11y/no-noninteractive-element-interactions: off
   react/jsx-indent-props: [2, 2]
-  react/react-in-jsx-scope: off
   react/require-default-props: off
   react/jsx-filename-extension:
   - warn
   - extensions: [.js, .jsx]
+  jest/no-disabled-tests: warn
+  jest/no-focused-tests: error
+  jest/no-identical-title: error
+  jest/valid-expect: error
 settings:
   import/resolver:
     webpack: {config: ./config/webpack.server.dev.js}

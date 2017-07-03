@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import BasicButton from 'components/elements/basic-button';
 import CountAction from 'controllers/actions/count';
 
-export class Index extends React.PureComponent {
+export class Page extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
     count: PropTypes.number,
@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => ({
   navigate: location => dispatch(push(location)),
 });
 
-const component = styled(Index)`
+const component = styled(Page)`
   width: 360px;
   margin: 240px auto;
   font-family: 'Helvetica';
