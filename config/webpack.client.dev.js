@@ -5,6 +5,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   target: 'web',
   entry: [
+    'babel-polyfill',
     'webpack-hot-middleware/client?timeout=2000',
     path.resolve('./client/index.js'),
   ],

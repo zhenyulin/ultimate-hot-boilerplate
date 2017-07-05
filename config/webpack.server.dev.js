@@ -8,8 +8,9 @@ module.exports = {
   watch: true,
   target: 'node',
   entry: [
+    'babel-polyfill',
     'webpack/hot/poll?1000',
-    './server/index',
+    path.resolve('./server/index'),
   ],
   output: {
     path: path.resolve('.build'),
