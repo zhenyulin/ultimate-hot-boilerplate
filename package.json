@@ -6,22 +6,22 @@
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --config config/webpack.server.dev.js --progress",
+    "start": "rm -rf .build && webpack --config config/webpack.server.dev.js --progress",
     "watch": "esw . --watch --changed --fix",
     "lint": "eslint . --fix",
     "stylelint": "stylelint client/**/*.js",
     "test": "jest",
     "cover": "jest --coverage",
-    "build:client": "webpack -p --config config/webpack.client.prod.js --progress --bail",
-    "build:server": "webpack -p --config config/webpack.server.prod.js --progress --bail",
-    "build": "npm run build:server && npm run build:client",
+    "build:client": "webpack --config config/webpack.client.prod.js --bail",
+    "build:server": "webpack --config config/webpack.server.prod.js --bail",
+    "build": "rm -rf dist && npm run build:server && npm run build:client",
     "serve": "NODE_ENV=production node dist/server.js",
     "serve:fresh": "npm run build && npm run serve"
   },
   "jest": {
     "modulePaths": [
       "client",
-      "server"
+      "."
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
@@ -31,6 +31,7 @@
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
+    "babel-plugin-styled-components": "^1.1.7",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.2",
