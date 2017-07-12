@@ -6,7 +6,7 @@
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf .build && webpack --config config/webpack.server.dev.js --progress",
+    "start": "rm -rf .build && webpack --config config/webpack.server.dev.js",
     "watch": "esw . --watch --changed --fix",
     "lint": "eslint . --fix",
     "stylelint": "stylelint client/**/*.js",
@@ -67,6 +67,7 @@
   "dependencies": {
     "express": "^4.15.3",
     "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -74,7 +75,9 @@
     "react-router": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
+    "redux-logic": "^0.12.1",
     "redux-segment": "^1.6.2",
+    "rxjs": "^5.4.2",
     "styled-components": "^2.1.0",
     "styled-components-theme": "^1.0.5"
   }

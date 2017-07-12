@@ -1,13 +1,16 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'react-router-redux';
+import { createLogicMiddleware } from 'redux-logic';
 import { createTracker } from 'redux-segment';
 
 import reducer from './controllers/reducers';
+import logics from './controllers/logics/';
 
 export default function setupStore(history) {
   const middleware = [
     routerMiddleware(history),
+    createLogicMiddleware(logics),
     createTracker(),
   ];
 

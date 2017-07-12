@@ -5,38 +5,52 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
+import { getMessage } from 'controllers/actions/message';
 
 export class Page extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    title: PropTypes.string,
+    body: PropTypes.string,
     navigate: PropTypes.func,
+    get: PropTypes.func,
   };
 
   static defaultProps = {
-
+    title: '',
+    body: '',
   };
 
   render() {
-    const { className } = this.props;
-    const { navigate } = this.props;
+    const { className, title, body } = this.props;
+    const { navigate, get } = this.props;
     return (
       <div className={className}>
         <BasicButton
-          className="statusButton"
+          className="actionButton"
+          func={get}
+          text="Get Message"
+        />
+        <BasicButton
+          className="navButton"
           func={() => navigate('/')}
           text="Back to Index"
         />
+        <div className="title">{title}</div>
+        <div className="body">{body}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-
+  title: state.message.getIn(['message', 'title']),
+  body: state.message.getIn(['message', 'body']),
 });
 
 const mapDispatchToProps = dispatch => ({
   navigate: location => dispatch(push(location)),
+  get: () => dispatch(getMessage()),
 });
 
 const component = styled(Page)`
@@ -45,8 +59,8 @@ const component = styled(Page)`
   font-family: 'Helvetica';
   line-height: 30px;
 
-  .statusButton {
-    background: grey;
+  .actionButton {
+    background: lightblue;
     color: white;
   }
 `;
