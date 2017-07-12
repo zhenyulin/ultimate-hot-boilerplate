@@ -18,7 +18,7 @@ ultimate-hot-boilerplate for react/node app with server-side-render
  * add gif preview
  * add JWT auth to the boilerplate and support individual status
  * file watcher update to `chokidar/watchman`
- * add `reselect`, `redux-logic`
+ * add `reselect`
 
 
 
