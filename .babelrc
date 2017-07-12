@@ -6,6 +6,8 @@
   ],
   "plugins": [
     "transform-class-properties",
-    ["styled-components", {"ssr": true}],
+    ["styled-components", {
+      "ssr": true
+    }]
   ]
 }
