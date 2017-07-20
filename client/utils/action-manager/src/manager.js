@@ -48,7 +48,11 @@ export default function reducer(
 // a middleware creator that creates a `actions` namespace in the store
 // it allows users to customise format of action namespace
 // it takes names from register functions and check if it conflicts with the namespace
-// export const actionManagerMiddleware = ({ prefix: string, delimiter: string }) => store => next => (action) => {
+// export const actionManagerMiddleware =
+// ({ prefix: string, delimiter: string }) =>
+// store =>
+// next =>
+// (action) => {
 //   next(action);
 //   // TODO: parse and validate the actionNameSpace format
 // };
