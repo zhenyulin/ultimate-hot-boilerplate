@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
-import { getMessage } from 'controllers/actions/message';
+import { messageActions } from 'controllers/actions/message';
 
 export class Page extends React.PureComponent {
   static propTypes = {
@@ -50,7 +50,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   navigate: location => dispatch(push(location)),
-  get: () => dispatch(getMessage()),
+  get: () => dispatch(messageActions.get()),
 });
 
 const component = styled(Page)`
