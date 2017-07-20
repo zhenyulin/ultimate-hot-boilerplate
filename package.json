@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "rm -rf .build && webpack --config config/webpack.server.dev.js",
-    "watch": "esw . --watch --changed --fix",
+    "watch": "esw . --watch --clear --fix",
     "flow": "flow-watch",
     "lint": "eslint . --fix",
     "stylelint": "stylelint client/**/*.js",
@@ -45,6 +45,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-json": "^1.2.0",
