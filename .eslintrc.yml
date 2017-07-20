@@ -1,11 +1,11 @@
 env: {browser: true, es6: true, jest/globals: true, node: true}
-extends: [airbnb, plugin:jest/recommended]
+extends: [airbnb, plugin:jest/recommended, plugin:flowtype/recommended]
 parser: babel-eslint
 parserOptions:
   ecmaFeatures: {jsx: true}
   ecmaVersion: 6
   sourceType: module
-plugins: [import, react, jsx-a11y, jest, json]
+plugins: [import, react, jsx-a11y, json, jest, flowtype]
 rules:
   global-require: warn
   import/extensions:
@@ -25,4 +25,5 @@ rules:
   jest/valid-expect: error
 settings:
   import/resolver:
-    webpack: {config: ./config/webpack.server.dev.js}
+    webpack:
+      config: ./config/webpack.server.dev.js
