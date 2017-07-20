@@ -1,23 +1,45 @@
-export const GET_MESSAGE = '@event/GET_MESSAGE';
-export const GET_MESSAGE_SUCCESS = '@event/GET_MESSAGE_SUCCESS';
-export const GET_MESSAGE_FAIL = '@event/GET_MESSAGE_FAIL';
+// @flow
 
-export const getMessage = () => ({
-  type: GET_MESSAGE,
-});
+import { EventTypes } from 'redux-segment';
 
-export const getMessageSuccess = data => ({
-  type: GET_MESSAGE_SUCCESS,
-  payload: data,
-});
+import {
+  asyncActionNames,
+  defaultAsyncActions,
+  asyncActionBundle,
+  actionBundle,
+} from 'utils/action-manager';
 
-export const getMessageFail = err => ({
-  type: GET_MESSAGE_FAIL,
-  payload: err,
-});
+export const MESSAGE = asyncActionNames('@event/MESSAGE');
+export const [ASYNC_TEST, asyncTestActions] = asyncActionBundle('@event/ASYNC_TEST');
+export const [TEST, testAction] = actionBundle('@event/TEST');
 
-export default {
-  getMessage,
-  getMessageSuccess,
-  getMessageFail,
+export const messageActions = {
+  ...defaultAsyncActions(MESSAGE),
+  post: data => ({
+    type: MESSAGE.POST,
+    payload: data,
+    meta: {
+      analytics: [
+        {
+          eventType: EventTypes.track,
+          eventPayload: {
+            event: MESSAGE.POST,
+          },
+        },
+      ],
+    },
+  }),
 };
+
+export const EVENT = {
+  MESSAGE,
+  ASYNC_TEST,
+  TEST,
+};
+
+export const eventActions = {
+  messageActions,
+  asyncTestActions,
+  testAction,
+};
+
