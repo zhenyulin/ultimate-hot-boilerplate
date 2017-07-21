@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BarGroup /> handles data input format error 1`] = `
+<text>
+  Input Data Format Error
+</text>
+`;
+
+exports[`<BarGroup /> renders area 1`] = `
+<g
+  class="bargroup-sc-bdVaJa lmOAOE"
+  transform="translate(-10,0)"
+>
+  <rect
+    height="360"
+    width="20"
+    x="0"
+    y="0"
+  />
+  <rect
+    height="324"
+    width="20"
+    x="288"
+    y="36"
+  />
+  <rect
+    height="0"
+    width="20"
+    x="960"
+    y="360"
+  />
+</g>
+`;
