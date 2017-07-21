@@ -25,5 +25,8 @@ rules:
   jest/valid-expect: error
 settings:
   import/resolver:
-    webpack:
-      config: ./config/webpack.server.dev.js
+    node:
+      moduleDirectory:
+        - ./
+        - ./client
+        - ./node_modules
