@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Area /> handles data input format error 1`] = `
+<text>
+  Input Data Format Error
+</text>
+`;
+
+exports[`<Area /> renders area 1`] = `
+<path
+  class="area-sc-bdVaJa lmOAOE"
+  d="M0,0L288,36L960,360L960,360L288,360L0,360Z"
+/>
+`;

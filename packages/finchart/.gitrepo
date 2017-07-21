@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/finbourne/finchart.git
+	branch = master
+	commit = 6139e2634303907aa8a4178e58e923f5717f707d
+	parent = 004670fa4b8b1c5af35088e91774ae12c880631d
+	cmdver = 0.3.1

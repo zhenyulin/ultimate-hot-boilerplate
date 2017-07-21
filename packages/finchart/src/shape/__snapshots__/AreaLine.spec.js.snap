@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AreaLine /> handles data input format error 1`] = `
+<g
+  class="arealine-sc-htpNat hHtpcc"
+>
+  <text>
+    Input Data Format Error
+  </text>
+  <text>
+    Input Data Format Error
+  </text>
+</g>
+`;
+
+exports[`<AreaLine /> renders area 1`] = `
+<g
+  class="arealine-sc-htpNat hHtpcc"
+>
+  <path
+    class="line-sc-bdVaJa gxPDDw"
+    d="M0,0L288,36L960,360"
+  />
+  <path
+    class="area-sc-bwzfXH lbUVb"
+    d="M0,0L288,36L960,360L960,360L288,360L0,360Z"
+  />
+</g>
+`;
