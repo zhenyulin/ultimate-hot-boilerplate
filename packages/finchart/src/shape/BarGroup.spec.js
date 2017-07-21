@@ -1,6 +1,6 @@
 import React from 'react';
 import { scaleLinear } from 'd3-scale';
-
+import { render } from 'enzyme';
 import BarGroup from './BarGroup';
 
 describe('<BarGroup />', () => {

@@ -1,0 +1,25 @@
+env: {browser: true, es6: true, jest/globals: true, node: true}
+extends: [airbnb, plugin:jest/recommended, plugin:flowtype/recommended]
+parser: babel-eslint
+parserOptions:
+  ecmaFeatures: {jsx: true}
+  ecmaVersion: 6
+  sourceType: module
+plugins: [import, react, jsx-a11y, json, jest, flowtype]
+rules:
+  global-require: warn
+  import/extensions:
+  - warn
+  - {js: never}
+  import/no-extraneous-dependencies: off
+  import/no-named-as-default: off
+  jsx-a11y/no-noninteractive-element-interactions: off
+  react/jsx-indent-props: [2, 2]
+  react/require-default-props: off
+  react/jsx-filename-extension:
+  - warn
+  - extensions: [.js, .jsx]
+  jest/no-disabled-tests: warn
+  jest/no-focused-tests: error
+  jest/no-identical-title: error
+  jest/valid-expect: error

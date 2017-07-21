@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { render } from 'enzyme';
 import VerticalBarChart from './VerticalBarChart';
 
 describe('<VerticalBarChart />', () => {

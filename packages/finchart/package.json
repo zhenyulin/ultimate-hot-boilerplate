@@ -3,38 +3,29 @@
   "version": "0.0.0-development",
   "description": "react-d3 library offering high-performance and responsive solutoins for common use cases",
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
+  "repository": "https://github.com/finbourne/finchart.git",
   "homepage": "https://github.com/finbourne/finchart#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/finbourne/finchart.git"
-  },
-  "engines": {
-    "node": ">=6.1.0"
-  },
   "license": "MIT",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "",
     "lint": "eslint",
     "test": "NODE_ENV=test jest",
     "cover": "NODE_ENV=test jest --coverage --updateSnapshot",
+    "build": "babel src -d dist",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
   "jest": {
-    "setupFiles": [
-      "./config/jest.js"
-    ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ]
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.2",
-    "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^2.13.1",
     "enzyme": "^2.8.2",
@@ -45,9 +36,9 @@
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "7.0.1",
+    "flow-bin": "^0.50.0",
     "jest": "^20.0.4",
-    "nodeman": "^1.1.2",
-    "react-addons-test-utils": "^15.5.1",
+    "react-test-renderer": "^15.6.1",
     "semantic-release": "^6.3.6"
   },
   "dependencies": {
@@ -56,9 +47,10 @@
     "d3-selection": "^1.1.0",
     "d3-shape": "^1.2.0",
     "moment": "^2.18.1",
-    "react": "^15.5.4",
+    "react": "^15.6.1",
     "react-dom": "^15.5.4",
     "react-faux-dom": "^4.0.3",
-    "styled-components": "^2.0.1"
+    "styled-components": "^2.0.1",
+    "styled-components-theme": "^1.0.5"
   }
 }

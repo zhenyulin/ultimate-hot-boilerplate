@@ -1,4 +1,5 @@
 import React from 'react';
+import { render } from 'enzyme';
 import { scaleLinear, scaleTime } from 'd3-scale';
 
 import XAxis from './XAxis';
