@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChartBase /> renders 1`] = `
+<svg
+  class="sc-bdVaJa jgDyUg"
+  height="320"
+  width="960"
+>
+  <rect
+    class="background"
+    height="320"
+    width="960"
+  />
+</svg>
+`;
