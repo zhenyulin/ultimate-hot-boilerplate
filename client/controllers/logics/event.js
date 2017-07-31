@@ -4,7 +4,7 @@ import { createLogic } from 'redux-logic';
 import {
   MESSAGE,
   messageActions,
-} from 'controllers/actions/message';
+} from 'controllers/actions/event';
 
 const getMessageLogic = createLogic({
   type: MESSAGE.GET,

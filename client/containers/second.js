@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
-import { messageActions } from 'controllers/actions/message';
+import { messageActions } from 'controllers/actions/event';
 
 export class Page extends React.PureComponent {
   static propTypes = {
@@ -44,8 +44,8 @@ export class Page extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  title: state.message.getIn(['message', 'title']),
-  body: state.message.getIn(['message', 'body']),
+  title: state.event.getIn(['message', 'data', 'title']),
+  body: state.event.getIn(['message', 'data', 'body']),
 });
 
 const mapDispatchToProps = dispatch => ({
