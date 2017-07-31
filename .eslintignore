@@ -10,7 +10,7 @@ build/
 coverage/
 reports/
 
-# devlopment cache
+# development cache
 docker_compose/
 data/
 
@@ -23,3 +23,6 @@ LICENSE
 .gitignore
 .DS_Store
 .git
+
+# temporary
+client/components/**/packages

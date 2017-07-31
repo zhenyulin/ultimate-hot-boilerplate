@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import ChartExample from 'components/finchart/src/example/ChartExample';
+import { ChartExample } from 'finchart';
 
 export class Page extends React.PureComponent {
   static propTypes = {
@@ -30,10 +30,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const component = styled(Page)`
-  width: 360px;
-  margin: 240px auto;
-  font-family: 'Helvetica';
-  line-height: 30px;
+  width: 100%;
 `;
 
 export default connect(mapStateToProps, mapDispatchToProps)(component);

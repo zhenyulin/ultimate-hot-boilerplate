@@ -24,4 +24,5 @@ export class Component extends React.PureComponent {
 }
 
 export default styled(Component)`
+  font-family: 'Helvetica';
 `;
