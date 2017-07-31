@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { GET_MESSAGE_SUCCESS } from 'controllers/actions/message';
+import { MESSAGE } from 'controllers/actions/message';
 
 const initialState = fromJS({
   message: {},
@@ -7,7 +7,7 @@ const initialState = fromJS({
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case GET_MESSAGE_SUCCESS:
+    case MESSAGE.RECEIVE:
       return state.mergeDeep({ message: action.payload });
     default:
       return state;
