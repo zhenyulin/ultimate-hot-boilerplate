@@ -2415,9 +2415,9 @@ finalhandler@~1.0.3:
     statuses "~1.3.1"
     unpipe "~1.0.0"
 
-finchart@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/finchart/-/finchart-0.0.7.tgz#7dac948ea6001292512c9643280d456145be33d2"
+finchart@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/finchart/-/finchart-0.0.8.tgz#0ebceba19acaf01f9eb81f8be859598f65f38c74"
   dependencies:
     d3-axis "^1.0.8"
     d3-scale "^1.0.6"

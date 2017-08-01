@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { ChartExample } from 'components/finchart/dist';
+import { ChartExample } from 'finchart';
 
 export class Page extends React.PureComponent {
   static propTypes = {
