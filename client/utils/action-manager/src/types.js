@@ -24,15 +24,9 @@ export type AsyncActions = {
   reset: ActionCreator,
 };
 
-export type AsyncActionBundle = [
-  AsyncActionNames,
-  AsyncActions,
-];
+export type AsyncActionBundle = [AsyncActionNames, AsyncActions];
 
-export type ActionBundle = [
-  Name,
-  ActionCreator
-];
+export type ActionBundle = [Name, ActionCreator];
 
 export type AsyncStatus = 'IDEL' | 'PROCESS' | 'SUCCESS' | 'ERROR';
 

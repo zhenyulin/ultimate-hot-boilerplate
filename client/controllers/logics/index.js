@@ -1,5 +1,3 @@
 import eventLogics from './event';
 
-export default [
-  ...eventLogics,
-];
+export default [...eventLogics];

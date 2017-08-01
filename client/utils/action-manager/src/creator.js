@@ -23,7 +23,9 @@ export const asyncActionNames = (name: Name): AsyncActionNames => ({
   RESET: `${name}/RESET`,
 });
 
-export const defaultAsyncActions = (ASYNC_ACTION_NAMES: AsyncActionNames): AsyncActions => ({
+export const defaultAsyncActions = (
+  ASYNC_ACTION_NAMES: AsyncActionNames,
+): AsyncActions => ({
   get: defaultAction(ASYNC_ACTION_NAMES.GET),
   post: defaultAction(ASYNC_ACTION_NAMES.POST),
   receive: defaultAction(ASYNC_ACTION_NAMES.RECEIVE),

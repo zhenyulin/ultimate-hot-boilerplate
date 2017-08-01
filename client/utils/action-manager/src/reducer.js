@@ -12,8 +12,9 @@ const initialState = Map({
   error: {},
 });
 
-export const immutableAsyncReducers = (ASYNC_ACTION_NAMES: AsyncActionNames) =>
-(state: Map = initialState, action: Action) => {
+export const immutableAsyncReducers = (
+  ASYNC_ACTION_NAMES: AsyncActionNames,
+) => (state: Map = initialState, action: Action) => {
   switch (action.type) {
     case ASYNC_ACTION_NAMES.GET:
     case ASYNC_ACTION_NAMES.POST:

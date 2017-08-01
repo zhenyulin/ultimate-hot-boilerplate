@@ -12,8 +12,8 @@ import { colors } from './theme';
 const history = createHistory();
 const store = setupStore(history);
 
-export default () => (
-  <Provider store={store} >
+export default () =>
+  <Provider store={store}>
     <ThemeProvider theme={colors}>
       <GlobalStyle>
         <ConnectedRouter history={history}>
@@ -21,5 +21,4 @@ export default () => (
         </ConnectedRouter>
       </GlobalStyle>
     </ThemeProvider>
-  </Provider>
-);
+  </Provider>;

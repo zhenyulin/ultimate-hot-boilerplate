@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { ChartExample } from 'finchart';
+import { ChartExample } from 'components/finchart/dist';
 
 export class Page extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
   };
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   render() {
     const { className } = this.props;
@@ -23,11 +22,9 @@ export class Page extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = () => ({});
 
 const component = styled(Page)`
   width: 100%;

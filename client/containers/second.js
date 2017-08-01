@@ -26,18 +26,18 @@ export class Page extends React.PureComponent {
     const { navigate, get } = this.props;
     return (
       <div className={className}>
-        <BasicButton
-          className="actionButton"
-          func={get}
-          text="Get Message"
-        />
+        <BasicButton className="actionButton" func={get} text="Get Message" />
         <BasicButton
           className="navButton"
           func={() => navigate('/')}
           text="Back to Index"
         />
-        <div className="title">{title}</div>
-        <div className="body">{body}</div>
+        <div className="title">
+          {title}
+        </div>
+        <div className="body">
+          {body}
+        </div>
       </div>
     );
   }

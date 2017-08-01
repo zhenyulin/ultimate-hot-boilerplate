@@ -9,17 +9,13 @@ export class BasicButton extends React.PureComponent {
     text: PropTypes.string,
   };
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   render() {
     const { className, text } = this.props;
     const { func } = this.props;
     return (
-      <button
-        className={className}
-        onClick={() => func()}
-      >
+      <button className={className} onClick={() => func()}>
         {text}
       </button>
     );

@@ -19,9 +19,10 @@ const register = (
   state: Set<string>,
   actionName: AsyncActionNames | string,
 ): Set<String> => {
-  const toBeRegistered = typeof actionName === 'string' ?
-    Set(actionName) :
-    Set(Object.values(actionName));
+  const toBeRegistered =
+    typeof actionName === 'string'
+      ? Set(actionName)
+      : Set(Object.values(actionName));
   const conflicts = state.intersect(toBeRegistered).length;
   if (conflicts) {
     return console.log('action namespace conflicts:', actionName);

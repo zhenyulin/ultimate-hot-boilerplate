@@ -23,9 +23,11 @@ module.exports = {
       'node_modules',
     ],
   },
-  externals: [nodeExternals({
-    whitelist: ['webpack/hot/poll?1000'],
-  })],
+  externals: [
+    nodeExternals({
+      whitelist: ['webpack/hot/poll?1000'],
+    }),
+  ],
   module: {
     rules: [
       {

@@ -4,10 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   target: 'web',
-  entry: [
-    'babel-polyfill',
-    path.resolve('./client/index.js'),
-  ],
+  entry: ['babel-polyfill', path.resolve('./client/index.js')],
   output: {
     path: path.resolve('./dist/'),
     filename: 'client.js',
