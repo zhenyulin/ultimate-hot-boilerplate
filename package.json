@@ -1,23 +1,33 @@
 {
   "name": "react-hot-load-ssr-ultimate-boilerplate",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "https://github.com/zhenyulin/react-hot-load-ssr-ultimate-boilerplate.git",
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf .build && webpack --config config/webpack.server.dev.js",
-    "watch": "esw . --watch --clear --fix",
-    "flow": "flow-watch",
-    "lint": "eslint . --fix",
+    "start": "concurrently \"yarn dev\" \"yarn lint:watch\" \"yarn stylelint:watch\" \"yarn flow:watch\" -n server,lint,style,flow -c white",
+    "dev": "rm -rf .build && webpack --config config/webpack.server.dev.js",
+    "lint": "eslint .",
+    "lint:watch": "esw . --watch --fix",
     "stylelint": "stylelint client/**/*.js",
+    "stylelint:watch": "npm-scripts-watcher",
+    "flow": "flow",
+    "flow:watch": "flow-watch --ignore node_modules/ --watch  *.js --watch .flowconfig",
     "test": "jest",
+    "test:watch": "jest --watch",
     "cover": "jest --coverage",
+    "e2e": "testcafe nightmare tests",
     "build:client": "webpack --config config/webpack.client.prod.js --bail",
     "build:server": "webpack --config config/webpack.server.prod.js --bail",
     "build": "rm -rf dist && npm run build:server && npm run build:client",
+    "staging": "NODE_ENV=production testcafe nightmare tests",
     "serve": "NODE_ENV=production node dist/server.js",
     "serve:fresh": "npm run build && npm run serve"
+  },
+  "watch": {
+    "client/**/*.js": [
+      "stylelint"
+    ]
   },
   "jest": {
     "modulePaths": [
@@ -36,9 +46,9 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.0",
     "coveralls": "^2.13.1",
     "enzyme": "^2.9.0",
     "enzyme-to-json": "^1.5.1",
@@ -60,6 +70,7 @@
     "flow-watch": "^1.1.1",
     "html-loader": "^0.4.5",
     "jest": "^20.0.4",
+    "npm-scripts-watcher": "^1.0.2",
     "prettier": "^1.5.3",
     "raw-loader": "^0.5.1",
     "react-test-renderer": "^15.6.1",
@@ -68,14 +79,16 @@
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-processor-styled-components": "^0.1.0",
+    "testcafe": "^0.17.0",
+    "testcafe-browser-provider-nightmare": "^0.0.4",
     "webpack": "^3.0.0",
     "webpack-dev-middleware-webpack-2": "^1.5.1",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
     "express": "^4.15.3",
-    "finchart": "^0.0.8",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.5.10",
