@@ -15,6 +15,7 @@ extends:
   - prettier/react
   - plugin:jest/recommended
   - plugin:flowtype/recommended
+  - plugin:testcafe/recommended
 plugins:
   - import
   - react
@@ -23,6 +24,7 @@ plugins:
   - jest
   - flowtype
   - prettier
+  - testcafe
 rules:
   global-require: warn
   import/extensions: [warn, {js: never}]
