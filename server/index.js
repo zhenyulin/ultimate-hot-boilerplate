@@ -1,17 +1,17 @@
-import http from 'http';
+import { createServer } from 'http';
 
 import app from './server';
 import { PORT } from './config/constant';
 
-const server = http.createServer(app);
+/* eslint-disable no-console */
 const SERVER_START = `server started on port ${PORT}`;
 console.time(SERVER_START);
-
-let currentApp = app;
-
+const server = createServer(app);
 server.listen(PORT, () => console.timeEnd(SERVER_START));
+/* eslint-enable no-console */
 
-if (module.hot) {
+if (process.env.NODE_ENV === 'development' && module.hot) {
+  let currentApp = app;
   module.hot.accept('./server', () => {
     server.removeListener('request', currentApp);
     const hotApp = require('./server').default;

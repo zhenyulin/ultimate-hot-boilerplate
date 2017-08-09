@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
 import { createTracker } from 'redux-segment';
@@ -15,6 +14,8 @@ export default function setupStore(history) {
   ];
 
   if (process.env.NODE_ENV === 'development') {
+    const composeWithDevTools = require('redux-devtools-extension')
+      .composeWithDevTools;
     const enhancer = composeWithDevTools(applyMiddleware(...middleware));
     const store = createStore(reducer, enhancer);
 
