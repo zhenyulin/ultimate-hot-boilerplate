@@ -7,6 +7,9 @@ node_js:
 before_install:
   - docker build .
 script:
+  - yarn lint
+  - yarn stylelint
+  - yarn flow
   - yarn cover
 after_script:
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
