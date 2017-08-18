@@ -1,18 +1,14 @@
-sudo: required
+sudo: false
 language: node_js
-services:
-  - docker
 node_js:
   - "node"
-before_install:
-  - docker build .
 script:
-  - yarn lint
-  - yarn stylelint
-  - yarn flow
   - yarn cover
+  - yarn build
 after_script:
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+after_success:
+  - yarn release
 branches:
   only:
     - master

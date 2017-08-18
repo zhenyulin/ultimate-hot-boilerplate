@@ -1,16 +1,33 @@
-env: {browser: true, es6: true, jest/globals: true, node: true}
-extends: [airbnb, plugin:jest/recommended, plugin:flowtype/recommended]
 parser: babel-eslint
 parserOptions:
   ecmaFeatures: {jsx: true}
   ecmaVersion: 6
   sourceType: module
-plugins: [import, react, jsx-a11y, json, jest, flowtype]
+env:
+  browser: true
+  es6: true
+  node: true
+  jest/globals: true
+extends:
+  - airbnb
+  - prettier
+  - prettier/flowtype
+  - prettier/react
+  - plugin:jest/recommended
+  - plugin:flowtype/recommended
+  - plugin:testcafe/recommended
+plugins:
+  - import
+  - react
+  - jsx-a11y
+  - json
+  - jest
+  - flowtype
+  - prettier
+  - testcafe
 rules:
   global-require: warn
-  import/extensions:
-  - warn
-  - {js: never}
+  import/extensions: [warn, {js: never}]
   import/no-extraneous-dependencies: off
   import/no-named-as-default: off
   jsx-a11y/no-noninteractive-element-interactions: off
@@ -23,7 +40,16 @@ rules:
   jest/no-focused-tests: error
   jest/no-identical-title: error
   jest/valid-expect: error
+  prettier/prettier:
+  - error
+  - {
+    singleQuote: true,
+    trailingComma: all
+  }
 settings:
   import/resolver:
-    webpack:
-      config: ./config/webpack.server.dev.js
+    node:
+      moduleDirectory:
+        - ./
+        - ./client
+        - ./node_modules

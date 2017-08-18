@@ -1,8 +1,7 @@
 {
   "presets": [
     "env",
-    "react",
-    "flow"
+    "react"
   ],
   "plugins": [
     "transform-class-properties",

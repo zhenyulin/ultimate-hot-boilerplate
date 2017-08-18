@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
-import { getMessage } from 'controllers/actions/message';
+import { messageActions } from 'controllers/actions/event';
 
 export class Page extends React.PureComponent {
   static propTypes = {
@@ -26,31 +26,31 @@ export class Page extends React.PureComponent {
     const { navigate, get } = this.props;
     return (
       <div className={className}>
-        <BasicButton
-          className="actionButton"
-          func={get}
-          text="Get Message"
-        />
+        <BasicButton className="actionButton" func={get} text="Get Message" />
         <BasicButton
           className="navButton"
           func={() => navigate('/')}
           text="Back to Index"
         />
-        <div className="title">{title}</div>
-        <div className="body">{body}</div>
+        <div className="title">
+          {title}
+        </div>
+        <div className="body">
+          {body}
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  title: state.message.getIn(['message', 'title']),
-  body: state.message.getIn(['message', 'body']),
+  title: state.event.getIn(['message', 'data', 'title']),
+  body: state.event.getIn(['message', 'data', 'body']),
 });
 
 const mapDispatchToProps = dispatch => ({
   navigate: location => dispatch(push(location)),
-  get: () => dispatch(getMessage()),
+  get: () => dispatch(messageActions.get()),
 });
 
 const component = styled(Page)`

@@ -10,7 +10,7 @@ build/
 coverage/
 reports/
 
-# devlopment cache
+# development cache
 docker_compose/
 data/
 

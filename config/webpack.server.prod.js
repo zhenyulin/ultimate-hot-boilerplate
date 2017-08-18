@@ -5,10 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   devtool: 'source-map',
   target: 'node',
-  entry: [
-    'babel-polyfill',
-    path.resolve('./server/index'),
-  ],
+  entry: ['babel-polyfill', path.resolve('./server/index')],
   output: {
     path: path.resolve('./dist'),
     filename: 'server.js',
@@ -30,10 +27,12 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
-          options: { minimize: true },
-        }],
+        use: [
+          {
+            loader: 'html-loader',
+            options: { minimize: true },
+          },
+        ],
       },
       {
         test: /\.md$/,

@@ -14,7 +14,7 @@ export default function serverSideRender() {
   const state = store.getState();
 
   const rendered = renderToString(
-    <Provider store={store} >
+    <Provider store={store}>
       <ConnectedRouter history={history}>
         <Router />
       </ConnectedRouter>

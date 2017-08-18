@@ -1,5 +1,3 @@
-import messageLogics from './message';
+import eventLogics from './event';
 
-export default [
-  ...messageLogics,
-];
+export default [...eventLogics];

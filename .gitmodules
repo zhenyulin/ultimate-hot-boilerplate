@@ -1,0 +1,3 @@
+[submodule "client/components/finchart"]
+	path = client/components/finchart
+	url = https://github.com/finbourne/finchart.git

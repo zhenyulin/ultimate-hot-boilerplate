@@ -18,10 +18,13 @@ export class Component extends React.PureComponent {
   render() {
     const { className, children } = this.props;
     return (
-      <div className={className} >{children}</div>
+      <div className={className}>
+        {children}
+      </div>
     );
   }
 }
 
 export default styled(Component)`
+  font-family: 'Helvetica';
 `;
