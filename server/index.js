@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 
 import app from './server';
-import { PORT } from './config/constant';
+import { PORT } from './constant';
 
 /* eslint-disable no-console */
 const SERVER_START = `server started on port ${PORT}`;
