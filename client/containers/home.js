@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
-import CountAction from 'controllers/actions/count';
+import CountAction from 'controllers/actions/count.ts';
 
 export class Page extends React.PureComponent {
   static propTypes = {

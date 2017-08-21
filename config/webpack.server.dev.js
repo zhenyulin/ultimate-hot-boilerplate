@@ -20,8 +20,9 @@ module.exports = {
     modules: [
       path.resolve('.'), // to resolve path 'server/', 'config/'
       path.resolve('./client'), // to resolve path liek '/components' on client
-      'node_modules',
+      path.resolve('node_modules'),
     ],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   externals: [
     nodeExternals({
@@ -31,8 +32,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.tsx?$/,
+        use: ['awesome-typescript-loader'],
         exclude: /node_modules/,
       },
       {

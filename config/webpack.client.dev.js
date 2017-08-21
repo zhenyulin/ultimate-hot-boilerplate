@@ -16,15 +16,29 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve('./client'), // to resolve path liek '/components' on client
-      'node_modules',
+      path.resolve('./client'), // to resolve path like '/components' on client
+      path.resolve('node_modules'),
     ],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         use: ['babel-loader'],
+        exclude: /node_modules/,
+      },
+      {
+        enforce: 'pre',
+        test: /\.tsx?$/,
+        loader: 'tslint-loader',
+        options: {
+          fix: true,
+        },
+      },
+      {
+        test: /\.tsx?$/,
+        use: ['awesome-typescript-loader'],
         exclude: /node_modules/,
       },
       {

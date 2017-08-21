@@ -5,6 +5,8 @@ node_modules/
 dist/
 build/
 .build
+.build.ts
+.awcache
 
 # test output
 coverage/
