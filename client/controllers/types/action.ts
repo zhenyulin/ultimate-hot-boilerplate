@@ -1,6 +1,10 @@
+export type ActionName = string;
+
 export interface IAction<T> {
-  type: string,
+  type: ActionName,
   payload?: T
 }
 
-export type ActionCreator<T> = (payload?: T) => IAction<T>
+export type Action<T> = IAction<T>;
+
+export type ActionCreator = <T>(payload?: T) => Action<T>;

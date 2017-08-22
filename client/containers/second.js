@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
+import Paragraph from 'components/elements/paragraph.tsx';
 import { messageActions } from 'controllers/actions/event';
 
 export class Page extends React.PureComponent {
@@ -32,12 +33,7 @@ export class Page extends React.PureComponent {
           func={() => navigate('/')}
           text="Back to Index"
         />
-        <div className="title">
-          {title}
-        </div>
-        <div className="body">
-          {body}
-        </div>
+        <Paragraph {...{ title, body }} />
       </div>
     );
   }

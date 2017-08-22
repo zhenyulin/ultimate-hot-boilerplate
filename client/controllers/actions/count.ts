@@ -1,7 +1,7 @@
-import { IAction } from '../types/action';
+import { Action } from '../types/action';
 
 export const ADD: string = 'count:ADD';
 
 export default {
-  add: (): IAction<void> => ({ type: ADD  }),
+  add: (): Action<void> => ({ type: ADD  }),
 };
