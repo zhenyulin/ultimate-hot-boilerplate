@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# test output
+coverage/
+reports/
+
+# devlopment cache
+docker_compose/
+data/
+
+# dist
+lib/
+dist/
+
+# dot file
+.DS_Store

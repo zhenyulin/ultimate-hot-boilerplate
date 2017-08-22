@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/zhenyulin/redux-action-manager.git
+	branch = master
+	commit = fc4a3ba07d68fc0948eab3099c6a03b731713cd3
+	parent = 279e506f13d716faddd70a9c8d51d62cd7abb341
+	cmdver = 0.3.1
