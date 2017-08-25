@@ -7,17 +7,20 @@
     "inlineSourceMap": false,
     "inlineSources": false,
     "noUnusedLocals": true,
-    "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./client/*"
+      ]
+    }
   },
   "include": [
     "./client/**/*",
     "./server/**/*"
   ],
-  "exclude": [
-    "./client/utils/action-manager/**/*"
-  ],
   "awesomeTypescriptLoaderOptions": {
+    "silent": true,
     "useCache": true,
     "useBabel": true
   }
