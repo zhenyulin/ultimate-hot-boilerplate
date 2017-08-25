@@ -14,11 +14,12 @@ export class Page extends React.PureComponent<IProps> {
   public render() {
     const { className } = this.props;
     const { navigate } = this.props;
+    const navigateToHome = () => navigate('/');
     return (
       <div className={className}>
         <BasicButton
           className="navButton"
-          func={() => navigate('/')}
+          func={navigateToHome}
           text="Back to Index"
         />
       </div>
