@@ -1,4 +1,4 @@
-import { Action } from '../types/action';
+import { Action } from 'controllers/types/action';
 
 export const ADD: string = 'count:ADD';
 

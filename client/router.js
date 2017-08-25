@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import Home from 'containers/home';
-import Second from 'containers/second';
+import Second from 'containers/second.tsx';
 
 export default () =>
   <Switch>

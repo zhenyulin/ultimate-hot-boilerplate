@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 
-import { ADD } from '../actions/count';
-import { Action } from '../types/action';
+import { ADD } from 'controllers/actions/count';
+import { Action } from 'controllers/types/action';
 
 const initialState: Map<string, any> = Map({
   current: 0

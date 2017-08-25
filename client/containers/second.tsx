@@ -1,20 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { push } from 'react-router-redux';
+import { default as styled } from 'styled-components';
 
 import BasicButton from 'components/elements/basic-button';
 
-export class Page extends React.PureComponent {
-  static propTypes = {
-    className: PropTypes.string,
-    navigate: PropTypes.func,
-  };
+interface IProps {
+  className: string,
+  navigate: (location?: string) => void,
+};
 
-  static defaultProps = {};
-
-  render() {
+export class Page extends React.PureComponent<IProps> {
+  public render() {
     const { className } = this.props;
     const { navigate } = this.props;
     return (
@@ -31,7 +28,7 @@ export class Page extends React.PureComponent {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   navigate: location => dispatch(push(location)),
 });
 
