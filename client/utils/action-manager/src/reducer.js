@@ -1,10 +1,10 @@
 // @flow
 
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { ASYNC } from './constant';
 import type { Action, AsyncActionNames } from './types';
 
-const initialState = Map({
+const initialState = fromJS({
   status: ASYNC.IDLE,
   isFetching: false,
   isError: false,
@@ -14,7 +14,7 @@ const initialState = Map({
 
 export const immutableAsyncReducers = (
   ASYNC_ACTION_NAMES: AsyncActionNames,
-) => (state: Map = initialState, action: Action) => {
+) => (state: fromJS = initialState, action: Action) => {
   switch (action.type) {
     case ASYNC_ACTION_NAMES.GET:
     case ASYNC_ACTION_NAMES.POST:

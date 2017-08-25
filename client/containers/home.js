@@ -1,29 +1,37 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
+import Paragraph from 'components/elements/paragraph.tsx';
+
 import CountAction from 'controllers/actions/count.ts';
+import { messageActions } from 'controllers/actions/event';
 
-export class Page extends React.PureComponent {
-  static propTypes = {
-    className: PropTypes.string,
-    count: PropTypes.number,
-    add: PropTypes.func,
-    navigate: PropTypes.func,
-  };
+import type { State } from 'controllers/types/state';
 
-  static defaultProps = {
-    count: 0,
-  };
+type Props = {
+  className: String,
+  count: Number,
+  message: {
+    title: String,
+    body: String,
+  },
+  add: Function,
+  navigate: Function,
+  get: Function,
+};
 
+export class Page extends React.PureComponent<void, Props, void> {
   render() {
-    const { className, count } = this.props;
-    const { add, navigate } = this.props;
+    const { className, count, message } = this.props;
+    const { add, navigate, get } = this.props;
     return (
       <div className={className}>
+        <BasicButton className="actionButton" func={get} text="Get Message" />
         <BasicButton
           className="statusButton"
           func={add}
@@ -34,25 +42,33 @@ export class Page extends React.PureComponent {
           func={() => navigate('/second')}
           text="To Second Page"
         />
+        <Paragraph {...message} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  count: state.count.get('current'),
+const mapStateToProps = ({ count, event }: State) => ({
+  count: count.get('current'),
+  message: event.getIn(['message', 'data']).toJS(),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: *) => ({
   add: () => dispatch(CountAction.add()),
   navigate: location => dispatch(push(location)),
+  get: () => dispatch(messageActions.get()),
 });
 
 const component = styled(Page)`
-  width: 360px;
+  width: 480px;
   margin: 240px auto;
   font-family: 'Helvetica';
   line-height: 30px;
+
+  .actionButton {
+    background: orange;
+    color: white;
+  }
 
   .statusButton {
     background: lightblue;

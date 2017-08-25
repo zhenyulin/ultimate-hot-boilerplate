@@ -1,16 +1,15 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-export class BasicButton extends React.PureComponent {
-  static propTypes = {
-    className: PropTypes.string,
-    func: PropTypes.func,
-    text: PropTypes.string,
-  };
+type Props = {
+  className: String,
+  text: String,
+  func: Function,
+};
 
-  static defaultProps = {};
-
+export class BasicButton extends React.PureComponent<void, Props, void> {
   render() {
     const { className, text } = this.props;
     const { func } = this.props;
