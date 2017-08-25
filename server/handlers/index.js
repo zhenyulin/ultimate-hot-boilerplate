@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('*', (req, res) => {
+router.get('/', (req, res) => {
   if (process.env.NODE_ENV === 'production') {
     const render = require('server/render').default;
     const page = render();
