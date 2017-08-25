@@ -98,6 +98,7 @@
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-processor-styled-components": "^0.1.0",
+    "supertest": "^3.0.0",
     "testcafe": "^0.17.0",
     "testcafe-browser-provider-nightmare": "^0.0.4",
     "ts-jest": "^20.0.10",
@@ -128,6 +129,7 @@
     "redux-logic": "^0.12.1",
     "redux-segment": "^1.6.2",
     "rxjs": "^5.4.2",
+    "seamless-immutable": "^7.1.2",
     "styled-components": "^2.1.0",
     "styled-components-theme": "^1.0.5"
   }
