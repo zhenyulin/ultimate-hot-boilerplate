@@ -95,6 +95,7 @@
     "graphql": "^0.11.3",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^4.11.10",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
