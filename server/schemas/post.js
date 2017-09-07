@@ -6,7 +6,7 @@ import {
   GraphQLList,
 } from 'graphql';
 
-import POST from 'server/models/post';
+import Post from 'server/models/post';
 
 const PostType = new GraphQLObjectType({
   name: 'post',
@@ -39,8 +39,31 @@ const PostQuery = new GraphQLObjectType({
         },
       },
       resolve: async (root, args) => {
-        const posts = await POST.find(args);
+        const posts = await Post.find(args);
         return posts;
+      },
+    },
+  }),
+});
+
+const PostMutation = new GraphQLObjectType({
+  name: 'mutation',
+  fields: () => ({
+    add: {
+      type: PostType,
+      args: {
+        title: {
+          name: 'title',
+          type: GraphQLString,
+        },
+        body: {
+          name: 'body',
+          type: GraphQLString,
+        },
+      },
+      resolve: async (root, args) => {
+        const post = new Post(args);
+        return post.save();
       },
     },
   }),
@@ -48,6 +71,7 @@ const PostQuery = new GraphQLObjectType({
 
 const PostSchema = new GraphQLSchema({
   query: PostQuery,
+  mutation: PostMutation,
 });
 
 export default PostSchema;
