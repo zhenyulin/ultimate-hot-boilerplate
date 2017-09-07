@@ -25,6 +25,7 @@ plugins:
   - flowtype
   - prettier
   - testcafe
+  - graphql
 rules:
   global-require: warn
   import/extensions: [warn, {js: never}]
