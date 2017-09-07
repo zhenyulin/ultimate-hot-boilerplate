@@ -2,8 +2,10 @@ import path from 'path';
 import express from 'express';
 
 import router from './router';
+import connectMongoDB from './config/mongodb';
 
 const app = express();
+connectMongoDB();
 
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
