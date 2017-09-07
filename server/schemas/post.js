@@ -28,8 +28,18 @@ const PostQuery = new GraphQLObjectType({
   fields: () => ({
     posts: {
       type: new GraphQLList(PostType),
-      resolve: async () => {
-        const posts = await POST.find();
+      args: {
+        title: {
+          name: 'title',
+          type: GraphQLString,
+        },
+        _id: {
+          name: '_id',
+          type: GraphQLID,
+        },
+      },
+      resolve: async (root, args) => {
+        const posts = await POST.find(args);
         return posts;
       },
     },
