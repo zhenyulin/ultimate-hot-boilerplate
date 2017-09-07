@@ -2,13 +2,11 @@ import { createServer } from 'http';
 
 import app from './server';
 import { PORT } from './constant';
-import connectMongoDB from './config/mongodb';
 
 /* eslint-disable no-console */
 const SERVER_START = `server started on port ${PORT}`;
 console.time(SERVER_START);
 const server = createServer(app);
-connectMongoDB();
 server.listen(PORT, () => console.timeEnd(SERVER_START));
 /* eslint-enable no-console */
 
