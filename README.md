@@ -21,6 +21,7 @@ ultimate-hot-boilerplate for react/node app with server-side-render
  * add `reselect`
  * add `graphql` example
  * consolidate webpack config, move all build target to `.build`
+ * decouple server-side handler function and routes if complex
 
 
 
