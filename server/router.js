@@ -10,6 +10,6 @@ const router = express.Router();
 router.use('/info', info);
 router.use('/message', message);
 router.use('/post', post);
-router.use(index);
+router.use('*', index);
 
 export default router;
