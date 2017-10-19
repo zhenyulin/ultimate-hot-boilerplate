@@ -14,8 +14,7 @@ export default function setupStore(history) {
   ];
 
   if (process.env.NODE_ENV === 'development') {
-    const composeWithDevTools = require('redux-devtools-extension')
-      .composeWithDevTools;
+    const { composeWithDevTools } = require('redux-devtools-extension');
     const enhancer = composeWithDevTools(applyMiddleware(...middleware));
     const store = createStore(reducer, enhancer);
 
