@@ -16,9 +16,13 @@ ultimate-hot-boilerplate for react/node app with server-side-render
 
 ### TODO
  * add gif preview
+ * add ENV validation
  * add JWT auth to the boilerplate and support individual status
  * file watcher update to `chokidar/watchman`
  * add `reselect`
+ * add `graphql` example
+ * consolidate webpack config, move all build target to `.build`
+ * decouple server-side handler function and routes if complex
 
 
 

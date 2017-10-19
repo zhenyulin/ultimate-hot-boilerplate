@@ -32,12 +32,8 @@ export class Page extends React.PureComponent {
           func={() => navigate('/')}
           text="Back to Index"
         />
-        <div className="title">
-          {title}
-        </div>
-        <div className="body">
-          {body}
-        </div>
+        <div className="title">{title}</div>
+        <div className="body">{body}</div>
       </div>
     );
   }
