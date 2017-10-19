@@ -30,4 +30,5 @@ export default styled(BasicButton)`
   cursor: pointer;
   font-size: 13px;
   text-align: center;
+  background: lightgrey;
 `;
