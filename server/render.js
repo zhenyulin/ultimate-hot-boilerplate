@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import setupStore from 'client/store';
 import Router from 'client/router';
-import indexPage from 'client/index.html';
+import template from 'client/index.html';
 
 export default function serverSideRender() {
   const history = createMemoryHistory();
@@ -21,7 +21,7 @@ export default function serverSideRender() {
     </Provider>,
   );
 
-  const page = indexPage
+  const page = template
     .replace('<!-- CONTENT -->', rendered)
     .replace('"-- STORES --"', JSON.stringify(state));
 
