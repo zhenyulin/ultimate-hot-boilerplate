@@ -4,8 +4,15 @@ services:
   - docker
 node_js:
   - "node"
+env:
+  global:
+    - CACHE_DIR=$HOME/.cache/docker
+    - CACHE_DOCKER_IMAGE=$CACHE_DIR/build.tar.gz
 before_install:
-  - docker build .
+  - if [ -f ${CACHE_DOCKER_IMAGE} ]; then gunzip -c ${CACHE_DOCKER_IMAGE} | docker load; fi
+  - docker build -t boilerplate:build --cache-from boilderplate:last .
+  - docker tag boilderplate:build boilderplate:last
+  - docker save boilderplate:last | gzip > ${CACHE_DOCKER_IMAGE}
 script:
   - yarn lint
   - yarn stylelint
@@ -20,3 +27,4 @@ cache:
   yarn: true
   directories:
   - node_modules
+  - $CACHE_DIR
