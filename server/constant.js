@@ -1,7 +1,10 @@
-export const DEVELOPMENT_DB = '';
-export const PRODUCTION_DB = '';
-export const DEV_SEGMENT_KEY = '';
-export const PROD_SEGMENT_KEY = '';
-export const PORT = process.env.PORT || 3000;
+import { cleanEnv, num, str } from 'envalid';
 
-export const JWT_SECRET = 'example';
+const env = cleanEnv(process.env, {
+  PORT: num({ default: 3000 }),
+  MONGO_DB_URI: str(),
+});
+
+export const { PORT, MONGO_DB_URI } = env;
+
+export default env;
