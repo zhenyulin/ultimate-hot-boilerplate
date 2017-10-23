@@ -8,7 +8,9 @@ router.get('/', (req, res) => {
     const page = render();
     return res.send(page);
   }
-  const page = require('client/index.html');
+  const template = require('client/index.html');
+  const CONSTANT = require('client/constant');
+  const page = template.replace('"-- CONFIG --"', JSON.stringify(CONSTANT));
   return res.send(page);
 });
 

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { DB_URI } from 'server/constant';
+import { MONGO_DB_URI } from 'server/constant';
 
 const DB_OPTIONS = {
   useMongoClient: true,
@@ -8,7 +8,7 @@ const DB_OPTIONS = {
 export default function connectMongoDB() {
   console.time('mongodb connected');
   mongoose.Promise = global.Promise;
-  mongoose.connect(DB_URI, DB_OPTIONS);
+  mongoose.connect(MONGO_DB_URI, DB_OPTIONS);
 
   if (process.env.NODE_ENV === 'development') {
     mongoose.set('debug', true);
