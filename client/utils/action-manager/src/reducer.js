@@ -4,11 +4,14 @@ import { Map } from 'immutable';
 import { ASYNC } from './constant';
 import type { Action, AsyncActionNames } from './types';
 
+// TODO: deal with data structure type as an object indexed by id
+// it needs to handle return situation where there's only one data entity
+// it also needs to handle return situation where it is transformed from an array of entities
 const initialState = Map({
   status: ASYNC.IDLE,
   isFetching: false,
   isError: false,
-  data: {},
+  data: [],
   error: {},
 });
 

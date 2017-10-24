@@ -28,6 +28,9 @@ plugins:
   - graphql
 rules:
   global-require: warn
+  no-underscore-dangle:
+  - error
+  - allow: [_id]
   import/extensions: [warn, {js: never}]
   import/no-extraneous-dependencies: off
   import/no-named-as-default: off
