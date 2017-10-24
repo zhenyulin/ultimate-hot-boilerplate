@@ -118,6 +118,7 @@
     "redux-immutable": "^4.0.0",
     "redux-logic": "^0.12.1",
     "redux-segment": "^1.6.2",
+    "reselect": "^3.0.1",
     "rxjs": "^5.4.2",
     "seamless-immutable": "^7.1.2",
     "styled-components": "^2.1.0",
