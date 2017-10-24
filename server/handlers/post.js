@@ -3,6 +3,7 @@ import { buildSchema } from 'graphql';
 
 import Post from 'server/models/post';
 import Comment from 'server/models/comment';
+import Author from 'server/models/author';
 
 const schema = buildSchema(`
   type Author {
@@ -13,25 +14,25 @@ const schema = buildSchema(`
 
   input AuthorInput {
     name: String,
-    email: String!
+    email: String!,
   }
 
   type Comment {
     _id: ID!,
     content: String,
-    author: String
+    author: Author,
   }
 
   input CommentInput {
     content: String,
-    author: String,
+    author: AuthorInput,
   }
 
   type Post {
     _id: ID!,
     title: String,
     body: String,
-    comments: [Comment]
+    comments: [Comment],
   }
 
   input PostInput {
@@ -53,7 +54,12 @@ const schema = buildSchema(`
 
 const resolvers = {
   posts: async query => {
-    const posts = await Post.find(query).populate('comments');
+    const posts = await Post.find(query).populate({
+      path: 'comments',
+      populate: {
+        path: 'author',
+      },
+    });
     return posts;
   },
   createPost: data => {
@@ -79,10 +85,20 @@ const resolvers = {
   addComment: async ({ _id, input }) => {
     try {
       const post = await Post.findById(_id);
-      const comment = await Comment.create(input);
+      const author = await Author.findOneOrCreate(
+        { email: input.author.email },
+        input.author,
+      );
+      const inputWithAuthorId = { ...input, author };
+      const comment = await Comment.create(inputWithAuthorId);
       post.comments.push(comment._id);
       await post.save();
-      const updated = await Post.populate(post, { path: 'comments' });
+      const updated = await Post.populate(post, {
+        path: 'comments',
+        populate: {
+          path: 'author',
+        },
+      });
       return updated;
     } catch (err) {
       return err;

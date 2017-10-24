@@ -106,6 +106,7 @@
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "mongoose": "^4.11.10",
+    "mongoose-findoneorcreate": "^1.0.0",
     "normalizr": "^3.2.4",
     "prop-types": "^15.5.10",
     "react": "^16.0.0",
