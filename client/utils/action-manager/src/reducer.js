@@ -13,6 +13,7 @@ const initialState = Map({
   isError: false,
   data: [],
   error: {},
+  selected: null,
 });
 
 export const immutableAsyncReducers = (
@@ -42,6 +43,10 @@ export const immutableAsyncReducers = (
       });
     case ASYNC_ACTION_NAMES.RESET:
       return state.merge(initialState);
+    case ASYNC_ACTION_NAMES.SELECT:
+      return state.merge({
+        selected: action.payload,
+      });
     default:
       return state;
   }
