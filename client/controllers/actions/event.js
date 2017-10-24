@@ -33,14 +33,18 @@ export const messageActions = {
   }),
 };
 
+export const [POST, postActions] = asyncActionBundle('@event/POST');
+
 export const EVENT = {
   MESSAGE,
+  POST,
   ASYNC_TEST,
   TEST,
 };
 
 export const eventActions = {
   messageActions,
+  postActions,
   asyncTestActions,
   testAction,
 };

@@ -1,7 +1,14 @@
 import fetch from 'isomorphic-fetch';
+import { request } from 'graphql-request';
 import { createLogic } from 'redux-logic';
+import { normalize, schema } from 'normalizr';
 
-import { MESSAGE, messageActions } from 'controllers/actions/event';
+import {
+  MESSAGE,
+  messageActions,
+  POST,
+  postActions,
+} from 'controllers/actions/event';
 
 const getMessageLogic = createLogic({
   type: MESSAGE.GET,
@@ -15,4 +22,23 @@ const getMessageLogic = createLogic({
   },
 });
 
-export default [getMessageLogic];
+const getPostListLogic = createLogic({
+  type: POST.GET,
+  process({ getState }, dispatch, done) {
+    const query = `{
+      posts {
+        _id,
+        title
+      }
+    }`;
+    // TODO: create nested posts data structure on the backend
+    // TODO: use normalizr
+    request('/post/', query)
+      .then(response => response.posts)
+      .then(data => dispatch(postActions.receive(data)))
+      .catch(err => dispatch(postActions.error(err)))
+      .then(() => done());
+  },
+});
+
+export default [getMessageLogic, getPostListLogic];
