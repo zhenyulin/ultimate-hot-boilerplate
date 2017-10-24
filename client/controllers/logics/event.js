@@ -23,7 +23,7 @@ const getMessageLogic = createLogic({
 
 const getPostListLogic = createLogic({
   type: POST.GET,
-  process({}, dispatch, done) {
+  process(deps, dispatch, done) {
     const query = `{
       posts {
         _id,
