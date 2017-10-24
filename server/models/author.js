@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import findOneOrCreate from 'mongoose-findoneorcreate';
 
-const Author = new mongoose.Schema({
+const { Schema } = mongoose;
+
+const Author = new Schema({
   name: String,
   email: {
     type: String,

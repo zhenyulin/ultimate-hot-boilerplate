@@ -14,6 +14,7 @@ export type AsyncActionNames = {
   RECEIVE: Name,
   ERROR: Name,
   RESET: Name,
+  SELECT: Name,
 };
 
 export type AsyncActions = {
@@ -22,6 +23,7 @@ export type AsyncActions = {
   receive: ActionCreator,
   error: ActionCreator,
   reset: ActionCreator,
+  select: ActionCreator,
 };
 
 export type AsyncActionBundle = [AsyncActionNames, AsyncActions];

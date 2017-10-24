@@ -61,7 +61,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const component = styled(Page)`
-  width: 480px;
+  width: 640px;
   margin: 240px auto;
   font-family: 'Helvetica';
   line-height: 30px;

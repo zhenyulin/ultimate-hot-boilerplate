@@ -21,6 +21,7 @@ export const asyncActionNames = (name: Name): AsyncActionNames => ({
   RECEIVE: `${name}/RECEIVE`,
   ERROR: `${name}/ERROR`,
   RESET: `${name}/RESET`,
+  SELECT: `${name}/SELECT`,
 });
 
 export const defaultAsyncActions = (
@@ -31,6 +32,7 @@ export const defaultAsyncActions = (
   receive: defaultAction(ASYNC_ACTION_NAMES.RECEIVE),
   error: defaultAction(ASYNC_ACTION_NAMES.ERROR),
   reset: defaultAction(ASYNC_ACTION_NAMES.RESET),
+  select: defaultAction(ASYNC_ACTION_NAMES.SELECT),
 });
 
 export const actionBundle = (name: Name): ActionBundle => {
