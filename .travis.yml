@@ -13,6 +13,9 @@ before_install:
   - docker build -t boilerplate:build --cache-from boilerplate:last .
   - docker tag boilerplate:build boilerplate:last
   - docker save boilerplate:last | gzip > ${CACHE_DOCKER_IMAGE}
+  - yarn add greenkeeper-lockfile@1 -g
+before_script:
+  - greenkeeper-lockfile-update
 script:
   - yarn lint
   - yarn stylelint
@@ -20,6 +23,7 @@ script:
   - yarn cover
 after_script:
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+  - greenkeeper-lockfile-upload
 branches:
   only:
     - master
