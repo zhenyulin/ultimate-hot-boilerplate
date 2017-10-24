@@ -4741,6 +4741,10 @@ mongodb@2.2.33:
     mongodb-core "2.1.17"
     readable-stream "2.2.7"
 
+mongoose-findoneorcreate@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mongoose-findoneorcreate/-/mongoose-findoneorcreate-1.0.0.tgz#6478f3012f967f797127b9a7d99f3846f55cbc16"
+
 mongoose@^4.11.10:
   version "4.12.3"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.12.3.tgz#7099bf8ce4945150001f4c2462e56c9e958ddcb9"
