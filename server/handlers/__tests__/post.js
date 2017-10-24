@@ -37,19 +37,7 @@ describe('message API', () => {
     expect(POSTS).toMatchObject(response.body.data.posts);
   });
 
-  it('return correct posts when query with title as filter', async () => {
-    const query = `{
-      posts(title: "Pariatur irure occaecat nostrud cillum.") { title, body }
-    }`;
-    const response = await request(app)
-      .post('/post')
-      .send({ query });
-    expect(response.statusCode).toBe(200);
-    expect(POSTS[0]).toMatchObject(response.body.data.posts[0]);
-    expect(response.body.data.posts.length).toBe(1);
-  });
-
-  it('return correct posts when query with _id as filter', async () => {
+  it('return correct posts when query with _id', async () => {
     const query = `{
       posts(_id: "4edd40c86762e0fb12000003") { title, body }
     }`;
@@ -63,13 +51,13 @@ describe('message API', () => {
 
   it('return correct posts after add a new post', async () => {
     const query = `mutation {
-      add(title: "Post 3", body: "Content of Post 3") { _id, title, body }
+      createPost(title: "Post 3", body: "Content of Post 3") { _id, title, body }
     }`;
     const response = await request(app)
       .post('/post')
       .send({ query });
     expect(response.statusCode).toBe(200);
-    expect(response.body.data.add).toMatchObject({
+    expect(response.body.data.createPost).toMatchObject({
       title: 'Post 3',
       body: 'Content of Post 3',
     });
