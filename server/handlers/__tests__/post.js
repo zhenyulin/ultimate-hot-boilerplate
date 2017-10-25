@@ -10,6 +10,7 @@ const POSTS = [
     title: 'Pariatur irure occaecat nostrud cillum.',
     body:
       'Magna nulla dolore ut esse laborum dolor aute deserunt commodo non minim ad anim in occaecat nostrud anim consectetur cillum qui in labore labore dolor dolor mollit cillum minim reprehenderit quis labore sed anim.',
+    comments: [],
   },
   {
     _id: Types.ObjectId('4edd40c86762e0fb12000004'),
@@ -21,7 +22,7 @@ const POSTS = [
 ];
 
 describe('message API', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await Post.remove();
     await Post.create(POSTS);
   });
@@ -49,7 +50,7 @@ describe('message API', () => {
     expect(response.body.data.posts.length).toBe(1);
   });
 
-  it('return correct posts after add a new post', async () => {
+  it('return correct posts after create a new post', async () => {
     const query = `mutation {
       createPost(title: "Post 3", body: "Content of Post 3") { _id, title, body }
     }`;
@@ -66,5 +67,235 @@ describe('message API', () => {
       .post('/post')
       .send({ query: newQuery });
     expect(newResponse.body.data.posts.length).toBe(3);
+  });
+
+  it('return correct post after update an existing post', async () => {
+    const query = `mutation {
+      updatePost(_id: "4edd40c86762e0fb12000003", input: {title: "Lord of Rings", body: "The storm shall begin."}) { _id, title, body }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.updatePost).toMatchObject({
+      _id: '4edd40c86762e0fb12000003',
+      title: 'Lord of Rings',
+      body: 'The storm shall begin.',
+    });
+  });
+
+  it('return error message if the _id of post to be updated not found', async () => {
+    const query = `mutation {
+      updatePost(_id: "4edd40c86762e0fb1200000k", input: {title: "Lord of Rings", body: "The storm shall begin."}) { _id, title, body }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.errors).toBeDefined();
+  });
+
+  it('remove post by deletePost query', async () => {
+    const query = `mutation {
+      deletePost(_id: "4edd40c86762e0fb12000003") { _id, title, body }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.deletePost).toMatchObject({
+      _id: '4edd40c86762e0fb12000003',
+      title: POSTS[0].title,
+      body: POSTS[0].body,
+    });
+    const newQuery = `{ posts { title, body } }`;
+    const newResponse = await request(app)
+      .post('/post')
+      .send({ query: newQuery });
+    expect(newResponse.body.data.posts.length).toBe(1);
+  });
+
+  it('return error message if the _id of post to be deleted not found', async () => {
+    const query = `mutation {
+      deletePost(_id: "4edd40c86762e0fb1200000k") { _id, title, body }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.errors).toBeDefined();
+  });
+
+  it('add comment to post by addComment mutation', async () => {
+    const query = `mutation {
+      addComment(
+        _id: "4edd40c86762e0fb12000003",
+        input: {
+          content: "Delightful",
+          author: {
+            name: "Lewis Kahn",
+            email: "lewis@kahn.com"
+          }
+        }
+      ) {
+        _id,
+        title,
+        body,
+        comments {
+          content,
+          author {
+            _id,
+            name,
+            email,
+          }
+        }
+      }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.addComment).toMatchObject({
+      _id: '4edd40c86762e0fb12000003',
+      title: POSTS[0].title,
+      body: POSTS[0].body,
+      comments: [
+        {
+          content: 'Delightful',
+          author: {
+            name: 'Lewis Kahn',
+            email: 'lewis@kahn.com',
+          },
+        },
+      ],
+    });
+  });
+
+  it('return error message if the _id of post to add comment to not found', async () => {
+    const query = `mutation {
+      addComment(
+        _id: "4edd40c86762e0fb1200000k",
+        input: {
+          content: "Delightful",
+          author: {
+            name: "Lewis Kahn",
+            email: "lewis@kahn.com"
+          }
+        }
+      ) {
+        _id,
+        title,
+        body,
+        comments {
+          content,
+          author {
+            _id,
+            name,
+            email,
+          }
+        }
+      }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.errors).toBeDefined();
+  });
+
+  it('searches for existing author by email when adding new comment', async () => {
+    const query = `mutation {
+      addComment(
+        _id: "4edd40c86762e0fb12000003",
+        input: {
+          content: "Fantastic",
+          author: {
+            name: "Lewis Armstrong",
+            email: "lewis@armstrong.com"
+          }
+        }
+      ) {
+        _id,
+        title,
+        body,
+        comments {
+          content,
+          author {
+            _id,
+            name,
+            email,
+          }
+        }
+      }
+    }`;
+    const response = await request(app)
+      .post('/post')
+      .send({ query });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.data.addComment).toMatchObject({
+      _id: '4edd40c86762e0fb12000003',
+      title: POSTS[0].title,
+      body: POSTS[0].body,
+      comments: [
+        {
+          content: 'Fantastic',
+          author: {
+            name: 'Lewis Armstrong',
+            email: 'lewis@armstrong.com',
+          },
+        },
+      ],
+    });
+    const secondQuery = `mutation {
+      addComment(
+        _id: "4edd40c86762e0fb12000003",
+        input: {
+          content: "Amazing",
+          author: {
+            name: "Lewis Armstrong",
+            email: "lewis@armstrong.com"
+          }
+        }
+      ) {
+        _id,
+        title,
+        body,
+        comments {
+          content,
+          author {
+            _id,
+            name,
+            email,
+          }
+        }
+      }
+    }`;
+    const secondResponse = await request(app)
+      .post('/post')
+      .send({ query: secondQuery });
+    expect(secondResponse.statusCode).toBe(200);
+    expect(secondResponse.body.data.addComment).toMatchObject({
+      _id: '4edd40c86762e0fb12000003',
+      title: POSTS[0].title,
+      body: POSTS[0].body,
+      comments: [
+        {
+          content: 'Fantastic',
+          author: {
+            name: 'Lewis Armstrong',
+            email: 'lewis@armstrong.com',
+          },
+        },
+        {
+          content: 'Amazing',
+          author: {
+            name: 'Lewis Armstrong',
+            email: 'lewis@armstrong.com',
+          },
+        },
+      ],
+    });
+    const { comments } = secondResponse.body.data.addComment;
+    expect(comments[0].author._id).toEqual(comments[1].author._id);
   });
 });
