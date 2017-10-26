@@ -1,24 +1,28 @@
 // @flow
 
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { ASYNC } from './constant';
-import type { Action, AsyncActionNames } from './types';
+import type { Action, AsyncActionNames, InitialState } from './types';
 
 // TODO: deal with data structure type as an object indexed by id
 // it needs to handle return situation where there's only one data entity
 // it also needs to handle return situation where it is transformed from an array of entities
-const initialState = Map({
+const initialState = fromJS({
   status: ASYNC.IDLE,
   isFetching: false,
   isError: false,
   data: [],
+  normalized: {
+    entities: {},
+    results: [],
+  },
   error: {},
   selected: null,
 });
 
 export const immutableAsyncReducers = (
   ASYNC_ACTION_NAMES: AsyncActionNames,
-) => (state: Map = initialState, action: Action) => {
+) => (state: InitialState = initialState, action: Action) => {
   switch (action.type) {
     case ASYNC_ACTION_NAMES.GET:
     case ASYNC_ACTION_NAMES.POST:
@@ -33,6 +37,10 @@ export const immutableAsyncReducers = (
         isFetching: false,
         isError: false,
         data: action.payload,
+      });
+    case ASYNC_ACTION_NAMES.NORMALIZE:
+      return state.merge({
+        normalized: action.payload,
       });
     case ASYNC_ACTION_NAMES.ERROR:
       return state.merge({

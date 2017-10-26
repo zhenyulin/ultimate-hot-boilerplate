@@ -7,28 +7,32 @@ import { push } from 'react-router-redux';
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
 import { postActions } from 'controllers/actions/event';
+import { getSelectedPost } from 'controllers/selectors/post';
+
+import immutableToJS from 'utils/components/immutable-to-js';
 
 export class Page extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    posts: PropTypes.shape({
-      status: PropTypes.string,
-      isError: PropTypes.bool,
-      isFetching: PropTypes.bool,
-      // TODO: use flow-type to refactor this
-      data: PropTypes.arrayOf(
+    // TODO: use flow-type to refactor this
+    postList: PropTypes.arrayOf(PropTypes.string),
+    posts: PropTypes.objectOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        body: PropTypes.string,
+        comments: PropTypes.arrayOf(PropTypes.string),
+      }),
+    ),
+    selectedPost: PropTypes.shape({
+      title: PropTypes.string,
+      body: PropTypes.string,
+      comments: PropTypes.arrayOf(
         PropTypes.shape({
-          title: PropTypes.string,
-          body: PropTypes.string,
-          comments: PropTypes.arrayOf(
-            PropTypes.shape({
-              content: PropTypes.string,
-              author: PropTypes.shape({
-                name: PropTypes.string,
-                email: PropTypes.string,
-              }),
-            }),
-          ),
+          id: PropTypes.string,
+          content: PropTypes.string,
+          author: PropTypes.shape({
+            name: PropTypes.string,
+          }),
         }),
       ),
     }),
@@ -38,16 +42,18 @@ export class Page extends React.PureComponent {
   };
 
   static defaultProps = {
-    posts: { status: '', isError: false, isFetching: false, data: [] },
+    postList: [],
+    posts: {},
+    selectedPost: {
+      title: '',
+      body: '',
+      comments: [],
+    },
   };
 
   render() {
-    const { className, posts } = this.props;
+    const { className, postList, posts, selectedPost } = this.props;
     const { navigate, get, select } = this.props;
-    // TODO: move nullable var to props
-    // TODO: use normalizr to enhance the data access
-    // TODO: create a more universal immutable reducer initialState to avoid null error
-    const selectedPost = posts.data.find(p => p._id === posts.selected);
     return (
       <div className={className}>
         <BasicButton
@@ -59,20 +65,25 @@ export class Page extends React.PureComponent {
         <div className="contentView">
           <SideNav
             className="titles"
-            list={posts.data.map(p => ({ id: p._id, value: p.title }))}
+            list={postList.map(id => ({ id, value: posts[id].title }))}
             func={select}
           />
-          <div className="content">
-            {selectedPost ? selectedPost.body : null}
+          <div className="postContent">
+            <div className="title">{selectedPost.title}</div>
+            <div className="body">{selectedPost.body}</div>
           </div>
           <div className="comments">
-            {selectedPost
-              ? selectedPost.comments.map(comment => (
-                  <div key={comment._id}>
-                    {comment.author.name}:{comment.content}
-                  </div>
-                ))
-              : null}
+            {selectedPost.comments.length ? (
+              <div className="title">Comments</div>
+            ) : null}
+            <div className="body">
+              {selectedPost.comments.map(({ _id, content, author }) => (
+                <div key={_id} className="comment">
+                  <div className="author">{author.name}:</div>
+                  <div className="content">{content}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -81,7 +92,12 @@ export class Page extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  posts: state.event.getIn(['post']).toJS(),
+  postList: state.event.getIn(['post', 'normalized', 'result']),
+  posts: state.event.getIn(['post', 'normalized', 'entities', 'posts']),
+  comments: state.event.getIn(['post', 'normalized', 'entities', 'comments']),
+  authors: state.event.getIn(['post', 'normalized', 'entities', 'authors']),
+  // TODO: how to optimise the performance hit here? as change in immutable props to js will lead to re-render
+  selectedPost: getSelectedPost(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -107,16 +123,47 @@ const component = styled(Page)`
     width: 120px;
   }
 
-  .content {
+  .postContent {
     display: inline-block;
-    width: 240px;
-    margin: 0 20px;
+    float: left;
+    width: 320px;
+    margin: 20px;
+    font-size: 14px;
+
+    .title {
+      font-weight: bold;
+      line-height: 40px;
+    }
   }
 
   .comments {
+    margin-top: 20px;
     display: inline-block;
-    width: 120px;
+    float: left;
+    width: 160px;
+    font-size: 14px;
+
+    .title {
+      color: grey;
+      line-height: 40px;
+    }
+
+    .comment {
+      border-top: 1px solid lightgrey;
+      padding: 5px 0;
+      font-size: 13px;
+
+      .author {
+        color: darkgrey;
+      }
+
+      .content {
+        color: grey;
+      }
+    }
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(component);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  immutableToJS(component),
+);

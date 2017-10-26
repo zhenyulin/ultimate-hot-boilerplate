@@ -10,17 +10,16 @@ ultimate-hot-boilerplate for react/node app with server-side-render
   * React-Router v5 hot reloading both client/server side ✅
   * Redux DevTools Extension both client/server side ✅
   * Redux-Segment Analytics Integration ✅
+  * GraphQL with nested data example both client/server side ✅
   * Path resolve no `..` both client/server side ✅
 
 
 
 ### TODO
- * add gif preview
- * add JWT auth to the boilerplate and support individual status
- * file watcher update to `chokidar/watchman`
- * add `reselect`
+ * add gif preview for hot reloading features
+ * add JWT auth to the boilerplate
+ * file watcher update to `chokidar / watchman`
  * consolidate webpack config, move all build target to `.build`
- * decouple server-side handler function and routes if complex
 
 
 

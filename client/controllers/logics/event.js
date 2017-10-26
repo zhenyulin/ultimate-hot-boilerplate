@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { request } from 'graphql-request';
 import { createLogic } from 'redux-logic';
+import { normalize } from 'normalizr';
 
 import {
   MESSAGE,
@@ -8,6 +9,8 @@ import {
   POST,
   postActions,
 } from 'controllers/actions/event';
+
+import postListSchema from 'controllers/schemas/post';
 
 const getMessageLogic = createLogic({
   type: MESSAGE.GET,
@@ -42,7 +45,11 @@ const getPostListLogic = createLogic({
     }`;
     request('/post/', query)
       .then(response => response.posts)
-      .then(data => dispatch(postActions.receive(data)))
+      .then(data => {
+        dispatch(postActions.receive(data));
+        // TODO: integrate normalize function into the action-manager reducer?
+        dispatch(postActions.normalize(normalize(data, postListSchema)));
+      })
       .catch(err => dispatch(postActions.error(err)))
       .then(() => done());
   },
