@@ -1,28 +1,10 @@
-import fetch from 'isomorphic-fetch';
 import { request } from 'graphql-request';
 import { createLogic } from 'redux-logic';
 import { normalize } from 'normalizr';
 
-import {
-  MESSAGE,
-  messageActions,
-  POST,
-  postActions,
-} from 'controllers/actions/event';
+import { POST, postActions } from 'controllers/actions/post';
 
 import postListSchema from 'controllers/schemas/post';
-
-const getMessageLogic = createLogic({
-  type: MESSAGE.GET,
-  process({ getState }, dispatch, done) {
-    const index = getState().count.get('current');
-    fetch(`/message/${index}`)
-      .then(response => response.json())
-      .then(data => dispatch(messageActions.receive(data)))
-      .catch(err => dispatch(messageActions.error(err)))
-      .then(() => done());
-  },
-});
 
 const getPostListLogic = createLogic({
   type: POST.GET,
@@ -55,4 +37,4 @@ const getPostListLogic = createLogic({
   },
 });
 
-export default [getMessageLogic, getPostListLogic];
+export default [getPostListLogic];

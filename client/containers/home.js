@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
 import CountAction from 'controllers/actions/count';
-import { messageActions } from 'controllers/actions/event';
+import { messageActions } from 'controllers/actions/message';
 
 export class Page extends React.PureComponent {
   static propTypes = {
@@ -49,9 +49,9 @@ export class Page extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  count: state.count.get('current'),
-  title: state.event.getIn(['message', 'data', 'title']),
-  body: state.event.getIn(['message', 'data', 'body']),
+  count: state.getIn(['count', 'current']),
+  title: state.getIn(['message', 'data', 'title']),
+  body: state.getIn(['message', 'data', 'body']),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,8 +1,7 @@
 import { createSelector } from 'reselect';
 
-export const getSelectedId = state => state.event.getIn(['post', 'selected']);
-export const getPopulatedPosts = state =>
-  state.event.getIn(['post', 'data']).toJS();
+export const getSelectedId = state => state.getIn(['post', 'selected']);
+export const getPopulatedPosts = state => state.getIn(['post', 'data']).toJS();
 
 export const getSelectedPost = createSelector(
   [getPopulatedPosts, getSelectedId],

@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
-import { postActions } from 'controllers/actions/event';
+import { postActions } from 'controllers/actions/post';
 import { getSelectedPost } from 'controllers/selectors/post';
 
 import immutableToJS from 'utils/components/immutable-to-js';
@@ -92,10 +92,10 @@ export class Page extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  postList: state.event.getIn(['post', 'normalized', 'result']),
-  posts: state.event.getIn(['post', 'normalized', 'entities', 'posts']),
-  comments: state.event.getIn(['post', 'normalized', 'entities', 'comments']),
-  authors: state.event.getIn(['post', 'normalized', 'entities', 'authors']),
+  postList: state.getIn(['post', 'normalized', 'result']),
+  posts: state.getIn(['post', 'normalized', 'entities', 'posts']),
+  comments: state.getIn(['post', 'normalized', 'entities', 'comments']),
+  authors: state.getIn(['post', 'normalized', 'entities', 'authors']),
   // TODO: how to optimise the performance hit here? as change in immutable props to js will lead to re-render
   selectedPost: getSelectedPost(state),
 });
