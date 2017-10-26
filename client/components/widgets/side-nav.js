@@ -42,16 +42,14 @@ export default styled(SideNav)`
   padding: 0;
   width: 160px;
 
-  li {
-    border-bottom: 1px solid lightgrey;
-  }
-
   .navButton {
     background: none;
+    color: grey;
     text-align: left;
 
     &:hover {
       text-decoration: underline;
+      color: black;
     }
   }
 `;

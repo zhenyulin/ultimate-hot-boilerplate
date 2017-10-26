@@ -19,9 +19,11 @@ export const asyncActionNames = (name: Name): AsyncActionNames => ({
   GET: `${name}/GET`,
   POST: `${name}/POST`,
   RECEIVE: `${name}/RECEIVE`,
+  NORMALIZE: `${name}/NORMALIZE`,
   ERROR: `${name}/ERROR`,
   RESET: `${name}/RESET`,
   SELECT: `${name}/SELECT`,
+  CANCEL: `${name}/CANCEL`,
 });
 
 export const defaultAsyncActions = (
@@ -30,9 +32,11 @@ export const defaultAsyncActions = (
   get: defaultAction(ASYNC_ACTION_NAMES.GET),
   post: defaultAction(ASYNC_ACTION_NAMES.POST),
   receive: defaultAction(ASYNC_ACTION_NAMES.RECEIVE),
+  normalize: defaultAction(ASYNC_ACTION_NAMES.NORMALIZE),
   error: defaultAction(ASYNC_ACTION_NAMES.ERROR),
   reset: defaultAction(ASYNC_ACTION_NAMES.RESET),
   select: defaultAction(ASYNC_ACTION_NAMES.SELECT),
+  cancel: defaultAction(ASYNC_ACTION_NAMES.CANCEL),
 });
 
 export const actionBundle = (name: Name): ActionBundle => {
