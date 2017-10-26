@@ -1,3 +1,4 @@
-import eventLogics from './event';
+import postLogics from './post';
+import messageLogics from './message';
 
-export default [...eventLogics];
+export default [...postLogics, ...messageLogics];
