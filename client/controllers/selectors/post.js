@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 export const getSelectedId = state => state.getIn(['post', 'selected']);
+// TODO: would toJS here lead to update everytime?
 export const getPopulatedPosts = state => state.getIn(['post', 'data']).toJS();
 
 export const getSelectedPost = createSelector(

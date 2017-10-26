@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
-import CountAction from 'controllers/actions/count';
+import { countActions } from 'controllers/actions/count';
 import { messageActions } from 'controllers/actions/message';
 
 export class Page extends React.PureComponent {
@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  add: () => dispatch(CountAction.add()),
+  add: () => dispatch(countActions.add()),
   navigate: location => dispatch(push(location)),
   get: () => dispatch(messageActions.get()),
 });

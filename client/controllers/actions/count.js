@@ -1,5 +1,11 @@
-export const ADD = 'count:ADD';
+import { actionBundle } from 'utils/action-manager';
 
-export default {
-  add: () => ({ type: ADD }),
+const [ADD, add] = actionBundle('@count/ADD');
+
+export const COUNT = {
+  ADD,
+};
+
+export const countActions = {
+  add,
 };
