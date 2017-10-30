@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+
+import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
@@ -8,39 +9,21 @@ import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
 import { postActions } from 'controllers/actions/post';
 import { getSelectedPost } from 'controllers/selectors/post';
+import type { Post, PopulatedPost } from 'controllers/types/post';
 
 import immutableToJS from 'utils/components/immutable-to-js';
 
-export class Page extends React.PureComponent {
-  static propTypes = {
-    className: PropTypes.string,
-    // TODO: use flow-type to refactor this
-    postList: PropTypes.arrayOf(PropTypes.string),
-    posts: PropTypes.objectOf(
-      PropTypes.shape({
-        title: PropTypes.string,
-        body: PropTypes.string,
-        comments: PropTypes.arrayOf(PropTypes.string),
-      }),
-    ),
-    selectedPost: PropTypes.shape({
-      title: PropTypes.string,
-      body: PropTypes.string,
-      comments: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string,
-          content: PropTypes.string,
-          author: PropTypes.shape({
-            name: PropTypes.string,
-          }),
-        }),
-      ),
-    }),
-    navigate: PropTypes.func,
-    get: PropTypes.func,
-    select: PropTypes.func,
-  };
+type Props = {
+  className: string,
+  postList: [string],
+  posts: { [string]: Post },
+  selectedPost: PopulatedPost,
+  navigate: (url: string) => void,
+  get: (action: Object) => void,
+  select: (id: string) => void,
+};
 
+export class Page extends React.PureComponent<Props> {
   static defaultProps = {
     postList: [],
     posts: {},
@@ -94,13 +77,11 @@ export class Page extends React.PureComponent {
 const mapStateToProps = state => ({
   postList: state.getIn(['post', 'normalized', 'result']),
   posts: state.getIn(['post', 'normalized', 'entities', 'posts']),
-  comments: state.getIn(['post', 'normalized', 'entities', 'comments']),
-  authors: state.getIn(['post', 'normalized', 'entities', 'authors']),
   selectedPost: getSelectedPost(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  navigate: location => dispatch(push(location)),
+  navigate: url => dispatch(push(url)),
   get: () => dispatch(postActions.get()),
   select: id => dispatch(postActions.select(id)),
 });
