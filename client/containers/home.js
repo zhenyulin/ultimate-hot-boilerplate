@@ -49,7 +49,7 @@ export class Page extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  count: state.getIn(['count', 'current']),
+  count: state.getIn(['count']),
   title: state.getIn(['message', 'data', 'title']),
   body: state.getIn(['message', 'data', 'body']),
 });
