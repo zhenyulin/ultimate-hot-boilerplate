@@ -96,7 +96,6 @@ const mapStateToProps = state => ({
   posts: state.getIn(['post', 'normalized', 'entities', 'posts']),
   comments: state.getIn(['post', 'normalized', 'entities', 'comments']),
   authors: state.getIn(['post', 'normalized', 'entities', 'authors']),
-  // TODO: how to optimise the performance hit here? as change in immutable props to js will lead to re-render
   selectedPost: getSelectedPost(state),
 });
 
