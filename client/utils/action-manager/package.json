@@ -5,12 +5,12 @@
   "description": "middleware and tools to make action creations to be more efficient and scalable",
   "author": "Zhenyu Lin <zhenyu.lyn@gmail.com>",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "",
     "test": "NODE_ENV=test jest",
     "cover": "NODE_ENV=test jest --coverage",
-    "build": "babel src -d lib",
+    "build": "babel src -d dist",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
