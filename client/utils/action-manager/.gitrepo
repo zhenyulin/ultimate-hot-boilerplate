@@ -6,6 +6,6 @@
 [subrepo]
 	remote = https://github.com/zhenyulin/redux-action-manager.git
 	branch = master
-	commit = 44d48ab52993cb289602df25588a431fac9013d0
-	parent = cf7713b353edd818c69e4f8b51d5e6f3a8ccc2f8
+	commit = fc4a3ba07d68fc0948eab3099c6a03b731713cd3
+	parent = 2170b1155bdb0a5ba1ff899ae87e5105feb2dcdf
 	cmdver = 0.3.1
