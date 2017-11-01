@@ -19,7 +19,7 @@ type Props = {
   posts: { [string]: Post },
   selectedPost: PopulatedPost,
   navigate: (url: string) => void,
-  get: (action: Object) => void,
+  get: () => void,
   select: (id: string) => void,
 };
 
