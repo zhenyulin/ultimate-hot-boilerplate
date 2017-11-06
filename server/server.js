@@ -20,6 +20,8 @@ if (process.env.NODE_ENV === 'development') {
     }),
   );
   app.use(webpackHotMiddleware(compiler));
+  const morgan = require('morgan');
+  app.use(morgan('dev'));
 }
 
 if (process.env.NODE_ENV === 'production') {
