@@ -26,6 +26,7 @@ export type PopulatedComment = {
 };
 
 export type PopulatedPost = {
+  _id: string,
   title: string,
   body: string,
   comments: [PopulatedComment],

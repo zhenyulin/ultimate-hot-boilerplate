@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.use('/message', message);
 router.use('/post', post);
+router.use('/graphql', post);
 router.use('*', index);
 
 export default router;

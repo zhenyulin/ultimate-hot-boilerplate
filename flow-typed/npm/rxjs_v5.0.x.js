@@ -1,5 +1,5 @@
-// flow-typed signature: c210ca936707b0590fcc5a2c787cbe46
-// flow-typed version: 253bcc248a/rxjs_v5.0.x/flow_>=v0.34.x
+// flow-typed signature: 999818c792bf494aaad92f5a8f42ff0c
+// flow-typed version: 575a5426a9/rxjs_v5.0.x/flow_>=v0.34.x
 
 // FIXME(samgoldman) Remove top-level interface once Babel supports
 // `declare interface` syntax.
@@ -482,6 +482,27 @@ declare class rxjs$Observable<+T> {
   ): rxjs$Observable<rxjs$GroupedObservable<K, V>>;
 
   ignoreElements<U>(): rxjs$Observable<U>;
+
+  last(
+    predicate?: (value: T, index: number, source: rxjs$Observable<T>) => boolean
+  ): rxjs$Observable<T>;
+  last<U>(
+    predicate: ?(
+      value: T,
+      index: number,
+      source: rxjs$Observable<T>
+    ) => boolean,
+    resultSelector: (value: T, index: number) => U
+  ): rxjs$Observable<U>;
+  last<U>(
+    predicate: ?(
+      value: T,
+      index: number,
+      source: rxjs$Observable<T>
+    ) => boolean,
+    resultSelector: ?(value: T, index: number) => U,
+    defaultValue: U
+  ): rxjs$Observable<U>;
 
   let<U>(
     project: (self: rxjs$Observable<T>) => rxjs$Observable<U>

@@ -4,39 +4,45 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
+import { compose, graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
 import { postActions } from 'controllers/actions/post';
-import { getSelectedPost } from 'controllers/selectors/post';
-import type { Post, PopulatedPost } from 'controllers/types/post';
+import type { PopulatedPost } from 'controllers/types/post';
 
 import immutableToJS from 'utils/components/immutable-to-js';
 
 type Props = {
   className: string,
-  postList: [string],
-  posts: { [string]: Post },
-  selectedPost: PopulatedPost,
+  posts: [PopulatedPost],
+  selectedPostId: string,
   navigate: (url: string) => void,
-  get: () => void,
   select: (id: string) => void,
+  addComment: ({
+    postId: string,
+    content: string,
+    authorName: string,
+    authorEmail: string,
+  }) => void,
 };
 
 export class Page extends React.PureComponent<Props> {
   static defaultProps = {
-    postList: [],
-    posts: {},
-    selectedPost: {
-      title: '',
-      body: '',
-      comments: [],
-    },
+    selectedPostId: '',
+    posts: [],
   };
 
   render() {
-    const { className, postList, posts, selectedPost } = this.props;
-    const { navigate, get, select } = this.props;
+    const { className, selectedPostId, posts } = this.props;
+    const { navigate, select, addComment } = this.props;
+    const selectedPost = posts.find(post => post._id === selectedPostId) || {
+      title: '',
+      body: '',
+      comments: [],
+    };
+    console.log(this.props);
     return (
       <div className={className}>
         <BasicButton
@@ -44,11 +50,13 @@ export class Page extends React.PureComponent<Props> {
           func={() => navigate('/')}
           text="Back to Index"
         />
-        <BasicButton className="actionButton" func={get} text="Get Post List" />
         <div className="contentView">
           <SideNav
             className="titles"
-            list={postList.map(id => ({ id, value: posts[id].title }))}
+            list={posts.map(post => ({
+              id: post._id,
+              value: post.title,
+            }))}
             func={select}
           />
           <div className="postContent">
@@ -66,6 +74,29 @@ export class Page extends React.PureComponent<Props> {
                   <div className="content">{content}</div>
                 </div>
               ))}
+              {selectedPostId ? (
+                <div className="comment">
+                  <label htmlFor="email">
+                    Email<input type="text" name="email" />
+                  </label>
+                  <label htmlFor="name">
+                    Name<input type="text" name="name" />
+                  </label>
+                  <label htmlFor="content">
+                    Content<textarea type="text" name="content" />
+                  </label>
+                  <BasicButton
+                    func={() =>
+                      addComment({
+                        postId: selectedPostId,
+                        content: 'test',
+                        authorName: 'testName',
+                        authorEmail: 'test@gmail.com',
+                      })}
+                    text="Add Comment"
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -75,14 +106,11 @@ export class Page extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  postList: state.getIn(['post', 'normalized', 'result']),
-  posts: state.getIn(['post', 'normalized', 'entities', 'posts']),
-  selectedPost: getSelectedPost(state),
+  selectedPostId: state.getIn(['post', 'selected']),
 });
 
 const mapDispatchToProps = dispatch => ({
   navigate: url => dispatch(push(url)),
-  get: () => dispatch(postActions.get()),
   select: id => dispatch(postActions.select(id)),
 });
 
@@ -143,6 +171,65 @@ const component = styled(Page)`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  immutableToJS(component),
-);
+const GET_POSTS = gql`
+  {
+    posts {
+      _id
+      title
+      body
+      comments {
+        _id
+        author {
+          _id
+          name
+          email
+        }
+        content
+      }
+    }
+  }
+`;
+
+const ADD_COMMENT = gql`
+  mutation addComment(
+    $postId: ID!
+    $content: String
+    $authorName: String
+    $authorEmail: String!
+  ) {
+    addComment(
+      _id: $postId
+      input: {
+        content: $content
+        author: { name: $authorName, email: $authorEmail }
+      }
+    ) {
+      _id
+      title
+      body
+      comments {
+        content
+        author {
+          _id
+          name
+          email
+        }
+      }
+    }
+  }
+`;
+
+export default compose(
+  graphql(ADD_COMMENT, {
+    props: ({ mutate }) => ({
+      addComment: ({ postId, content, authorName, authorEmail }) =>
+        mutate({ variables: { postId, content, authorName, authorEmail } }),
+    }),
+    options: {
+      refetchQueries: [{ query: GET_POSTS }],
+    },
+  }),
+  graphql(GET_POSTS, { props: ({ data: { posts } }) => ({ posts }) }),
+  connect(mapStateToProps, mapDispatchToProps),
+  immutableToJS,
+)(component);
