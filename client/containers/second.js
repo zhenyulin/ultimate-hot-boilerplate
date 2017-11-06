@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { push } from 'react-router-redux';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Form, Text, TextArea } from 'react-form';
 
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
@@ -42,7 +43,6 @@ export class Page extends React.PureComponent<Props> {
       body: '',
       comments: [],
     };
-    console.log(this.props);
     return (
       <div className={className}>
         <BasicButton
@@ -76,25 +76,30 @@ export class Page extends React.PureComponent<Props> {
               ))}
               {selectedPostId ? (
                 <div className="comment">
-                  <label htmlFor="email">
-                    Email<input type="text" name="email" />
-                  </label>
-                  <label htmlFor="name">
-                    Name<input type="text" name="name" />
-                  </label>
-                  <label htmlFor="content">
-                    Content<textarea type="text" name="content" />
-                  </label>
-                  <BasicButton
-                    func={() =>
+                  <Form
+                    onSubmit={({ content, authorName, authorEmail }) =>
                       addComment({
                         postId: selectedPostId,
-                        content: 'test',
-                        authorName: 'testName',
-                        authorEmail: 'test@gmail.com',
+                        content,
+                        authorName,
+                        authorEmail,
                       })}
-                    text="Add Comment"
-                  />
+                  >
+                    {formApi => (
+                      <form onSubmit={formApi.submitForm}>
+                        <label htmlFor="email">
+                          Email<Text field="authorEmail" id="email" />
+                        </label>
+                        <label htmlFor="name">
+                          Name<Text field="authorName" id="name" />
+                        </label>
+                        <label htmlFor="content">
+                          Content<TextArea field="content" id="content" />
+                        </label>
+                        <button type="submit">Add Comment</button>
+                      </form>
+                    )}
+                  </Form>
                 </div>
               ) : null}
             </div>
@@ -179,19 +184,19 @@ const GET_POSTS = gql`
       body
       comments {
         _id
+        content
         author {
           _id
           name
           email
         }
-        content
       }
     }
   }
 `;
 
 const ADD_COMMENT = gql`
-  mutation addComment(
+  mutation(
     $postId: ID!
     $content: String
     $authorName: String
@@ -205,9 +210,8 @@ const ADD_COMMENT = gql`
       }
     ) {
       _id
-      title
-      body
       comments {
+        _id
         content
         author {
           _id
@@ -223,11 +227,31 @@ export default compose(
   graphql(ADD_COMMENT, {
     props: ({ mutate }) => ({
       addComment: ({ postId, content, authorName, authorEmail }) =>
-        mutate({ variables: { postId, content, authorName, authorEmail } }),
+        mutate({
+          variables: { postId, content, authorName, authorEmail },
+          // TODO: enable optimisticResponse with the correct set of comments in the array
+          // optimisticResponse: {
+          //   __typename: 'Mutation',
+          //   addComment: {
+          //     __typename: 'Post',
+          //     _id: postId,
+          //     comments: [
+          //       {
+          //         __typename: 'Comment',
+          //         _id: -1,
+          //         content,
+          //         author: {
+          //           __typename: 'Author',
+          //           _id: -2,
+          //           name: authorName,
+          //           email: authorEmail,
+          //         },
+          //       },
+          //     ],
+          //   },
+          // },
+        }),
     }),
-    options: {
-      refetchQueries: [{ query: GET_POSTS }],
-    },
   }),
   graphql(GET_POSTS, { props: ({ data: { posts } }) => ({ posts }) }),
   connect(mapStateToProps, mapDispatchToProps),
