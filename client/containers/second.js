@@ -27,6 +27,7 @@ type Props = {
     authorName: string,
     authorEmail: string,
   }) => void,
+  deleteComment: ({ commentId: string }) => void,
 };
 
 export class Page extends React.PureComponent<Props> {
@@ -37,7 +38,7 @@ export class Page extends React.PureComponent<Props> {
 
   render() {
     const { className, selectedPostId, posts } = this.props;
-    const { navigate, select, addComment } = this.props;
+    const { navigate, select, addComment, deleteComment } = this.props;
     const selectedPost = posts.find(post => post._id === selectedPostId) || {
       title: '',
       body: '',
@@ -70,6 +71,12 @@ export class Page extends React.PureComponent<Props> {
             <div className="body">
               {selectedPost.comments.map(({ _id, content, author }) => (
                 <div key={_id} className="comment">
+                  <button
+                    className="delete"
+                    onClick={() => deleteComment({ commentId: _id })}
+                  >
+                    X
+                  </button>
                   <div className="author">{author.name}:</div>
                   <div className="content">{content}</div>
                 </div>
@@ -223,37 +230,113 @@ const ADD_COMMENT = gql`
   }
 `;
 
+const DELETE_COMMENT = gql`
+  mutation($commentId: ID!) {
+    deleteComment(_id: $commentId) {
+      _id
+    }
+  }
+`;
+
 export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphql(GET_POSTS, {
+    props: ({ data: { posts } }) => ({ posts }),
+  }),
   graphql(ADD_COMMENT, {
-    props: ({ mutate }) => ({
+    props: ({ ownProps, mutate }) => ({
       addComment: ({ postId, content, authorName, authorEmail }) =>
         mutate({
           variables: { postId, content, authorName, authorEmail },
-          // TODO: enable optimisticResponse with the correct set of comments in the array
-          // optimisticResponse: {
-          //   __typename: 'Mutation',
-          //   addComment: {
-          //     __typename: 'Post',
-          //     _id: postId,
-          //     comments: [
-          //       {
-          //         __typename: 'Comment',
-          //         _id: -1,
-          //         content,
-          //         author: {
-          //           __typename: 'Author',
-          //           _id: -2,
-          //           name: authorName,
-          //           email: authorEmail,
-          //         },
-          //       },
-          //     ],
-          //   },
-          // },
+          optimisticResponse: () => {
+            const newComment = {
+              __typename: 'Comment',
+              _id: -1,
+              content,
+              author: {
+                __typename: 'Author',
+                _id: -2,
+                name: authorName,
+                email: authorEmail,
+              },
+            };
+            const { selectedPostId, posts } = ownProps;
+            const existingComments = posts.find(
+              post => post._id === selectedPostId,
+            ).comments;
+            return {
+              __typename: 'Mutation',
+              addComment: {
+                __typename: 'Post',
+                _id: postId,
+                comments: [...existingComments, newComment],
+              },
+            };
+          },
         }),
     }),
+    options: ownProps => ({
+      update: (proxy, { data: { addComment } }) => {
+        const data = proxy.readQuery({ query: GET_POSTS });
+        const { selectedPostId } = ownProps;
+        const updatedData = {
+          ...data,
+          posts: data.posts.map(post => {
+            if (post._id === selectedPostId) {
+              const updatedPost = {
+                ...post,
+                comments: addComment.comments,
+              };
+              return updatedPost;
+            }
+            return post;
+          }),
+        };
+        proxy.writeQuery({
+          query: GET_POSTS,
+          data: updatedData,
+        });
+      },
+    }),
   }),
-  graphql(GET_POSTS, { props: ({ data: { posts } }) => ({ posts }) }),
-  connect(mapStateToProps, mapDispatchToProps),
+  graphql(DELETE_COMMENT, {
+    props: ({ mutate }) => ({
+      deleteComment: ({ commentId }) =>
+        mutate({
+          variables: { commentId },
+          optimisticResponse: {
+            deleteComment: {
+              __typename: 'Comment',
+              _id: commentId,
+            },
+          },
+        }),
+    }),
+    options: ownProps => ({
+      update: (proxy, { data: { deleteComment } }) => {
+        const data = proxy.readQuery({ query: GET_POSTS });
+        const { selectedPostId } = ownProps;
+        const updatedData = {
+          ...data,
+          posts: data.posts.map(post => {
+            if (post._id === selectedPostId) {
+              const updatedPost = {
+                ...post,
+                comments: post.comments.filter(
+                  comment => comment._id !== deleteComment._id,
+                ),
+              };
+              return updatedPost;
+            }
+            return post;
+          }),
+        };
+        proxy.writeQuery({
+          query: GET_POSTS,
+          data: updatedData,
+        });
+      },
+    }),
+  }),
   immutableToJS,
 )(component);

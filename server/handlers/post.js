@@ -42,6 +42,8 @@ const schema = buildSchema(`
 
   type Query {
     posts(_id: ID): [Post],
+    comments(_id: ID): [Comment],
+    authors(_id: ID): [Author],
   }
 
   type Mutation {
@@ -49,6 +51,7 @@ const schema = buildSchema(`
     updatePost(_id: ID!, input: PostInput): Post,
     deletePost(_id: ID!): Post,
     addComment(_id: ID!, input: CommentInput): Post,
+    deleteComment(_id: ID!): Comment,
   }
 `);
 
@@ -100,6 +103,14 @@ const resolvers = {
         },
       });
       return updated;
+    } catch (err) {
+      return err;
+    }
+  },
+  deleteComment: async _id => {
+    try {
+      const comment = await Comment.findByIdAndRemove(_id);
+      return comment;
     } catch (err) {
       return err;
     }
