@@ -39,7 +39,13 @@ export type ActionBundle = [Name, ActionCreator];
 export type AsyncStatus = 'IDEL' | 'PROCESS' | 'SUCCESS' | 'ERROR';
 
 // TODO: make the type stronger
-export type InitialState = Map<string, any>;
+export type State = Map<string, any>;
+
+export type ActionHandler = (state: State, action?: Action) => State;
+
+export type HandlerMap = {
+  [Name]: ActionHandler,
+};
 
 /*
   Types for Manager Internal Functions

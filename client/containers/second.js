@@ -1,44 +1,68 @@
 // @flow
 
 import * as React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { push } from 'react-router-redux';
-import { compose, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Form, Text, TextArea } from 'react-form';
 
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
-import { postActions } from 'controllers/actions/post';
-import type { PopulatedPost } from 'controllers/types/post';
+import { postActions, commentActions } from 'controllers/actions/post';
+import type {
+  /* Post,
+  Comment,
+  Author, */
+  PopulatedPost,
+} from 'controllers/types/post';
 
 import immutableToJS from 'utils/components/immutable-to-js';
 
 type Props = {
   className: string,
+  // postList: [string],
+  // posts: { [string]: Post },
+  // comments: { [string]: Comment },
+  // authors: { [string]: Author },
   posts: [PopulatedPost],
   selectedPostId: string,
   navigate: (url: string) => void,
-  select: (id: string) => void,
+  getPosts: () => void,
+  selectPost: (id: string) => void,
   addComment: ({
     postId: string,
     content: string,
     authorName: string,
     authorEmail: string,
   }) => void,
-  deleteComment: ({ commentId: string }) => void,
+  deleteComment: (id: string) => void,
 };
 
 export class Page extends React.PureComponent<Props> {
   static defaultProps = {
+    // postList: [],
+    // posts: {},
+    // comments: {},
+    // authors: {},
     selectedPostId: '',
-    posts: [],
   };
 
+  componentWillMount() {
+    this.props.getPosts();
+  }
+
   render() {
-    const { className, selectedPostId, posts } = this.props;
-    const { navigate, select, addComment, deleteComment } = this.props;
+    const {
+      className,
+      /* postList,
+      posts,
+      comments,
+      authors, */
+      posts,
+      selectedPostId,
+    } = this.props;
+    const { navigate, selectPost, addComment, deleteComment } = this.props;
     const selectedPost = posts.find(post => post._id === selectedPostId) || {
       title: '',
       body: '',
@@ -58,7 +82,7 @@ export class Page extends React.PureComponent<Props> {
               id: post._id,
               value: post.title,
             }))}
-            func={select}
+            func={selectPost}
           />
           <div className="postContent">
             <div className="title">{selectedPost.title}</div>
@@ -71,17 +95,14 @@ export class Page extends React.PureComponent<Props> {
             <div className="body">
               {selectedPost.comments.map(({ _id, content, author }) => (
                 <div key={_id} className="comment">
-                  <button
-                    className="delete"
-                    onClick={() => deleteComment({ commentId: _id })}
-                  >
+                  <button className="delete" onClick={() => deleteComment(_id)}>
                     X
                   </button>
                   <div className="author">{author.name}:</div>
                   <div className="content">{content}</div>
                 </div>
               ))}
-              {selectedPostId ? (
+              {selectedPost ? (
                 <div className="comment">
                   <Form
                     onSubmit={({ content, authorName, authorEmail }) =>
@@ -118,12 +139,21 @@ export class Page extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
+  // postList: state.getIn(['post', 'normalized', 'result']),
+  // posts: state.getIn(['post', 'normalized', 'entities', 'posts']),
+  // comments: state.getIn(['post', 'normalized', 'entities', 'comments']),
+  // authors: state.getIn(['post', 'normalized', 'entities', 'authors']),
+  posts: state.getIn(['post', 'data']),
   selectedPostId: state.getIn(['post', 'selected']),
 });
 
 const mapDispatchToProps = dispatch => ({
   navigate: url => dispatch(push(url)),
-  select: id => dispatch(postActions.select(id)),
+  getPosts: () => dispatch(postActions.get()),
+  selectPost: id => dispatch(postActions.select(id)),
+  addComment: ({ postId, content, authorName, authorEmail }) =>
+    dispatch(commentActions.add({ postId, content, authorName, authorEmail })),
+  deleteComment: id => dispatch(commentActions.delete(id)),
 });
 
 const component = styled(Page)`
@@ -183,160 +213,7 @@ const component = styled(Page)`
   }
 `;
 
-const GET_POSTS = gql`
-  {
-    posts {
-      _id
-      title
-      body
-      comments {
-        _id
-        content
-        author {
-          _id
-          name
-          email
-        }
-      }
-    }
-  }
-`;
-
-const ADD_COMMENT = gql`
-  mutation(
-    $postId: ID!
-    $content: String
-    $authorName: String
-    $authorEmail: String!
-  ) {
-    addComment(
-      _id: $postId
-      input: {
-        content: $content
-        author: { name: $authorName, email: $authorEmail }
-      }
-    ) {
-      _id
-      comments {
-        _id
-        content
-        author {
-          _id
-          name
-          email
-        }
-      }
-    }
-  }
-`;
-
-const DELETE_COMMENT = gql`
-  mutation($commentId: ID!) {
-    deleteComment(_id: $commentId) {
-      _id
-    }
-  }
-`;
-
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(GET_POSTS, {
-    props: ({ data: { posts } }) => ({ posts }),
-  }),
-  graphql(ADD_COMMENT, {
-    props: ({ ownProps, mutate }) => ({
-      addComment: ({ postId, content, authorName, authorEmail }) =>
-        mutate({
-          variables: { postId, content, authorName, authorEmail },
-          optimisticResponse: () => {
-            const newComment = {
-              __typename: 'Comment',
-              _id: -1,
-              content,
-              author: {
-                __typename: 'Author',
-                _id: -2,
-                name: authorName,
-                email: authorEmail,
-              },
-            };
-            const { selectedPostId, posts } = ownProps;
-            const existingComments = posts.find(
-              post => post._id === selectedPostId,
-            ).comments;
-            return {
-              __typename: 'Mutation',
-              addComment: {
-                __typename: 'Post',
-                _id: postId,
-                comments: [...existingComments, newComment],
-              },
-            };
-          },
-        }),
-    }),
-    options: ownProps => ({
-      update: (proxy, { data: { addComment } }) => {
-        const data = proxy.readQuery({ query: GET_POSTS });
-        const { selectedPostId } = ownProps;
-        const updatedData = {
-          ...data,
-          posts: data.posts.map(post => {
-            if (post._id === selectedPostId) {
-              const updatedPost = {
-                ...post,
-                comments: addComment.comments,
-              };
-              return updatedPost;
-            }
-            return post;
-          }),
-        };
-        proxy.writeQuery({
-          query: GET_POSTS,
-          data: updatedData,
-        });
-      },
-    }),
-  }),
-  graphql(DELETE_COMMENT, {
-    props: ({ mutate }) => ({
-      deleteComment: ({ commentId }) =>
-        mutate({
-          variables: { commentId },
-          optimisticResponse: {
-            deleteComment: {
-              __typename: 'Comment',
-              _id: commentId,
-            },
-          },
-        }),
-    }),
-    options: ownProps => ({
-      update: (proxy, { data: { deleteComment } }) => {
-        const data = proxy.readQuery({ query: GET_POSTS });
-        const { selectedPostId } = ownProps;
-        const updatedData = {
-          ...data,
-          posts: data.posts.map(post => {
-            if (post._id === selectedPostId) {
-              const updatedPost = {
-                ...post,
-                comments: post.comments.filter(
-                  comment => comment._id !== deleteComment._id,
-                ),
-              };
-              return updatedPost;
-            }
-            return post;
-          }),
-        };
-        proxy.writeQuery({
-          query: GET_POSTS,
-          data: updatedData,
-        });
-      },
-    }),
-  }),
   immutableToJS,
 )(component);

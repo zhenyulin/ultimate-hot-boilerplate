@@ -2,7 +2,7 @@
 
 import { fromJS } from 'immutable';
 import { ASYNC } from './constant';
-import type { Action, AsyncActionNames, InitialState } from './types';
+import type { Action, AsyncActionNames, State, HandlerMap } from './types';
 
 // TODO: deal with data structure type as an object indexed by id
 // it needs to handle return situation where there's only one data entity
@@ -20,46 +20,56 @@ const initialState = fromJS({
   selected: null,
 });
 
-export const immutableAsyncReducers = (
+export const defaultImmutableHandlerMap = (
   ASYNC_ACTION_NAMES: AsyncActionNames,
-) => (state: InitialState = initialState, action: Action) => {
-  switch (action.type) {
-    case ASYNC_ACTION_NAMES.GET:
-    case ASYNC_ACTION_NAMES.POST:
-      return state.merge({
-        status: ASYNC.PROCESS,
-        isFetching: true,
-        isError: false,
-      });
-    case ASYNC_ACTION_NAMES.RECEIVE:
-      return state.merge({
-        status: ASYNC.SUCCESS,
-        isFetching: false,
-        isError: false,
-        data: action.payload,
-      });
-    case ASYNC_ACTION_NAMES.NORMALIZE:
-      return state.merge({
-        normalized: action.payload,
-      });
-    case ASYNC_ACTION_NAMES.ERROR:
-      return state.merge({
-        status: ASYNC.ERROR,
-        isFetching: false,
-        isError: true,
-        error: action.payload,
-      });
-    case ASYNC_ACTION_NAMES.RESET:
-      return state.merge(initialState);
-    case ASYNC_ACTION_NAMES.SELECT:
-      return state.merge({
-        selected: action.payload,
-      });
-    default:
-      return state;
-  }
+) => ({
+  [ASYNC_ACTION_NAMES.GET]: state =>
+    state.merge({
+      status: ASYNC.PROCESS,
+      isFetching: true,
+      isError: false,
+    }),
+  [ASYNC_ACTION_NAMES.POST]: state =>
+    state.merge({
+      status: ASYNC.PROCESS,
+      isFetching: true,
+      isError: false,
+    }),
+  [ASYNC_ACTION_NAMES.RECEIVE]: (state, action) =>
+    state.merge({
+      status: ASYNC.SUCCESS,
+      isFetching: false,
+      isError: false,
+      data: action.payload,
+    }),
+  [ASYNC_ACTION_NAMES.NORMALIZE]: (state, action) =>
+    state.merge({
+      normalized: action.payload,
+    }),
+  [ASYNC_ACTION_NAMES.ERROR]: (state, action) =>
+    state.merge({
+      status: ASYNC.ERROR,
+      isFetching: false,
+      isError: true,
+      error: action.payload,
+    }),
+  [ASYNC_ACTION_NAMES.RESET]: state => state.merge(initialState),
+  [ASYNC_ACTION_NAMES.SELECT]: (state, action) =>
+    state.merge({
+      selected: action.payload,
+    }),
+});
+
+export const createReducers = (handlerMap: HandlerMap) => (
+  state: State = initialState,
+  action: Action,
+) => {
+  const handler = handlerMap[action.type];
+  return handler ? handler(state, action) : state;
 };
 
-// *TODO: adding normal javascript state store support
+export const defaultImmutableAsyncReducers = (
+  ASYNC_ACTION_NAMES: AsyncActionNames,
+) => createReducers(defaultImmutableHandlerMap(ASYNC_ACTION_NAMES));
 
-export default immutableAsyncReducers;
+// *TODO: adding normal javascript state store support
