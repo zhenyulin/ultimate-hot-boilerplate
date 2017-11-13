@@ -33,14 +33,14 @@ export type PopulatedPost = {
 };
 
 export type PostState = {
-  status: string,
-  isFetching: boolean,
-  isError: boolean,
-  data: List<PopulatedPost>,
-  normalized: {
-    entities: Map<string, any>,
-    results: List<string>,
+  meta: {
+    status: string,
+    isFetching: boolean,
+    isError: boolean,
+    error: {},
   },
-  error: {},
+  data: List<PopulatedPost>,
+  entities: Map<string, any>,
+  result: List<string>,
   selected: string,
 };

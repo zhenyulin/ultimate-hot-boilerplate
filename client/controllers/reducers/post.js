@@ -51,7 +51,7 @@ const handlerMap = {
     const posts = state.get('data');
     const updatedPosts = posts.update(
       posts.findIndex(post => post.get('_id') === postId),
-      () => updatedPost,
+      () => fromJS(updatedPost),
     );
     const updatedState = state.set('data', updatedPosts);
     return updatedState;
