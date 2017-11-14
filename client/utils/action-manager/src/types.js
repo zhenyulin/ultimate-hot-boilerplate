@@ -6,14 +6,20 @@ export type Name = string;
 export type Action = {
   type: Name,
   payload?: mixed,
+  effect?: mixed,
 };
 
-export type ActionCreator = (payload?: mixed) => Action;
+export type ActionCreator = (payload?: mixed, effect?: mixed) => Action;
 
 export type AsyncActionNames = {
   GET: Name,
-  POST: Name,
   RECEIVE: Name,
+  CREATE: Name,
+  CREATED: Name,
+  UPDATE: Name,
+  UPDATED: Name,
+  REMOVE: Name,
+  REMOVED: Name,
   NORMALIZE: Name,
   ERROR: Name,
   RESET: Name,
@@ -21,15 +27,28 @@ export type AsyncActionNames = {
   CANCEL: Name,
 };
 
+export type ActionNamesCollection = {
+  [string]: Name,
+};
+
 export type AsyncActions = {
   get: ActionCreator,
-  post: ActionCreator,
   receive: ActionCreator,
+  create: ActionCreator,
+  created: ActionCreator,
+  update: ActionCreator,
+  updated: ActionCreator,
+  remove: ActionCreator,
+  removed: ActionCreator,
   normalize: ActionCreator,
   error: ActionCreator,
   reset: ActionCreator,
   select: ActionCreator,
   cancel: ActionCreator,
+};
+
+export type ActionsCollection = {
+  [string]: ActionCreator,
 };
 
 export type AsyncActionBundle = [AsyncActionNames, AsyncActions];

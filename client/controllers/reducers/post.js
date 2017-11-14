@@ -1,14 +1,14 @@
-import { fromJS } from 'immutable';
+// import { fromJS } from 'immutable';
 import {
   defaultImmutableHandlerMap,
   createReducers,
 } from 'utils/action-manager';
 
-import { POST, COMMENT } from 'controllers/actions/post';
+import { POST } from 'controllers/actions/post';
 
 const handlerMap = {
   ...defaultImmutableHandlerMap(POST),
-  [COMMENT.ADD]: (state, action) => {
+  /* [COMMENT.ADD]: (state, action) => {
     const { postId, content, authorName, authorEmail } = action.payload;
     const newAuthor = {
       _id: '-1',
@@ -91,7 +91,7 @@ const handlerMap = {
     );
     const updatedState = state.set('data', updatedPosts);
     return updatedState;
-  },
+  }, */
 };
 
 export default createReducers(handlerMap);

@@ -10,28 +10,22 @@ import { Form, Text, TextArea } from 'react-form';
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
 import { postActions, commentActions } from 'controllers/actions/post';
-import type {
-  /* Post,
-  Comment,
-  Author, */
-  PopulatedPost,
-} from 'controllers/types/post';
+import type { Post, Comment, Author } from 'controllers/types/post';
 
 import immutableToJS from 'utils/components/immutable-to-js';
 
 type Props = {
   className: string,
-  // postList: [string],
-  // posts: { [string]: Post },
-  // comments: { [string]: Comment },
-  // authors: { [string]: Author },
-  posts: [PopulatedPost],
+  postList: [string],
+  posts: { [string]: Post },
+  comments: { [string]: Comment },
+  authors: { [string]: Author },
   selectedPostId: string,
   navigate: (url: string) => void,
   getPosts: () => void,
   selectPost: (id: string) => void,
   addComment: ({
-    postId: string,
+    post: Post,
     content: string,
     authorName: string,
     authorEmail: string,
@@ -41,10 +35,10 @@ type Props = {
 
 export class Page extends React.PureComponent<Props> {
   static defaultProps = {
-    // postList: [],
-    // posts: {},
-    // comments: {},
-    // authors: {},
+    postList: [],
+    posts: {},
+    comments: {},
+    authors: {},
     selectedPostId: '',
   };
 
@@ -55,15 +49,14 @@ export class Page extends React.PureComponent<Props> {
   render() {
     const {
       className,
-      /* postList,
+      postList,
       posts,
       comments,
-      authors, */
-      posts,
+      authors,
       selectedPostId,
     } = this.props;
     const { navigate, selectPost, addComment, deleteComment } = this.props;
-    const selectedPost = posts.find(post => post._id === selectedPostId) || {
+    const selectedPost = posts[selectedPostId] || {
       title: '',
       body: '',
       comments: [],
@@ -78,9 +71,9 @@ export class Page extends React.PureComponent<Props> {
         <div className="contentView">
           <SideNav
             className="titles"
-            list={posts.map(post => ({
-              id: post._id,
-              value: post.title,
+            list={postList.map(id => ({
+              id,
+              value: posts[id].title,
             }))}
             func={selectPost}
           />
@@ -93,13 +86,15 @@ export class Page extends React.PureComponent<Props> {
               <div className="title">Comments</div>
             ) : null}
             <div className="body">
-              {selectedPost.comments.map(({ _id, content, author }) => (
-                <div key={_id} className="comment">
-                  <button className="delete" onClick={() => deleteComment(_id)}>
+              {selectedPost.comments.map(id => (
+                <div key={id} className="comment">
+                  <button className="delete" onClick={() => deleteComment(id)}>
                     X
                   </button>
-                  <div className="author">{author.name}:</div>
-                  <div className="content">{content}</div>
+                  <div className="author">
+                    {authors[comments[id].author].name}:
+                  </div>
+                  <div className="content">{comments[id].content}</div>
                 </div>
               ))}
               {selectedPost ? (
@@ -107,7 +102,7 @@ export class Page extends React.PureComponent<Props> {
                   <Form
                     onSubmit={({ content, authorName, authorEmail }) =>
                       addComment({
-                        postId: selectedPostId,
+                        post: selectedPost,
                         content,
                         authorName,
                         authorEmail,
@@ -139,11 +134,10 @@ export class Page extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  // postList: state.getIn(['post', 'normalized', 'result']),
-  // posts: state.getIn(['post', 'normalized', 'entities', 'posts']),
-  // comments: state.getIn(['post', 'normalized', 'entities', 'comments']),
-  // authors: state.getIn(['post', 'normalized', 'entities', 'authors']),
-  posts: state.getIn(['post', 'data']),
+  postList: state.getIn(['post', 'result']),
+  posts: state.getIn(['post', 'entities']),
+  comments: state.getIn(['comment', 'entities']),
+  authors: state.getIn(['author', 'entities']),
   selectedPostId: state.getIn(['post', 'selected']),
 });
 
@@ -151,8 +145,8 @@ const mapDispatchToProps = dispatch => ({
   navigate: url => dispatch(push(url)),
   getPosts: () => dispatch(postActions.get()),
   selectPost: id => dispatch(postActions.select(id)),
-  addComment: ({ postId, content, authorName, authorEmail }) =>
-    dispatch(commentActions.add({ postId, content, authorName, authorEmail })),
+  addComment: ({ post, content, authorName, authorEmail }) =>
+    dispatch(commentActions.add({ post, content, authorName, authorEmail })),
   deleteComment: id => dispatch(commentActions.delete(id)),
 });
 

@@ -7,9 +7,10 @@ import {
   postActions,
   COMMENT,
   commentActions,
+  authorActions,
 } from 'controllers/actions/post';
 
-import postListSchema from 'controllers/schemas/post';
+import { PostList, Post } from 'controllers/schemas/post';
 
 const getPostListLogic = createLogic({
   type: POST.GET,
@@ -30,12 +31,30 @@ const getPostListLogic = createLogic({
         },
       }
     }`;
-    request('/post/', query)
+    request('/graphql/', query)
       .then(response => response.posts)
       .then(data => {
         dispatch(postActions.receive(data));
         // TODO: integrate normalize function into the action-manager reducer?
-        dispatch(postActions.normalize(normalize(data, postListSchema)));
+        const normalized = normalize(data, PostList);
+        dispatch(
+          postActions.normalize({
+            result: normalized.result || [],
+            entities: normalized.entities.posts || {},
+          }),
+        );
+        dispatch(
+          commentActions.normalize({
+            result: Object.keys(normalized.entities.comments || {}),
+            entities: normalized.entities.comments || {},
+          }),
+        );
+        dispatch(
+          authorActions.normalize({
+            result: Object.keys(normalized.entities.authors || {}),
+            entities: normalized.entities.authors || {},
+          }),
+        );
         dispatch(postActions.select(data[0]._id));
       })
       .catch(err => dispatch(postActions.error(err)))
@@ -46,15 +65,38 @@ const getPostListLogic = createLogic({
 const addCommentLogic = createLogic({
   type: COMMENT.ADD,
   process({ action }, dispatch, done) {
-    const { postId, content, authorName, authorEmail } = action.payload;
+    const { post, content, authorName, authorEmail } = action.payload;
+
+    // Optimistic UI
+    const commentId = 'fakeCommentId';
+    const authorId = 'fakeAuthorId';
+    const comment = {
+      _id: commentId,
+      content,
+      author: authorId,
+    };
+    const author = {
+      _id: authorId,
+      name: authorName,
+      email: authorEmail,
+    };
+    const updatePost = {
+      ...post,
+      comments: [...post.comments, commentId],
+    };
+    dispatch(commentActions.create(comment));
+    dispatch(authorActions.create(author));
+    dispatch(postActions.update({ [post._id]: updatePost }));
+
+    // Http Request
     const query = `mutation {
       addComment(
-        _id: "${postId}",
+        _id: "${updatePost._id}",
         input: {
-          content: "${content}",
+          content: "${comment.content}",
           author: {
-            name: "${authorName}",
-            email: "${authorEmail}",
+            name: "${author.name}",
+            email: "${author.email}",
           }
         }
       ) {
@@ -72,27 +114,60 @@ const addCommentLogic = createLogic({
         }
       }
     }`;
-    request('/post/', query)
-      .then(({ addComment }) => dispatch(commentActions.addSuccess(addComment)))
+    // TODO: error handling when optimistic fails
+    // TODO: cleanup fakeId and related objects
+    request('/graphql/', query)
+      .then(({ addComment }) => dispatch(commentActions.added(addComment)))
       .then(() => done());
+  },
+});
+
+const addedCommentLogic = createLogic({
+  type: COMMENT.ADDED,
+  process({ action }, dispatch, done) {
+    const update = action.payload;
+    const normalized = normalize(update, Post);
+    const { entities } = normalized;
+    const { authors, comments, posts } = entities;
+    dispatch(authorActions.created(authors));
+    dispatch(commentActions.created(comments));
+    dispatch(postActions.updated(posts));
+    done();
   },
 });
 
 const deleteCommentLogic = createLogic({
   type: COMMENT.DELETE,
-  process({ action }, dispatch, done) {
-    const { id } = action.payload;
+  process({ getState, action }, dispatch, done) {
+    const commentId = action.payload;
+    const selectedPostId = getState().getIn(['post', 'selected']);
+    const selectedPost = getState().getIn(['post', 'entities', selectedPostId]);
+    const updatedSelectedPost = selectedPost.update('comments', comments =>
+      comments.filter(id => id !== commentId),
+    );
+    dispatch(commentActions.remove(commentId));
+    dispatch(
+      postActions.update({
+        [selectedPostId]: updatedSelectedPost,
+      }),
+    );
     const query = `mutation {
-      deleteComment(_id: "${id}") {
+      deleteComment(_id: "${commentId}") {
         _id
       }
     }`;
-    request('/post/', query)
+    // TODO: error handling when optimistic fails
+    request('/graphql/', query)
       .then(({ deleteComment }) =>
-        dispatch(commentActions.deleteSuccess(deleteComment)),
+        dispatch(commentActions.deleted(deleteComment)),
       )
       .then(() => done());
   },
 });
 
-export default [getPostListLogic, addCommentLogic, deleteCommentLogic];
+export default [
+  getPostListLogic,
+  addCommentLogic,
+  addedCommentLogic,
+  deleteCommentLogic,
+];

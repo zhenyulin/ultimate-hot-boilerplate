@@ -1,23 +1,21 @@
 import { schema } from 'normalizr';
 
-const author = new schema.Entity('authors', {}, { idAttribute: '_id' });
+const Author = new schema.Entity('authors', {}, { idAttribute: '_id' });
 
-const comment = new schema.Entity(
+const Comment = new schema.Entity(
   'comments',
   {
-    author,
+    author: Author,
   },
   { idAttribute: '_id' },
 );
 
-export const post = new schema.Entity(
+export const Post = new schema.Entity(
   'posts',
   {
-    comments: [comment],
+    comments: [Comment],
   },
   { idAttribute: '_id' },
 );
 
-const postList = [post];
-
-export default postList;
+export const PostList = [Post];

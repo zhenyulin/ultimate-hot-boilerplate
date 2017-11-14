@@ -16,6 +16,7 @@ export type Comment = {
 export type Post = {
   _id: string,
   title: string,
+  body: string,
   comments: [string],
 };
 

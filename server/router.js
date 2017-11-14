@@ -1,14 +1,15 @@
 import express from 'express';
 
 import message from './handlers/message';
-import post from './handlers/post';
+import graphql from './handlers/graphql-post';
+import rest from './handlers/rest-post';
 import index from './handlers/index';
 
 const router = express.Router();
 
 router.use('/message', message);
-router.use('/post', post);
-router.use('/graphql', post);
+router.use('/graphql', graphql);
+router.use('/rest', rest);
 router.use('*', index);
 
 export default router;

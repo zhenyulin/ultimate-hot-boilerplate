@@ -7,8 +7,8 @@ import type { Action, AsyncActionNames, State, HandlerMap } from './types';
 const initialState = fromJS({
   meta: {
     status: ASYNC.IDLE,
-    isFetching: false,
-    isError: false,
+    processing: false,
+    faulty: false,
     error: {},
   },
   data: [],
@@ -24,26 +24,84 @@ export const defaultImmutableHandlerMap = (
     state.mergeDeep({
       meta: {
         status: ASYNC.PROCESS,
-        isFetching: true,
-        isError: false,
-      },
-    }),
-  [ASYNC_ACTION_NAMES.POST]: state =>
-    state.mergeDeep({
-      meta: {
-        status: ASYNC.PROCESS,
-        isFetching: true,
-        isError: false,
+        processing: true,
+        faulty: false,
       },
     }),
   [ASYNC_ACTION_NAMES.RECEIVE]: (state, action) =>
     state.mergeDeep({
       meta: {
         status: ASYNC.SUCCESS,
-        isFetching: false,
-        isError: false,
+        processing: false,
+        faulty: false,
       },
       data: action.payload,
+    }),
+  [ASYNC_ACTION_NAMES.CREATE]: (state, { payload }) =>
+    state
+      .mergeDeep({
+        meta: {
+          status: ASYNC.PROCESS,
+          processing: true,
+          faulty: false,
+        },
+        entities: { [payload._id]: payload },
+      })
+      .update('result', result => result.push(payload._id)),
+  [ASYNC_ACTION_NAMES.CREATED]: (state, { payload }) =>
+    state
+      .mergeDeep({
+        meta: {
+          status: ASYNC.SUCCESS,
+          processing: false,
+          faulty: false,
+        },
+        entities: payload,
+      })
+      .update('result', result => {
+        const newKeys = Object.keys(payload).filter(
+          key => !result.includes(key),
+        );
+        return result.concat(newKeys);
+      }),
+  [ASYNC_ACTION_NAMES.UPDATE]: (state, { payload }) =>
+    state
+      .mergeDeep({
+        meta: {
+          status: ASYNC.PROCESS,
+          processing: true,
+          faulty: false,
+        },
+      })
+      .update('entities', entities => entities.merge(payload)),
+  [ASYNC_ACTION_NAMES.UPDATED]: (state, { payload }) =>
+    state
+      .mergeDeep({
+        meta: {
+          status: ASYNC.SUCCESS,
+          processing: false,
+          faulty: false,
+        },
+      })
+      .update('entities', entities => entities.merge(payload)),
+  [ASYNC_ACTION_NAMES.REMOVE]: (state, { payload }) =>
+    state
+      .mergeDeep({
+        meta: {
+          status: ASYNC.PROCESS,
+          processing: true,
+          faulty: false,
+        },
+      })
+      .deleteIn(['entities', payload])
+      .update(result => result.filter(id => id !== payload)),
+  [ASYNC_ACTION_NAMES.REMOVED]: state =>
+    state.mergeDeep({
+      meta: {
+        status: ASYNC.SUCCESS,
+        processing: false,
+        faulty: false,
+      },
     }),
   [ASYNC_ACTION_NAMES.NORMALIZE]: (state, action) =>
     state.merge({
@@ -54,8 +112,8 @@ export const defaultImmutableHandlerMap = (
     state.mergeDeep({
       meta: {
         status: ASYNC.ERROR,
-        isFetching: false,
-        isError: true,
+        processing: false,
+        faulty: true,
         error: action.payload,
       },
     }),

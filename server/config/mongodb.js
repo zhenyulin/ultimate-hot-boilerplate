@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { MONGO_DB_URI } from 'server/constant';
+import { MONGO_DB_URI, MONGOOSE_DEBUG } from 'server/constant';
 
 const DB_OPTIONS = {
   useMongoClient: true,
@@ -12,7 +12,7 @@ export default function connectMongoDB() {
 
   /* istanbul ignore next */
   if (process.env.NODE_ENV === 'development') {
-    mongoose.set('debug', true);
+    mongoose.set('debug', MONGOOSE_DEBUG);
   }
 
   mongoose.connection.on('connected', () => {
