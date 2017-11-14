@@ -8,7 +8,7 @@ import type {
   Author,
   Comment,
   PopulatedPost,
-} from 'controllers/types/post';
+} from 'controllers/types/blog';
 import type { State } from 'utils/action-manager';
 
 export const getPostData = (state: State): Map<string, PopulatedPost> =>

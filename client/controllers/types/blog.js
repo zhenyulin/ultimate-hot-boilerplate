@@ -36,8 +36,8 @@ export type PopulatedPost = {
 export type PostState = {
   meta: {
     status: string,
-    isFetching: boolean,
-    isError: boolean,
+    processing: boolean,
+    faulty: boolean,
     error: {},
   },
   data: List<PopulatedPost>,

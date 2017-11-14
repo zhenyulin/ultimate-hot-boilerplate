@@ -1,4 +1,4 @@
-import postLogics from './post';
+import blogLogics from './blog';
 import messageLogics from './message';
 
-export default [...postLogics, ...messageLogics];
+export default [...blogLogics, ...messageLogics];

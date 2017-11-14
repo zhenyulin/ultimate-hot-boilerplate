@@ -2,7 +2,12 @@
 
 import { fromJS } from 'immutable';
 import { ASYNC } from './constant';
-import type { Action, AsyncActionNames, State, HandlerMap } from './types';
+import type {
+  Action,
+  DefaultAsyncActionNames,
+  State,
+  HandlerMap,
+} from './types';
 
 const initialState = fromJS({
   meta: {
@@ -18,7 +23,7 @@ const initialState = fromJS({
 });
 
 export const defaultImmutableHandlerMap = (
-  ASYNC_ACTION_NAMES: AsyncActionNames,
+  ASYNC_ACTION_NAMES: DefaultAsyncActionNames,
 ) => ({
   [ASYNC_ACTION_NAMES.GET]: state =>
     state.mergeDeep({
@@ -28,7 +33,7 @@ export const defaultImmutableHandlerMap = (
         faulty: false,
       },
     }),
-  [ASYNC_ACTION_NAMES.RECEIVE]: (state, action) =>
+  [ASYNC_ACTION_NAMES.GOT]: (state, action) =>
     state.mergeDeep({
       meta: {
         status: ASYNC.SUCCESS,
@@ -84,7 +89,7 @@ export const defaultImmutableHandlerMap = (
         },
       })
       .update('entities', entities => entities.merge(payload)),
-  [ASYNC_ACTION_NAMES.REMOVE]: (state, { payload }) =>
+  [ASYNC_ACTION_NAMES.DELETE]: (state, { payload }) =>
     state
       .mergeDeep({
         meta: {
@@ -95,7 +100,7 @@ export const defaultImmutableHandlerMap = (
       })
       .deleteIn(['entities', payload])
       .update(result => result.filter(id => id !== payload)),
-  [ASYNC_ACTION_NAMES.REMOVED]: state =>
+  [ASYNC_ACTION_NAMES.DELETED]: state =>
     state.mergeDeep({
       meta: {
         status: ASYNC.SUCCESS,
@@ -133,7 +138,7 @@ export const createReducers = (handlerMap: HandlerMap) => (
 };
 
 export const defaultImmutableAsyncReducers = (
-  ASYNC_ACTION_NAMES: AsyncActionNames,
+  ASYNC_ACTION_NAMES: DefaultAsyncActionNames,
 ) => createReducers(defaultImmutableHandlerMap(ASYNC_ACTION_NAMES));
 
 // *TODO: adding normal javascript state store support

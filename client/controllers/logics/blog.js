@@ -3,17 +3,17 @@ import { createLogic } from 'redux-logic';
 import { normalize } from 'normalizr';
 
 import {
-  POST,
-  postActions,
-  COMMENT,
-  commentActions,
-  authorActions,
-} from 'controllers/actions/post';
+  POSTS,
+  Posts,
+  COMMENTS,
+  Comments,
+  Authors,
+} from 'controllers/actions/blog';
 
-import { PostList, Post } from 'controllers/schemas/post';
+import { PopulatedPostList, PopulatedPost } from 'controllers/schemas/blog';
 
-const getPostListLogic = createLogic({
-  type: POST.GET,
+const getPostsLogic = createLogic({
+  type: POSTS.GET,
   process(deps, dispatch, done) {
     const query = `{
       posts {
@@ -34,36 +34,35 @@ const getPostListLogic = createLogic({
     request('/graphql/', query)
       .then(response => response.posts)
       .then(data => {
-        dispatch(postActions.receive(data));
-        // TODO: integrate normalize function into the action-manager reducer?
-        const normalized = normalize(data, PostList);
+        dispatch(Posts.got(data));
+        const normalized = normalize(data, PopulatedPostList);
         dispatch(
-          postActions.normalize({
+          Posts.normalize({
             result: normalized.result || [],
             entities: normalized.entities.posts || {},
           }),
         );
         dispatch(
-          commentActions.normalize({
+          Comments.normalize({
             result: Object.keys(normalized.entities.comments || {}),
             entities: normalized.entities.comments || {},
           }),
         );
         dispatch(
-          authorActions.normalize({
+          Authors.normalize({
             result: Object.keys(normalized.entities.authors || {}),
             entities: normalized.entities.authors || {},
           }),
         );
-        dispatch(postActions.select(data[0]._id));
+        dispatch(Posts.select(data[0]._id));
       })
-      .catch(err => dispatch(postActions.error(err)))
+      .catch(err => dispatch(Posts.error(err)))
       .then(() => done());
   },
 });
 
 const addCommentLogic = createLogic({
-  type: COMMENT.ADD,
+  type: COMMENTS.ADD,
   process({ action }, dispatch, done) {
     const { post, content, authorName, authorEmail } = action.payload;
 
@@ -84,11 +83,11 @@ const addCommentLogic = createLogic({
       ...post,
       comments: [...post.comments, commentId],
     };
-    dispatch(commentActions.create(comment));
-    dispatch(authorActions.create(author));
-    dispatch(postActions.update({ [post._id]: updatePost }));
+    dispatch(Comments.create(comment));
+    dispatch(Authors.create(author));
+    dispatch(Posts.update({ [post._id]: updatePost }));
 
-    // Http Request
+    // GraphQL Request
     const query = `mutation {
       addComment(
         _id: "${updatePost._id}",
@@ -117,37 +116,42 @@ const addCommentLogic = createLogic({
     // TODO: error handling when optimistic fails
     // TODO: cleanup fakeId and related objects
     request('/graphql/', query)
-      .then(({ addComment }) => dispatch(commentActions.added(addComment)))
+      .then(({ addComment }) => dispatch(Comments.added(addComment)))
       .then(() => done());
   },
 });
 
 const addedCommentLogic = createLogic({
-  type: COMMENT.ADDED,
+  type: COMMENTS.ADDED,
   process({ action }, dispatch, done) {
     const update = action.payload;
-    const normalized = normalize(update, Post);
+    const normalized = normalize(update, PopulatedPost);
     const { entities } = normalized;
     const { authors, comments, posts } = entities;
-    dispatch(authorActions.created(authors));
-    dispatch(commentActions.created(comments));
-    dispatch(postActions.updated(posts));
+    dispatch(Authors.created(authors));
+    dispatch(Comments.created(comments));
+    dispatch(Posts.updated(posts));
     done();
   },
 });
 
 const deleteCommentLogic = createLogic({
-  type: COMMENT.DELETE,
+  type: COMMENTS.REMOVE,
   process({ getState, action }, dispatch, done) {
     const commentId = action.payload;
-    const selectedPostId = getState().getIn(['post', 'selected']);
-    const selectedPost = getState().getIn(['post', 'entities', selectedPostId]);
+    const selectedPostId = getState().getIn(['blog', 'posts', 'selected']);
+    const selectedPost = getState().getIn([
+      'blog',
+      'posts',
+      'entities',
+      selectedPostId,
+    ]);
     const updatedSelectedPost = selectedPost.update('comments', comments =>
       comments.filter(id => id !== commentId),
     );
-    dispatch(commentActions.remove(commentId));
+    dispatch(Comments.delete(commentId));
     dispatch(
-      postActions.update({
+      Posts.update({
         [selectedPostId]: updatedSelectedPost,
       }),
     );
@@ -158,15 +162,13 @@ const deleteCommentLogic = createLogic({
     }`;
     // TODO: error handling when optimistic fails
     request('/graphql/', query)
-      .then(({ deleteComment }) =>
-        dispatch(commentActions.deleted(deleteComment)),
-      )
+      .then(({ deleteComment }) => dispatch(Comments.deleted(deleteComment)))
       .then(() => done());
   },
 });
 
 export default [
-  getPostListLogic,
+  getPostsLogic,
   addCommentLogic,
   addedCommentLogic,
   deleteCommentLogic,

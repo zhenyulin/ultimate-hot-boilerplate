@@ -9,8 +9,8 @@ import { Form, Text, TextArea } from 'react-form';
 
 import BasicButton from 'components/elements/basic-button';
 import SideNav from 'components/widgets/side-nav';
-import { postActions, commentActions } from 'controllers/actions/post';
-import type { Post, Comment, Author } from 'controllers/types/post';
+import { Posts, Comments } from 'controllers/actions/blog';
+import type { Post, Comment, Author } from 'controllers/types/blog';
 
 import immutableToJS from 'utils/components/immutable-to-js';
 
@@ -30,7 +30,7 @@ type Props = {
     authorName: string,
     authorEmail: string,
   }) => void,
-  deleteComment: (id: string) => void,
+  removeComment: (id: string) => void,
 };
 
 export class Page extends React.PureComponent<Props> {
@@ -55,7 +55,7 @@ export class Page extends React.PureComponent<Props> {
       authors,
       selectedPostId,
     } = this.props;
-    const { navigate, selectPost, addComment, deleteComment } = this.props;
+    const { navigate, selectPost, addComment, removeComment } = this.props;
     const selectedPost = posts[selectedPostId] || {
       title: '',
       body: '',
@@ -82,13 +82,11 @@ export class Page extends React.PureComponent<Props> {
             <div className="body">{selectedPost.body}</div>
           </div>
           <div className="comments">
-            {selectedPost.comments.length ? (
-              <div className="title">Comments</div>
-            ) : null}
+            {selectedPost ? <div className="title">Comments</div> : null}
             <div className="body">
               {selectedPost.comments.map(id => (
                 <div key={id} className="comment">
-                  <button className="delete" onClick={() => deleteComment(id)}>
+                  <button className="delete" onClick={() => removeComment(id)}>
                     X
                   </button>
                   <div className="author">
@@ -134,20 +132,20 @@ export class Page extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  postList: state.getIn(['post', 'result']),
-  posts: state.getIn(['post', 'entities']),
-  comments: state.getIn(['comment', 'entities']),
-  authors: state.getIn(['author', 'entities']),
-  selectedPostId: state.getIn(['post', 'selected']),
+  postList: state.getIn(['blog', 'posts', 'result']),
+  posts: state.getIn(['blog', 'posts', 'entities']),
+  comments: state.getIn(['blog', 'comments', 'entities']),
+  authors: state.getIn(['blog', 'authors', 'entities']),
+  selectedPostId: state.getIn(['blog', 'posts', 'selected']),
 });
 
 const mapDispatchToProps = dispatch => ({
   navigate: url => dispatch(push(url)),
-  getPosts: () => dispatch(postActions.get()),
-  selectPost: id => dispatch(postActions.select(id)),
+  getPosts: () => dispatch(Posts.get()),
+  selectPost: id => dispatch(Posts.select(id)),
   addComment: ({ post, content, authorName, authorEmail }) =>
-    dispatch(commentActions.add({ post, content, authorName, authorEmail })),
-  deleteComment: id => dispatch(commentActions.delete(id)),
+    dispatch(Comments.add({ post, content, authorName, authorEmail })),
+  removeComment: id => dispatch(Comments.remove(id)),
 });
 
 const component = styled(Page)`

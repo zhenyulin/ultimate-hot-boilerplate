@@ -6,20 +6,27 @@ export type Name = string;
 export type Action = {
   type: Name,
   payload?: mixed,
-  effect?: mixed,
 };
 
-export type ActionCreator = (payload?: mixed, effect?: mixed) => Action;
+export type ActionCreator = (payload?: mixed) => Action;
 
-export type AsyncActionNames = {
+export type ActionNames = {
+  [string]: Name,
+};
+
+export type Actions = {
+  [string]: ActionCreator,
+};
+
+export type DefaultAsyncActionNames = {
   GET: Name,
-  RECEIVE: Name,
+  GOT: Name,
   CREATE: Name,
   CREATED: Name,
   UPDATE: Name,
   UPDATED: Name,
-  REMOVE: Name,
-  REMOVED: Name,
+  DELETE: Name,
+  DELETED: Name,
   NORMALIZE: Name,
   ERROR: Name,
   RESET: Name,
@@ -27,19 +34,15 @@ export type AsyncActionNames = {
   CANCEL: Name,
 };
 
-export type ActionNamesCollection = {
-  [string]: Name,
-};
-
-export type AsyncActions = {
+export type DefaultAsyncActions = {
   get: ActionCreator,
-  receive: ActionCreator,
+  got: ActionCreator,
   create: ActionCreator,
   created: ActionCreator,
   update: ActionCreator,
   updated: ActionCreator,
-  remove: ActionCreator,
-  removed: ActionCreator,
+  delete: ActionCreator,
+  deleted: ActionCreator,
   normalize: ActionCreator,
   error: ActionCreator,
   reset: ActionCreator,
@@ -47,11 +50,7 @@ export type AsyncActions = {
   cancel: ActionCreator,
 };
 
-export type ActionsCollection = {
-  [string]: ActionCreator,
-};
-
-export type AsyncActionBundle = [AsyncActionNames, AsyncActions];
+export type AsyncActionBundle = [DefaultAsyncActionNames, DefaultAsyncActions];
 
 export type ActionBundle = [Name, ActionCreator];
 
@@ -72,5 +71,5 @@ export type HandlerMap = {
 
 export type ManagerAction = {
   type: Name,
-  payload: AsyncActionNames | Name,
+  payload: ActionNames | Name,
 };

@@ -2,61 +2,23 @@
 
 import type {
   Name,
-  AsyncActionNames,
-  AsyncActions,
+  DefaultAsyncActionNames,
+  DefaultAsyncActions,
   ActionCreator,
   ActionBundle,
   AsyncActionBundle,
-  ActionNamesCollection,
-  ActionsCollection,
+  ActionNames,
+  Actions,
 } from './types';
 
-export const defaultAction = (ACTION_NAME: Name): ActionCreator => (
-  payload,
-  effect,
-) => ({
+export const defaultAction = (ACTION_NAME: Name): ActionCreator => payload => ({
   type: ACTION_NAME,
   payload,
-  effect,
-});
-
-export const asyncActionNames = (name: Name): AsyncActionNames => ({
-  GET: `${name}/GET`,
-  RECEIVE: `${name}/RECEIVE`,
-  CREATE: `${name}/CREATE`,
-  CREATED: `${name}/CREATED`,
-  UPDATE: `${name}/UPDATE`,
-  UPDATED: `${name}/UPDATED`,
-  REMOVE: `${name}/REMOVE`,
-  REMOVED: `${name}/REMOVED`,
-  NORMALIZE: `${name}/NORMALIZE`,
-  ERROR: `${name}/ERROR`,
-  RESET: `${name}/RESET`,
-  SELECT: `${name}/SELECT`,
-  CANCEL: `${name}/CANCEL`,
-});
-
-export const defaultAsyncActions = (
-  ASYNC_ACTION_NAMES: AsyncActionNames,
-): AsyncActions => ({
-  get: defaultAction(ASYNC_ACTION_NAMES.GET),
-  receive: defaultAction(ASYNC_ACTION_NAMES.RECEIVE),
-  create: defaultAction(ASYNC_ACTION_NAMES.CREATE),
-  created: defaultAction(ASYNC_ACTION_NAMES.CREATED),
-  update: defaultAction(ASYNC_ACTION_NAMES.UPDATE),
-  updated: defaultAction(ASYNC_ACTION_NAMES.UPDATED),
-  remove: defaultAction(ASYNC_ACTION_NAMES.REMOVE),
-  removed: defaultAction(ASYNC_ACTION_NAMES.REMOVED),
-  normalize: defaultAction(ASYNC_ACTION_NAMES.NORMALIZE),
-  error: defaultAction(ASYNC_ACTION_NAMES.ERROR),
-  reset: defaultAction(ASYNC_ACTION_NAMES.RESET),
-  select: defaultAction(ASYNC_ACTION_NAMES.SELECT),
-  cancel: defaultAction(ASYNC_ACTION_NAMES.CANCEL),
 });
 
 export const createActionsFromNames = (
-  ACTION_NAMES_COLLECTION: ActionNamesCollection,
-): ActionsCollection =>
+  ACTION_NAMES_COLLECTION: ActionNames,
+): Actions =>
   Object.keys(ACTION_NAMES_COLLECTION).reduce(
     (actions, key) => ({
       ...actions,
@@ -65,14 +27,36 @@ export const createActionsFromNames = (
     {},
   );
 
-export const actionBundle = (name: Name): ActionBundle => {
+export const defaultAsyncActionNames = (
+  name: Name,
+): DefaultAsyncActionNames => ({
+  GET: `${name}/GET`,
+  GOT: `${name}/GOT`,
+  CREATE: `${name}/CREATE`,
+  CREATED: `${name}/CREATED`,
+  UPDATE: `${name}/UPDATE`,
+  UPDATED: `${name}/UPDATED`,
+  DELETE: `${name}/DELETE`,
+  DELETED: `${name}/DELETED`,
+  NORMALIZE: `${name}/NORMALIZE`,
+  ERROR: `${name}/ERROR`,
+  RESET: `${name}/RESET`,
+  SELECT: `${name}/SELECT`,
+  CANCEL: `${name}/CANCEL`,
+});
+
+export const defaultAsyncActions = (
+  ASYNC_ACTION_NAMES: DefaultAsyncActionNames,
+): DefaultAsyncActions => createActionsFromNames(ASYNC_ACTION_NAMES);
+
+export const defaultActionBundle = (name: Name): ActionBundle => {
   const ACTION_NAME = name;
   const action = defaultAction(ACTION_NAME);
   return [ACTION_NAME, action];
 };
 
-export const asyncActionBundle = (name: Name): AsyncActionBundle => {
-  const ACTION_NAMES = asyncActionNames(name);
+export const defaultAsyncActionBundle = (name: Name): AsyncActionBundle => {
+  const ACTION_NAMES = defaultAsyncActionNames(name);
   const defaultActions = defaultAsyncActions(ACTION_NAMES);
   return [ACTION_NAMES, defaultActions];
 };

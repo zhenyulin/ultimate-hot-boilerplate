@@ -7,7 +7,7 @@
 
 // @flow
 import { Set } from 'immutable';
-import type { ManagerAction, AsyncActionNames } from './types';
+import type { ManagerAction, ActionNames } from './types';
 
 export const ACTION_MANAGER = {
   REGISTER: '@ActionManager/register',
@@ -17,7 +17,7 @@ const initialState = Set();
 
 const register = (
   state: Set<string>,
-  actionName: AsyncActionNames | string,
+  actionName: ActionNames | string,
 ): Set<String> => {
   const toBeRegistered =
     typeof actionName === 'string'
