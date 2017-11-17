@@ -11,9 +11,13 @@ import type {
   Actions,
 } from './types';
 
-export const defaultAction = (ACTION_NAME: Name): ActionCreator => payload => ({
+export const defaultAction = (ACTION_NAME: Name): ActionCreator => (
+  payload,
+  meta,
+) => ({
   type: ACTION_NAME,
   payload,
+  meta,
 });
 
 export const createActionsFromNames = (

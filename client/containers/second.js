@@ -90,9 +90,13 @@ export class Page extends React.PureComponent<Props> {
                     X
                   </button>
                   <div className="author">
-                    {authors[comments[id].author].name}:
+                    {comments[id] && authors[comments[id].author]
+                      ? authors[comments[id].author].name
+                      : null}:
                   </div>
-                  <div className="content">{comments[id].content}</div>
+                  <div className="content">
+                    {comments[id] ? comments[id].content : null}
+                  </div>
                 </div>
               ))}
               {selectedPost ? (

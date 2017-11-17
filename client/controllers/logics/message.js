@@ -9,7 +9,7 @@ const getMessageLogic = createLogic({
     const index = getState().getIn(['count']);
     fetch(`/message/${index}`)
       .then(response => response.json())
-      .then(data => dispatch(messageActions.receive(data)))
+      .then(data => dispatch(messageActions.got(data)))
       .catch(err => dispatch(messageActions.error(err)))
       .then(() => done());
   },

@@ -1,10 +1,13 @@
 import path from 'path';
 import express from 'express';
+import bodyParser from 'body-parser';
 
 import router from './router';
 import connectMongoDB from './config/mongodb';
 
 const app = express();
+// TODO: connectMongoDB in server.js only during test
+// move the function to index.js
 connectMongoDB();
 
 /* istanbul ignore next */
@@ -29,6 +32,9 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve('./dist/')));
 }
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(router);
 
