@@ -92,8 +92,8 @@ const resolvers = {
         { email: input.author.email },
         input.author,
       );
-      const inputWithAuthorId = { ...input, author };
-      const comment = await Comment.create(inputWithAuthorId);
+      const inputWithPopulatedAuthor = { ...input, author };
+      const comment = await Comment.create(inputWithPopulatedAuthor);
       post.comments.push(comment._id);
       await post.save();
       const updated = await Post.populate(post, {

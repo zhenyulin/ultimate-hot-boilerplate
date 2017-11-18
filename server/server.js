@@ -6,8 +6,6 @@ import router from './router';
 import connectMongoDB from './config/mongodb';
 
 const app = express();
-// TODO: connectMongoDB in server.js only during test
-// move the function to index.js
 connectMongoDB();
 
 /* istanbul ignore next */

@@ -1,8 +1,8 @@
 import express from 'express';
 
 import message from './handlers/message';
-import graphql from './handlers/graphql-post';
-import rest from './handlers/rest-post';
+import graphql from './handlers/post.graphql';
+import rest from './handlers/post.rest';
 import index from './handlers/index';
 
 const router = express.Router();

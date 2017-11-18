@@ -20,6 +20,8 @@ const POSTS = [
   },
 ];
 
+const ENDPOINT = '/graphql';
+
 describe('message API', () => {
   beforeEach(async () => {
     await Post.remove();
@@ -31,7 +33,7 @@ describe('message API', () => {
       posts { title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(POSTS).toMatchObject(response.body.data.posts);
@@ -42,7 +44,7 @@ describe('message API', () => {
       posts(_id: "4edd40c86762e0fb12000003") { title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(POSTS[0]).toMatchObject(response.body.data.posts[0]);
@@ -54,7 +56,7 @@ describe('message API', () => {
       createPost(title: "Post 3", body: "Content of Post 3") { _id, title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.data.createPost).toMatchObject({
@@ -63,7 +65,7 @@ describe('message API', () => {
     });
     const newQuery = `{ posts { title, body } }`;
     const newResponse = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query: newQuery });
     expect(newResponse.body.data.posts).toHaveLength(3);
   });
@@ -73,7 +75,7 @@ describe('message API', () => {
       updatePost(_id: "4edd40c86762e0fb12000003", input: {title: "Lord of Rings", body: "The storm shall begin."}) { _id, title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.data.updatePost).toMatchObject({
@@ -88,7 +90,7 @@ describe('message API', () => {
       updatePost(_id: "4edd40c86762e0fb1200000k", input: {title: "Lord of Rings", body: "The storm shall begin."}) { _id, title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.errors).toBeDefined();
@@ -99,7 +101,7 @@ describe('message API', () => {
       deletePost(_id: "4edd40c86762e0fb12000003") { _id, title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.data.deletePost).toMatchObject({
@@ -109,7 +111,7 @@ describe('message API', () => {
     });
     const newQuery = `{ posts { title, body } }`;
     const newResponse = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query: newQuery });
     expect(newResponse.body.data.posts).toHaveLength(1);
   });
@@ -119,7 +121,7 @@ describe('message API', () => {
       deletePost(_id: "4edd40c86762e0fb1200000k") { _id, title, body }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.errors).toBeDefined();
@@ -151,7 +153,7 @@ describe('message API', () => {
       }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.data.addComment).toMatchObject({
@@ -196,7 +198,7 @@ describe('message API', () => {
       }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.errors).toBeDefined();
@@ -228,7 +230,7 @@ describe('message API', () => {
       }
     }`;
     const response = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(response.body.data.addComment).toMatchObject({
@@ -270,7 +272,7 @@ describe('message API', () => {
       }
     }`;
     const secondResponse = await request(app)
-      .post('/post')
+      .post(ENDPOINT)
       .send({ query: secondQuery });
     expect(secondResponse.statusCode).toBe(200);
     expect(secondResponse.body.data.addComment).toMatchObject({

@@ -6,7 +6,8 @@ const DB_OPTIONS = {
 };
 
 export default function connectMongoDB() {
-  console.time('mongodb connected');
+  const DB_CONNECT = 'mongodb connected';
+  console.time(DB_CONNECT);
   mongoose.Promise = global.Promise;
   mongoose.connect(MONGO_DB_URI, DB_OPTIONS);
 
@@ -16,7 +17,7 @@ export default function connectMongoDB() {
   }
 
   mongoose.connection.on('connected', () => {
-    console.timeEnd('mongodb connected');
+    console.timeEnd(DB_CONNECT);
   });
 
   return mongoose.connection;
