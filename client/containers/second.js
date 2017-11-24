@@ -4,15 +4,16 @@ import * as React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { push } from 'react-router-redux';
 import { Form, Text, TextArea } from 'react-form';
 
-import BasicButton from 'components/elements/basic-button';
+import CommonPage from 'components/templates/common-page';
 import SideNav from 'components/widgets/side-nav';
 import { Posts, Comments } from 'controllers/actions/blog';
 import type { Post, Comment, Author } from 'controllers/types/blog';
 
 import immutableToJS from 'utils/components/immutable-to-js';
+
+import { pages } from 'router';
 
 type Props = {
   className: string,
@@ -21,7 +22,6 @@ type Props = {
   comments: { [string]: Comment },
   authors: { [string]: Author },
   selectedPostId: string,
-  navigate: (url: string) => void,
   getPosts: () => void,
   selectPost: (id: string) => void,
   addComment: ({
@@ -55,19 +55,14 @@ export class Page extends React.PureComponent<Props> {
       authors,
       selectedPostId,
     } = this.props;
-    const { navigate, selectPost, addComment, removeComment } = this.props;
+    const { selectPost, addComment, removeComment } = this.props;
     const selectedPost = posts[selectedPostId] || {
       title: '',
       body: '',
       comments: [],
     };
     return (
-      <div className={className}>
-        <BasicButton
-          className="navButton"
-          func={() => navigate('/')}
-          text="Back to Index"
-        />
+      <CommonPage className={className} pages={pages}>
         <div className="contentView">
           <SideNav
             className="titles"
@@ -130,7 +125,7 @@ export class Page extends React.PureComponent<Props> {
             </div>
           </div>
         </div>
-      </div>
+      </CommonPage>
     );
   }
 }
@@ -144,7 +139,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  navigate: url => dispatch(push(url)),
   getPosts: () => dispatch(Posts.get()),
   selectPost: id => dispatch(Posts.select(id)),
   addComment: ({ post, content, authorName, authorEmail }) =>
@@ -153,15 +147,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const component = styled(Page)`
-  width: 640px;
-  margin: 240px auto;
-  line-height: 30px;
-
-  .actionButton {
-    background: lightblue;
-    color: white;
-  }
-
   .titles {
     display: inline-block;
     float: left;
