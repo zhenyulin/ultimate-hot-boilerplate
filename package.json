@@ -87,7 +87,7 @@
     "redux-devtools-extension": "^2.13.2",
     "start-server-webpack-plugin": "^2.2.0",
     "stylelint": "^8.2.0",
-    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-standard": "^18.0.0",
     "stylelint-processor-styled-components": "^1.0.0",
     "supertest": "^3.0.0",
     "testcafe": "^0.18.1",
