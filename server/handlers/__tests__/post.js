@@ -46,7 +46,7 @@ describe('message API', () => {
       .send({ query });
     expect(response.statusCode).toBe(200);
     expect(POSTS[0]).toMatchObject(response.body.data.posts[0]);
-    expect(response.body.data.posts.length).toBe(1);
+    expect(response.body.data.posts).toHaveLength(1);
   });
 
   it('return correct posts after create a new post', async () => {
@@ -65,7 +65,7 @@ describe('message API', () => {
     const newResponse = await request(app)
       .post('/post')
       .send({ query: newQuery });
-    expect(newResponse.body.data.posts.length).toBe(3);
+    expect(newResponse.body.data.posts).toHaveLength(3);
   });
 
   it('return correct post after update an existing post', async () => {
@@ -111,7 +111,7 @@ describe('message API', () => {
     const newResponse = await request(app)
       .post('/post')
       .send({ query: newQuery });
-    expect(newResponse.body.data.posts.length).toBe(1);
+    expect(newResponse.body.data.posts).toHaveLength(1);
   });
 
   it('return error message if the _id of post to be deleted not found', async () => {
