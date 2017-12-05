@@ -40,7 +40,7 @@ export const defaultImmutableHandlerMap = (
         processing: false,
         faulty: false,
       },
-      data: action.payload,
+      data: Array.isArray(action.payload) ? action.payload : [action.payload],
     }),
   [ASYNC_ACTION_NAMES.CREATE]: (state, { payload }) =>
     state
