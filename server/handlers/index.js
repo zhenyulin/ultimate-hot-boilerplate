@@ -2,6 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
+/* istanbul ignore next */
 router.get('/', (req, res) => {
   if (process.env.NODE_ENV === 'production') {
     const render = require('server/render').default;

@@ -10,6 +10,7 @@ export default function connectMongoDB() {
   mongoose.Promise = global.Promise;
   mongoose.connect(MONGO_DB_URI, DB_OPTIONS);
 
+  /* istanbul ignore next */
   if (process.env.NODE_ENV === 'development') {
     mongoose.set('debug', true);
   }
