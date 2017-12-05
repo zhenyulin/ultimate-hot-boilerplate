@@ -113,15 +113,17 @@ export const defaultImmutableHandlerMap = (
       entities: action.payload.entities,
       result: action.payload.result,
     }),
-  [ASYNC_ACTION_NAMES.ERROR]: (state, action) =>
-    state.mergeDeep({
+  [ASYNC_ACTION_NAMES.ERROR]: (state, action) => {
+    console.log(action.type, ':', action.payload);
+    return state.mergeDeep({
       meta: {
         status: ASYNC.ERROR,
         processing: false,
         faulty: true,
         error: action.payload,
       },
-    }),
+    });
+  },
   [ASYNC_ACTION_NAMES.RESET]: state => state.mergeDeep(initialState),
   [ASYNC_ACTION_NAMES.SELECT]: (state, action) =>
     state.merge({
