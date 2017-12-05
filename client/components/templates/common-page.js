@@ -32,7 +32,6 @@ export class CommonPage extends React.PureComponent {
 }
 
 export default styled(CommonPage)`
-  font-family: 'Helvetica';
   line-height: 30px;
 
   .children {

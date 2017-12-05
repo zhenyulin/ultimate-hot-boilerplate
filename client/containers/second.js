@@ -103,7 +103,8 @@ export class Page extends React.PureComponent<Props> {
                         content,
                         authorName,
                         authorEmail,
-                      })}
+                      })
+                    }
                   >
                     {formApi => (
                       <form onSubmit={formApi.submitForm}>
