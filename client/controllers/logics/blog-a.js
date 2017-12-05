@@ -10,7 +10,7 @@ import {
   Comments,
   AUTHORS,
   Authors,
-} from 'controllers/actions/blog';
+} from 'controllers/actions/blog-a';
 
 import { Post, Comment, Author } from 'controllers/schemas/blog';
 

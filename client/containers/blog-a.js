@@ -8,7 +8,7 @@ import { Form, Text, TextArea } from 'react-form';
 
 import CommonPage from 'components/templates/common-page';
 import SideNav from 'components/widgets/side-nav';
-import { Posts, Comments } from 'controllers/actions/blog';
+import { Posts, Comments } from 'controllers/actions/blog-a';
 import type { Post, Comment, Author } from 'controllers/types/blog';
 
 import immutableToJS from 'utils/components/immutable-to-js';
@@ -63,6 +63,7 @@ export class Page extends React.PureComponent<Props> {
     };
     return (
       <CommonPage className={className} pages={pages}>
+        <div className="note">built with Normalizr Redux State and RESTful</div>
         <div className="contentView">
           <SideNav
             className="titles"
@@ -132,11 +133,11 @@ export class Page extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  postList: state.getIn(['blog', 'posts', 'result']),
-  posts: state.getIn(['blog', 'posts', 'entities']),
-  comments: state.getIn(['blog', 'comments', 'entities']),
-  authors: state.getIn(['blog', 'authors', 'entities']),
-  selectedPostId: state.getIn(['blog', 'posts', 'selected']),
+  postList: state.getIn(['blogA', 'posts', 'result']),
+  posts: state.getIn(['blogA', 'posts', 'entities']),
+  comments: state.getIn(['blogA', 'comments', 'entities']),
+  authors: state.getIn(['blogA', 'authors', 'entities']),
+  selectedPostId: state.getIn(['blogA', 'posts', 'selected']),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -157,7 +158,7 @@ const component = styled(Page)`
   .postContent {
     display: inline-block;
     float: left;
-    width: 320px;
+    width: 420px;
     margin: 20px;
     font-size: 14px;
 
@@ -168,10 +169,10 @@ const component = styled(Page)`
   }
 
   .comments {
-    margin-top: 20px;
+    margin: 20px 0 0 40px;
     display: inline-block;
     float: left;
-    width: 160px;
+    width: 120px;
     font-size: 14px;
 
     .title {

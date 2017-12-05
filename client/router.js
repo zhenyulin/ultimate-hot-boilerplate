@@ -6,11 +6,13 @@ import { Route, Switch, Redirect } from 'react-router';
 import { pagenameToRoute } from 'utils/parser/routes';
 
 import Home from 'containers/home';
-import Second from 'containers/second';
+import BlogA from 'containers/blog-a';
+import BlogB from 'containers/blog-b';
 
 const pagesToComponent = {
   Home,
-  Second,
+  BlogA,
+  BlogB,
 };
 
 export const pages = Object.keys(pagesToComponent);
