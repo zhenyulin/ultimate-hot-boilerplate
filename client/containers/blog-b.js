@@ -27,7 +27,7 @@ type Props = {
     authorName: string,
     authorEmail: string,
   }) => void,
-  deleteComment: ({ commentId: string }) => void,
+  deleteComment: ({ postId: string, commentId: string }) => void,
 };
 
 export class Page extends React.PureComponent<Props> {
@@ -69,7 +69,9 @@ export class Page extends React.PureComponent<Props> {
                 <div key={_id} className="comment">
                   <button
                     className="delete"
-                    onClick={() => deleteComment({ commentId: _id })}
+                    onClick={() =>
+                      deleteComment({ postId: selectedPostId, commentId: _id })
+                    }
                   >
                     X
                   </button>
@@ -140,6 +142,7 @@ const component = styled(Page)`
     width: 320px;
     margin: 20px;
     font-size: 14px;
+
     .title {
       font-weight: bold;
       line-height: 40px;
@@ -162,9 +165,11 @@ const component = styled(Page)`
       border-top: 1px solid lightgrey;
       padding: 5px 0;
       font-size: 13px;
+
       .author {
         color: darkgrey;
       }
+
       .content {
         color: grey;
       }
@@ -222,9 +227,18 @@ const ADD_COMMENT = gql`
 `;
 
 const DELETE_COMMENT = gql`
-  mutation($commentId: ID!) {
-    deleteComment(_id: $commentId) {
+  mutation($postId: ID!, $commentId: ID!) {
+    deleteComment(id: $postId, cid: $commentId) {
       _id
+      comments {
+        _id
+        content
+        author {
+          _id
+          name
+          email
+        }
+      }
     }
   }
 `;
@@ -291,15 +305,23 @@ export default compose(
     }),
   }),
   graphql(DELETE_COMMENT, {
-    props: ({ mutate }) => ({
-      deleteComment: ({ commentId }) =>
+    props: ({ ownProps, mutate }) => ({
+      deleteComment: ({ postId, commentId }) =>
         mutate({
-          variables: { commentId },
-          optimisticResponse: {
-            deleteComment: {
-              __typename: 'Comment',
-              _id: commentId,
-            },
+          variables: { postId, commentId },
+          optimisticResponse: () => {
+            const { selectedPostId, posts } = ownProps;
+            const updatedComments = posts
+              .find(post => post._id === selectedPostId)
+              .comments.filter(comment => comment._id !== commentId);
+            return {
+              __typename: 'Mutation',
+              deleteComment: {
+                __typename: 'Post',
+                _id: postId,
+                comments: updatedComments,
+              },
+            };
           },
         }),
     }),
@@ -313,9 +335,7 @@ export default compose(
             if (post._id === selectedPostId) {
               const updatedPost = {
                 ...post,
-                comments: post.comments.filter(
-                  comment => comment._id !== deleteComment._id,
-                ),
+                comments: deleteComment.comments,
               };
               return updatedPost;
             }

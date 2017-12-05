@@ -51,7 +51,7 @@ const schema = buildSchema(`
     updatePost(_id: ID!, input: PostInput): Post,
     deletePost(_id: ID!): Post,
     addComment(_id: ID!, input: CommentInput): Post,
-    deleteComment(_id: ID!): Comment,
+    deleteComment(id: ID!, cid: ID!): Post,
   }
 `);
 
@@ -107,12 +107,17 @@ const resolvers = {
       return err;
     }
   },
-  deleteComment: async _id => {
+  deleteComment: async ({ id, cid }) => {
     try {
-      const comment = await Comment.findByIdAndRemove(_id);
-      return comment;
-    } catch (err) {
-      return err;
+      await Comment.findByIdAndRemove(cid);
+      const post = await Post.findByIdAndUpdate(
+        id,
+        { $pull: { comments: cid } },
+        { new: true },
+      );
+      return post;
+    } catch (e) {
+      return e;
     }
   },
 };
