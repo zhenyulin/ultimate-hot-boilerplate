@@ -115,7 +115,13 @@ const resolvers = {
         { $pull: { comments: cid } },
         { new: true },
       );
-      return post;
+      const updated = await Post.populate(post, {
+        path: 'comments',
+        populate: {
+          path: 'author',
+        },
+      });
+      return updated;
     } catch (e) {
       return e;
     }

@@ -8,11 +8,13 @@ import { pagenameToRoute } from 'utils/parser/routes';
 import Home from 'containers/home';
 import BlogA from 'containers/blog-a';
 import BlogB from 'containers/blog-b';
+import BlogC from 'containers/blog-c';
 
 const pagesToComponent = {
   Home,
   BlogA,
   BlogB,
+  BlogC,
 };
 
 export const pages = Object.keys(pagesToComponent);

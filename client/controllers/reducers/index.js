@@ -7,6 +7,7 @@ import { MESSAGE } from 'controllers/actions/message';
 import count from './count';
 import blogA from './blog-a';
 import blogB from './blog-b';
+import blogC from './blog-c';
 
 export default combineReducers({
   router,
@@ -14,4 +15,5 @@ export default combineReducers({
   message: defaultImmutableAsyncReducers(MESSAGE),
   blogA,
   blogB,
+  blogC,
 });
