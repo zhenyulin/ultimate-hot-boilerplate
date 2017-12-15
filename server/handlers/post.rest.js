@@ -79,7 +79,17 @@ router
   .route('/posts/:id')
   .get(findById(Post))
   .put(updateById(Post))
-  .delete(deleteById(Post));
+  .delete(async (req, res) => {
+    try {
+      const { id } = req.params;
+      const post = await Post.findByIdAndRemove(id);
+      const { comments } = post;
+      await Comment.remove({ _id: { $in: comments } });
+      return res.send(post);
+    } catch (e) {
+      return res.send(e);
+    }
+  });
 
 router
   .route('/posts/:id/comments')
@@ -121,7 +131,9 @@ router
 
 router
   .route('/posts/:id/comments/:cid')
+  // TODO: deprecate
   .get(findById(Comment, 'cid'))
+  // TODO: deprecate
   .put(updateById(Comment, 'cid'))
   .delete(async (req, res) => {
     try {
@@ -141,6 +153,7 @@ router
 router
   .route('/comments')
   .get(findAll(Comment))
+  // TODO: deprecate
   .post(async (req, res) => {
     try {
       const input = req.body;
@@ -157,6 +170,7 @@ router
   .route('/comments/:id')
   .get(findById(Comment))
   .put(updateById(Comment))
+  // TODO: deprecate
   .delete(deleteById(Comment));
 
 router
@@ -168,6 +182,30 @@ router
   .route('/authors/:id')
   .get(findById(Author))
   .put(updateById(Author))
-  .delete(deleteById(Author));
+  .delete(async (req, res) => {
+    try {
+      const { id } = req.params;
+      const author = await Author.findByIdAndRemove(id);
+      const { commented } = author;
+      const comments = await Comment.find({ _id: { $in: commented } });
+      const commentsPosted = comments.map(comment => comment.posted);
+      await Post.update(
+        {
+          _id: { $in: commentsPosted },
+        },
+        {
+          $pull: { comments: { $in: commented } },
+        },
+        {
+          multi: true,
+          new: true,
+        },
+      );
+      await Comment.remove({ _id: { $in: commented } });
+      return res.send(author);
+    } catch (e) {
+      return res.send(e);
+    }
+  });
 
 export default router;
