@@ -10,7 +10,7 @@ const Comment = new Schema({
     type: ObjectId,
     ref: 'Author',
   },
-  post: {
+  posted: {
     type: ObjectId,
     ref: 'Post',
   },

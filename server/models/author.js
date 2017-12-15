@@ -13,7 +13,7 @@ const Author = new Schema(
       required: true,
       unique: true,
     },
-    comments: [
+    commented: [
       {
         type: ObjectId,
         ref: 'Comment',
