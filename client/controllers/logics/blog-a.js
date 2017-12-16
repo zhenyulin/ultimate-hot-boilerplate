@@ -16,14 +16,14 @@ import { Post, Comment, Author } from 'controllers/schemas/blog';
 
 const commentLoader = new DataLoader(ids => {
   const requests = ids.map(id =>
-    fetch(`/rest/comments/${id}`).then(res => res.json()),
+    fetch(`/flat/comments/${id}`).then(res => res.json()),
   );
   return Promise.all(requests);
 });
 
 const authorLoader = new DataLoader(ids => {
   const requests = ids.map(id =>
-    fetch(`/rest/authors/${id}`).then(res => res.json()),
+    fetch(`/flat/authors/${id}`).then(res => res.json()),
   );
   return Promise.all(requests);
 });
@@ -34,7 +34,7 @@ const postLogics = {
     cancelType: POSTS.CANCEL,
     latest: true,
     process(deps, dispatch, done) {
-      fetch('/rest/posts')
+      fetch('/flat/posts')
         .then(res => res.json())
         .then(data => {
           dispatch(Posts.got(data));
@@ -74,7 +74,7 @@ const postLogics = {
       const id = Object.keys(action.payload)[0];
       const update = action.payload[id];
       // Remote Request
-      fetch(`/rest/posts/${id}`, {
+      fetch(`/flat/posts/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ const commentLogics = {
       );
 
       // Remote Request
-      fetch('/rest/comments', {
+      fetch('/flat/comments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,9 +184,9 @@ const commentLogics = {
     type: COMMENTS.REMOVE,
     process({ getState, action }, dispatch, done) {
       const commentId = action.payload;
-      const selectedPostId = getState().getIn(['blog', 'posts', 'selected']);
+      const selectedPostId = getState().getIn(['blogA', 'posts', 'selected']);
       const selectedPost = getState().getIn([
-        'blog',
+        'blogA',
         'posts',
         'entities',
         selectedPostId,
@@ -201,7 +201,7 @@ const commentLogics = {
         }),
       );
 
-      fetch(`/rest/comments/${commentId}`, {
+      fetch(`/flat/comments/${commentId}`, {
         method: 'DELETE',
       })
         .then(res => res.json())

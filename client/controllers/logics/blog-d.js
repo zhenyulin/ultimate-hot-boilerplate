@@ -6,7 +6,7 @@ import { POSTS, Posts, COMMENTS, Comments } from 'controllers/actions/blog-d';
 const getPostListLogic = createLogic({
   type: POSTS.GET,
   process(deps, dispatch, done) {
-    fetch('/rest/populated/posts')
+    fetch('/populated/posts')
       .then(res => res.json())
       .then(data => {
         dispatch(Posts.got(data));
@@ -21,7 +21,7 @@ const addCommentLogic = createLogic({
   type: COMMENTS.ADD,
   process({ action }, dispatch, done) {
     const { postId, content, authorName, authorEmail } = action.payload;
-    fetch(`/rest/posts/${postId}/comments`, {
+    fetch(`/populated/posts/${postId}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ const removeCommentLogic = createLogic({
   type: COMMENTS.REMOVE,
   process({ action }, dispatch, done) {
     const { id, cid } = action.payload;
-    fetch(`/rest/posts/${id}/comments/${cid}`, {
+    fetch(`/populated/posts/${id}/comments/${cid}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
