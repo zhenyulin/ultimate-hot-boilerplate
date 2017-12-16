@@ -75,6 +75,16 @@ router
   .get(findAll(Post))
   .post(basicCreate(Post));
 
+router.route('/populated/posts').get(async (req, res) => {
+  const posts = await Post.find().populate({
+    path: 'comments',
+    populate: {
+      path: 'author',
+    },
+  });
+  return res.send(posts);
+});
+
 router
   .route('/posts/:id')
   .get(findById(Post))
@@ -131,9 +141,7 @@ router
 
 router
   .route('/posts/:id/comments/:cid')
-  // TODO: deprecate
   .get(findById(Comment, 'cid'))
-  // TODO: deprecate
   .put(updateById(Comment, 'cid'))
   .delete(async (req, res) => {
     try {
@@ -144,7 +152,13 @@ router
         { $pull: { comments: cid } },
         { new: true },
       );
-      return res.send(post);
+      const updated = await Post.populate(post, {
+        path: 'comments',
+        populate: {
+          path: 'author',
+        },
+      });
+      return res.send(updated);
     } catch (e) {
       return res.send(e);
     }

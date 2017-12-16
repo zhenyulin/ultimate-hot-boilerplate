@@ -8,8 +8,8 @@ import { Form, Text, TextArea } from 'react-form';
 
 import CommonPage from 'components/templates/common-page';
 import SideNav from 'components/widgets/side-nav';
-import { Posts, Comments } from 'controllers/actions/blog-a';
-import type { Post, Comment, Author } from 'controllers/types/blog';
+import { Posts, Comments } from 'controllers/actions/blog-d';
+import type { PopulatedPost } from 'controllers/types/blog';
 
 import immutableToJS from 'utils/components/immutable-to-js';
 
@@ -17,28 +17,21 @@ import { pages } from 'router';
 
 type Props = {
   className: string,
-  postList: [string],
-  posts: { [string]: Post },
-  comments: { [string]: Comment },
-  authors: { [string]: Author },
+  posts: [PopulatedPost],
   selectedPostId: string,
   getPosts: () => void,
   selectPost: (id: string) => void,
   addComment: ({
-    post: Post,
+    postId: string,
     content: string,
     authorName: string,
     authorEmail: string,
   }) => void,
-  removeComment: (id: string) => void,
+  removeComment: ({ id: string, cid: string }) => void,
 };
 
 export class Page extends React.PureComponent<Props> {
   static defaultProps = {
-    postList: [],
-    posts: {},
-    comments: {},
-    authors: {},
     selectedPostId: '',
   };
 
@@ -47,16 +40,9 @@ export class Page extends React.PureComponent<Props> {
   }
 
   render() {
-    const {
-      className,
-      postList,
-      posts,
-      comments,
-      authors,
-      selectedPostId,
-    } = this.props;
+    const { className, posts, selectedPostId } = this.props;
     const { selectPost, addComment, removeComment } = this.props;
-    const selectedPost = posts[selectedPostId] || {
+    const selectedPost = posts.find(post => post._id === selectedPostId) || {
       title: '',
       body: '',
       comments: [],
@@ -64,14 +50,14 @@ export class Page extends React.PureComponent<Props> {
     return (
       <CommonPage className={className} pages={pages}>
         <div className="note">
-          built with ORM, Normalizr, DataLoader and RESTful
+          built with Nested Redux State, and Prepopulated REST API
         </div>
         <div className="contentView">
           <SideNav
             className="titles"
-            list={postList.map(id => ({
-              id,
-              value: posts[id].title,
+            list={posts.map(post => ({
+              id: post._id,
+              value: post.title,
             }))}
             func={selectPost}
           />
@@ -80,21 +66,22 @@ export class Page extends React.PureComponent<Props> {
             <div className="body">{selectedPost.body}</div>
           </div>
           <div className="comments">
-            {selectedPost ? <div className="title">Comments</div> : null}
+            {selectedPost.comments.length ? (
+              <div className="title">Comments</div>
+            ) : null}
             <div className="body">
-              {selectedPost.comments.map(id => (
-                <div key={id} className="comment">
-                  <button className="delete" onClick={() => removeComment(id)}>
+              {selectedPost.comments.map(({ _id, content, author }) => (
+                <div key={_id} className="comment">
+                  <button
+                    className="delete"
+                    onClick={() =>
+                      removeComment({ id: selectedPostId, cid: _id })
+                    }
+                  >
                     X
                   </button>
-                  <div className="author">
-                    {comments[id] && authors[comments[id].author]
-                      ? authors[comments[id].author].name
-                      : null}:
-                  </div>
-                  <div className="content">
-                    {comments[id] ? comments[id].content : null}
-                  </div>
+                  <div className="author">{author.name}:</div>
+                  <div className="content">{content}</div>
                 </div>
               ))}
               {selectedPost ? (
@@ -102,7 +89,7 @@ export class Page extends React.PureComponent<Props> {
                   <Form
                     onSubmit={({ content, authorName, authorEmail }) =>
                       addComment({
-                        post: selectedPost,
+                        postId: selectedPostId,
                         content,
                         authorName,
                         authorEmail,
@@ -135,19 +122,16 @@ export class Page extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  postList: state.getIn(['blogA', 'posts', 'result']),
-  posts: state.getIn(['blogA', 'posts', 'entities']),
-  comments: state.getIn(['blogA', 'comments', 'entities']),
-  authors: state.getIn(['blogA', 'authors', 'entities']),
-  selectedPostId: state.getIn(['blogA', 'posts', 'selected']),
+  posts: state.getIn(['blogD', 'data']),
+  selectedPostId: state.getIn(['blogD', 'selected']),
 });
 
 const mapDispatchToProps = dispatch => ({
   getPosts: () => dispatch(Posts.get()),
   selectPost: id => dispatch(Posts.select(id)),
-  addComment: ({ post, content, authorName, authorEmail }) =>
-    dispatch(Comments.add({ post, content, authorName, authorEmail })),
-  removeComment: id => dispatch(Comments.remove(id)),
+  addComment: ({ postId, content, authorName, authorEmail }) =>
+    dispatch(Comments.add({ postId, content, authorName, authorEmail })),
+  removeComment: ({ id, cid }) => dispatch(Comments.remove({ id, cid })),
 });
 
 const component = styled(Page)`

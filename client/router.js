@@ -9,12 +9,14 @@ import Home from 'containers/home';
 import BlogA from 'containers/blog-a';
 import BlogB from 'containers/blog-b';
 import BlogC from 'containers/blog-c';
+import BlogD from 'containers/blog-d';
 
 const pagesToComponent = {
   Home,
   BlogA,
   BlogB,
   BlogC,
+  BlogD,
 };
 
 export const pages = Object.keys(pagesToComponent);

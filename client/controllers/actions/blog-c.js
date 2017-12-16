@@ -4,16 +4,16 @@ import {
   createActionsFromNames,
 } from 'utils/action-manager';
 
-export const [POSTS, Posts] = defaultAsyncActionBundle('@BlogB/POSTS');
+export const [POSTS, Posts] = defaultAsyncActionBundle('@BlogC/POSTS');
 
 export const COMMENTS = {
-  ...defaultAsyncActionNames('@BlogB/COMMENTS'),
-  ADD: '@BlogB/COMMENTS/ADD',
-  ADDED: '@BlogB/COMMENTS/ADDED',
-  REMOVE: '@BlogB/COMMENTS/REMOVE',
-  REMOVED: '@BlogB/COMMENTS/REMOVED',
+  ...defaultAsyncActionNames('@BlogC/COMMENTS'),
+  ADD: '@BlogC/COMMENTS/ADD',
+  ADDED: '@BlogC/COMMENTS/ADDED',
+  REMOVE: '@BlogC/COMMENTS/REMOVE',
+  REMOVED: '@BlogC/COMMENTS/REMOVED',
 };
 
 export const Comments = createActionsFromNames(COMMENTS);
 
-export const [AUTHORS, Authors] = defaultAsyncActionBundle('@BlogB/AUTHORS');
+export const [AUTHORS, Authors] = defaultAsyncActionBundle('@BlogC/AUTHORS');

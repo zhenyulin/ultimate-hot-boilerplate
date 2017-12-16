@@ -8,6 +8,7 @@ import count from './count';
 import blogA from './blog-a';
 import blogB from './blog-b';
 import blogC from './blog-c';
+import blogD from './blog-d';
 
 export default combineReducers({
   router,
@@ -16,4 +17,5 @@ export default combineReducers({
   blogA,
   blogB,
   blogC,
+  blogD,
 });
