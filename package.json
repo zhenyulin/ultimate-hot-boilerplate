@@ -7,12 +7,14 @@
   "scripts": {
     "start": "concurrently \"yarn dev\" \"yarn lint:watch\" \"yarn stylelint:watch\" \"yarn flow:watch\" -n server,lint,style,flow -c white",
     "dev": "rm -rf .build && webpack --config config/webpack.server.dev.js",
-    "lint": "eslint .",
-    "lint:watch": "esw . --watch --fix",
+    "lint": "eslint client server config features",
+    "lint:fix": "yarn lint --fix",
+    "lint:watch": "nodemon --ignore node_modules -q --exec 'yarn lint --fix'",
     "stylelint": "stylelint client",
-    "stylelint:watch": "npm-scripts-watcher",
+    "stylelint:watch": "nodemon --ignore node_modules -q --exec 'yarn stylelint'",
     "flow": "flow",
-    "flow:watch": "flow-watch --ignore node_modules/ --watch  *.js --watch .flowconfig",
+    "flow:watch": "nodemon --ignore node_modules -e js -q --exec 'yarn flow'",
+    "watch": "npm-scripts-watcher",
     "test": "jest client server",
     "test:watch": "jest client server --watch",
     "cover": "jest client server --coverage --forceExit",
@@ -27,6 +29,10 @@
   "watch": {
     "client/**/*.js": [
       "stylelint"
+    ],
+    "{server,client,config,features}/**/*.js": [
+      "lint:fix",
+      "flow"
     ]
   },
   "jest": {
@@ -73,13 +79,12 @@
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.5.1",
     "eslint-plugin-testcafe": "^0.2.1",
-    "eslint-watch": "^3.1.0",
     "file-loader": "^1.1.5",
     "flow-bin": "^0.64.0",
-    "flow-watch": "^1.1.1",
     "html-loader": "^0.5.1",
     "jest": "^22.0.0",
     "morgan": "^1.9.0",
+    "nodemon": "^1.14.11",
     "npm-scripts-watcher": "^1.0.2",
     "prettier": "^1.9.0",
     "raf": "^3.4.0",
