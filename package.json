@@ -123,7 +123,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-immutable": "^4.0.0",
-    "redux-logic": "^0.12.1",
+    "redux-logic": "^0.14.0",
     "redux-segment": "^1.6.2",
     "reselect": "^3.0.1",
     "rxjs": "^5.4.2",
