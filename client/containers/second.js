@@ -143,6 +143,7 @@ const component = styled(Page)`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  immutableToJS(component),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(immutableToJS(component));

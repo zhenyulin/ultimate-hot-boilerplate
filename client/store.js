@@ -4,7 +4,7 @@ import { createLogicMiddleware } from 'redux-logic';
 import { createTracker } from 'redux-segment';
 
 import reducer from './controllers/reducers';
-import logics from './controllers/logics/';
+import logics from './controllers/logics';
 
 export default function setupStore(history) {
   const middleware = [
