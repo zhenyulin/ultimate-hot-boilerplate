@@ -1,15 +1,14 @@
 import mongoose from 'mongoose';
 import { MONGO_DB_URI, MONGOOSE_DEBUG } from 'server/constant';
 
-const DB_OPTIONS = {
-  useMongoClient: true,
-};
-
 export default function connectMongoDB() {
   const DB_CONNECT = 'mongodb connected';
   console.time(DB_CONNECT);
   mongoose.Promise = global.Promise;
-  mongoose.connect(MONGO_DB_URI, DB_OPTIONS);
+  mongoose.connect(
+    MONGO_DB_URI,
+    { useNewUrlParser: true },
+  );
 
   /* istanbul ignore next */
   if (process.env.NODE_ENV === 'development') {

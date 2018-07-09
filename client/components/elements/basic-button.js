@@ -15,7 +15,7 @@ export class BasicButton extends React.PureComponent {
     const { className, text } = this.props;
     const { func } = this.props;
     return (
-      <button className={className} onClick={() => func()}>
+      <button className={className} type="button" onClick={() => func()}>
         {text}
       </button>
     );

@@ -4,6 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const StartServerPlugin = require('start-server-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   devtool: 'cheap-module-source-map',
   watch: true,
   target: 'node',

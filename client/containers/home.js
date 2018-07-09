@@ -67,4 +67,7 @@ const component = styled(Page)`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(component);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(component);
