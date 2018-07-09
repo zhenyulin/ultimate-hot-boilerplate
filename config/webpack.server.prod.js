@@ -3,6 +3,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
+  mode: 'production',
   devtool: 'source-map',
   target: 'node',
   entry: ['babel-polyfill', path.resolve('./server/index')],
@@ -54,13 +55,6 @@ module.exports = {
       'process.env': {
         BUILD_TARGET: JSON.stringify('server'),
         NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      minimize: true,
-      compress: {
-        warnings: false,
       },
     }),
   ],

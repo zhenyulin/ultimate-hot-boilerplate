@@ -1,3 +1,4 @@
+---
 processors:
   - stylelint-processor-styled-components
 extends:

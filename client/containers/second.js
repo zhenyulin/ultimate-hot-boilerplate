@@ -80,7 +80,7 @@ const mapStateToProps = state => ({
   selectedPost: getSelectedPost(state),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: *) => ({
   navigate: url => dispatch(push(url)),
   get: () => dispatch(postActions.get()),
   select: id => dispatch(postActions.select(id)),
@@ -143,6 +143,7 @@ const component = styled(Page)`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  immutableToJS(component),
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(immutableToJS(component));
