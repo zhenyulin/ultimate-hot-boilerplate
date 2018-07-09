@@ -10,7 +10,7 @@ connectMongoDB();
 /* istanbul ignore next */
 if (process.env.NODE_ENV === 'development') {
   const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware-webpack-2');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const webpackConfig = require('config/webpack.client.dev');
   const compiler = webpack(webpackConfig);
