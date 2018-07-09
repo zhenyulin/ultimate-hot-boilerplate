@@ -1,3 +1,4 @@
+---
 sudo: required
 language: node_js
 services:
@@ -31,5 +32,5 @@ branches:
 cache:
   yarn: true
   directories:
-  - node_modules
-  - $CACHE_DIR
+    - node_modules
+    - $CACHE_DIR
