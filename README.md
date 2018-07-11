@@ -22,8 +22,3 @@ It can be used as the base of a monolithical app that packs UI and API all toget
   * Redux-Segment Analytics Integration
   * GraphQL with nested data example both client/server side
   * Path resolve no `..` both client/server side
-
-### TODO
- * add gif preview for hot reloading features
- * add auth to the boilerplate
- * consolidate webpack config, move all build target to `.build`
