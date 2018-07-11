@@ -22,3 +22,13 @@ It can be used as the base of a monolithical app that packs UI and API all toget
   * Redux-Segment Analytics Integration
   * GraphQL with nested data example both client/server side
   * Path resolve no `..` both client/server side
+
+### Production Ready Quality 🚀
+  * linting and formatting with Eslint, Prettier, Stylelint
+  * flexible type safety check with Flow
+  * unit testing with Jest, Enzyme, Supertest, etc.
+  * e2e test toolings
+  * containerise with Docker
+  * best practices React/Redux patterns with Immutable, Reselect
+  * graphql api
+  * tracking, analytics integration (logging, metrics can be added)
