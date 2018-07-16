@@ -1,8 +1,13 @@
 # ultimate-hot-boilerplate 
 
-[![Build Status](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate.svg?branch=master)](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate) [![Coverage Status](https://coveralls.io/repos/github/zhenyulin/ultimate-hot-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/zhenyulin/ultimate-hot-boilerplate?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/zhenyulin/ultimate-hot-boilerplate/badge.svg)](https://snyk.io/test/github/zhenyulin/ultimate-hot-boilerplate)
+[![Build Status](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate.svg?branch=master)](https://travis-ci.org/zhenyulin/ultimate-hot-boilerplate)
+[![Coverage Status](https://coveralls.io/repos/github/zhenyulin/ultimate-hot-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/zhenyulin/ultimate-hot-boilerplate?branch=master) 
+[![Known Vulnerabilities](https://snyk.io/test/github/zhenyulin/ultimate-hot-boilerplate/badge.svg)](https://snyk.io/test/github/zhenyulin/ultimate-hot-boilerplate)
 
-[![Code Climate](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate/badges/gpa.svg)](https://codeclimate.com/github/zhenyulin/ultimate-hot-boilerplate) [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate) [![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev) [![Greenkeeper badge](https://badges.greenkeeper.io/zhenyulin/ultimate-hot-boilerplate.svg)](https://greenkeeper.io/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zhenyulin/ultimate-hot-boilerplate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zhenyulin/ultimate-hot-boilerplate/?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/zhenyulin/ultimate-hot-boilerplate.svg)](https://greenkeeper.io/)
+[![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate)
+[![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
 
 ultimate-hot-boilerplate for a universal react/node app with server-side-render
 
