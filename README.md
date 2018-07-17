@@ -9,7 +9,7 @@ ultimate-hot-boilerplate for a universal react/node app with server-side-render
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/zhenyulin/ultimate-hot-boilerplate.svg)](https://greenkeeper.io/)
 [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate)
-[![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
+[![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev) [![Join the chat at https://gitter.im/zhenyulin/ultimate-hot-boilerplate](https://badges.gitter.im/zhenyulin/ultimate-hot-boilerplate.svg)](https://gitter.im/zhenyulin/ultimate-hot-boilerplate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This boilerplate come with common things you can found in [create-react-app](https://github.com/facebook/create-react-app), while being more progressive in adopting some of the more edgy stacks, such as styled-components, redux-segment, graphql, flow, prettier, etc.
 
