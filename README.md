@@ -14,7 +14,7 @@ ultimate-hot-boilerplate for a universal react/node app with server-side-render
 
 
 
-This boilerplate come with common things you can found in [create-react-app](https://github.com/facebook/create-react-app), while being more progressive in adopting some of the more edgy stacks, such as styled-components, redux-segment, graphql, flow, prettier, etc.
+This boilerplate come with common things you can found in [create-react-app](https://github.com/facebook/create-react-app), while being more progressive in adopting some of the more edgy stacks, such as [styled-components](https://github.com/styled-components/styled-components), [redux-segment](https://github.com/rangle/redux-segment), [graphql](https://github.com/graphql/graphql-js), [flow](https://github.com/facebook/flow), [prettier](https://github.com/prettier/prettier), etc.
 
 It can be used as the base of a monolithical app that packs UI and API all together for rapid iterations or products or being split up into micro-services as well.
 
