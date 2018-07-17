@@ -6,10 +6,13 @@ ultimate-hot-boilerplate for a universal react/node app with server-side-render
 [![Coverage Status](https://coveralls.io/repos/github/zhenyulin/ultimate-hot-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/zhenyulin/ultimate-hot-boilerplate?branch=master) 
 [![Known Vulnerabilities](https://snyk.io/test/github/zhenyulin/ultimate-hot-boilerplate/badge.svg)](https://snyk.io/test/github/zhenyulin/ultimate-hot-boilerplate)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zhenyulin/ultimate-hot-boilerplate/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zhenyulin/ultimate-hot-boilerplate/?branch=master)
+[![Gitter chat](https://badges.gitter.im/zhenyulin/ultimate-hot-boilerplate.svg)](https://gitter.im/zhenyulin/ultimate-hot-boilerplate)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/zhenyulin/ultimate-hot-boilerplate.svg)](https://greenkeeper.io/)
 [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate)
 [![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
+
+
 
 This boilerplate come with common things you can found in [create-react-app](https://github.com/facebook/create-react-app), while being more progressive in adopting some of the more edgy stacks, such as styled-components, redux-segment, graphql, flow, prettier, etc.
 
@@ -37,3 +40,6 @@ It can be used as the base of a monolithical app that packs UI and API all toget
   * best practices React/Redux patterns with Immutable, Reselect
   * graphql api
   * tracking, analytics integration (logging, metrics can be added)
+  
+## Licence
+[MIT](/LICENSE)
