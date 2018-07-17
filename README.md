@@ -10,7 +10,7 @@ ultimate-hot-boilerplate for a universal react/node app with server-side-render
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/zhenyulin/ultimate-hot-boilerplate.svg)](https://greenkeeper.io/)
 [![Dependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate)
-[![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev)
+[![devDependencies](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate/dev-status.svg)](https://david-dm.org/zhenyulin/ultimate-hot-boilerplate?type=dev) [![Join the chat at https://gitter.im/zhenyulin/ultimate-hot-boilerplate](https://badges.gitter.im/zhenyulin/ultimate-hot-boilerplate.svg)](https://gitter.im/zhenyulin/ultimate-hot-boilerplate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 
