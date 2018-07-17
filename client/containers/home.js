@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { push } from 'react-router-redux';
 
 import BasicButton from 'components/elements/basic-button';
+import CommonPage from 'components/templates/common-page';
 import { countActions } from 'controllers/actions/count';
 import { messageActions } from 'controllers/actions/message';
+
+import { pages } from 'router';
 
 export class Page extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
     count: PropTypes.number,
     add: PropTypes.func,
-    navigate: PropTypes.func,
     title: PropTypes.string,
     body: PropTypes.string,
     get: PropTypes.func,
@@ -27,44 +28,34 @@ export class Page extends React.PureComponent {
 
   render() {
     const { className, count, title, body } = this.props;
-    const { add, get, navigate } = this.props;
+    const { add, get } = this.props;
     return (
-      <div className={className}>
+      <CommonPage className={className} pages={pages}>
         <BasicButton
           className="statusButton"
           func={add}
           text={count.toString()}
         />
         <BasicButton className="actionButton" func={get} text="Get Message" />
-        <BasicButton
-          className="navButton"
-          func={() => navigate('/second')}
-          text="To Second Page"
-        />
         <div className="title">{title}</div>
         <div className="body">{body}</div>
-      </div>
+      </CommonPage>
     );
   }
 }
 
 const mapStateToProps = state => ({
   count: state.getIn(['count']),
-  title: state.getIn(['message', 'data', 'title']),
-  body: state.getIn(['message', 'data', 'body']),
+  title: state.getIn(['message', 'data', 0, 'title']),
+  body: state.getIn(['message', 'data', 0, 'body']),
 });
 
 const mapDispatchToProps = dispatch => ({
   add: () => dispatch(countActions.add()),
-  navigate: location => dispatch(push(location)),
   get: () => dispatch(messageActions.get()),
 });
 
 const component = styled(Page)`
-  width: 640px;
-  margin: 240px auto;
-  line-height: 30px;
-
   .statusButton {
     background: lightblue;
     color: white;

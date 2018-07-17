@@ -1,5 +1,6 @@
 import path from 'path';
 import express from 'express';
+import bodyParser from 'body-parser';
 
 import router from './router';
 import connectMongoDB from './config/mongodb';
@@ -29,6 +30,9 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve('./dist/')));
 }
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(router);
 

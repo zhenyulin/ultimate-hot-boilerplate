@@ -1,4 +1,4 @@
-// flow-typed signature: e0aae04557fa0ada477607f69d097eab
+// flow-typed signature: 66ae405d58a89b5366e7f484e8eec9cc
 // flow-typed version: <<STUB>>/webpack-node-externals_v^1.7.2/flow_v0.76.0
 
 /**
@@ -22,7 +22,9 @@ declare module 'webpack-node-externals' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-
+declare module 'webpack-node-externals/utils' {
+  declare module.exports: any;
+}
 
 // Filename aliases
 declare module 'webpack-node-externals/index' {
@@ -30,4 +32,7 @@ declare module 'webpack-node-externals/index' {
 }
 declare module 'webpack-node-externals/index.js' {
   declare module.exports: $Exports<'webpack-node-externals'>;
+}
+declare module 'webpack-node-externals/utils.js' {
+  declare module.exports: $Exports<'webpack-node-externals/utils'>;
 }

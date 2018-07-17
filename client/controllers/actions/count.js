@@ -1,6 +1,6 @@
-import { actionBundle } from 'utils/action-manager';
+import { defaultActionBundle } from 'utils/action-manager';
 
-export const [ADD, add] = actionBundle('@count/ADD');
+export const [ADD, add] = defaultActionBundle('@count/ADD');
 
 export const COUNT = {
   ADD,

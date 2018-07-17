@@ -16,6 +16,7 @@ export type Comment = {
 export type Post = {
   _id: string,
   title: string,
+  body: string,
   comments: [string],
 };
 
@@ -26,20 +27,21 @@ export type PopulatedComment = {
 };
 
 export type PopulatedPost = {
+  _id: string,
   title: string,
   body: string,
   comments: [PopulatedComment],
 };
 
 export type PostState = {
-  status: string,
-  isFetching: boolean,
-  isError: boolean,
-  data: List<PopulatedPost>,
-  normalized: {
-    entities: Map<string, any>,
-    results: List<string>,
+  meta: {
+    status: string,
+    processing: boolean,
+    faulty: boolean,
+    error: {},
   },
-  error: {},
+  data: List<PopulatedPost>,
+  entities: Map<string, any>,
+  result: List<string>,
   selected: string,
 };

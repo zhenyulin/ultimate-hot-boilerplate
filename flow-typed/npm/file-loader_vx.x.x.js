@@ -1,4 +1,4 @@
-// flow-typed signature: 9c8d6b61778ba936dfc12b44d362ebb5
+// flow-typed signature: baf3db40d11dbaad8c28dd345dd26719
 // flow-typed version: <<STUB>>/file-loader_v^1.1.11/flow_v0.76.0
 
 /**
@@ -22,12 +22,18 @@ declare module 'file-loader' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
+declare module 'file-loader/dist/cjs' {
+  declare module.exports: any;
+}
 
+declare module 'file-loader/dist/index' {
+  declare module.exports: any;
+}
 
 // Filename aliases
-declare module 'file-loader/index' {
-  declare module.exports: $Exports<'file-loader'>;
+declare module 'file-loader/dist/cjs.js' {
+  declare module.exports: $Exports<'file-loader/dist/cjs'>;
 }
-declare module 'file-loader/index.js' {
-  declare module.exports: $Exports<'file-loader'>;
+declare module 'file-loader/dist/index.js' {
+  declare module.exports: $Exports<'file-loader/dist/index'>;
 }

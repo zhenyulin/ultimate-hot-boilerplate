@@ -3,29 +3,22 @@
 import { EventTypes } from 'redux-segment';
 
 import {
-  asyncActionNames,
+  defaultAsyncActionNames,
   defaultAsyncActions,
-  asyncActionBundle,
-  actionBundle,
 } from 'utils/action-manager';
 
-export const [ASYNC_TEST, asyncTestActions] = asyncActionBundle(
-  '@event/ASYNC_TEST',
-);
-export const [TEST, testAction] = actionBundle('@event/TEST');
-
-export const MESSAGE = asyncActionNames('@event/MESSAGE');
+export const MESSAGE = defaultAsyncActionNames('@MESSAGE');
 export const messageActions = {
   ...defaultAsyncActions(MESSAGE),
-  post: data => ({
-    type: MESSAGE.POST,
+  create: data => ({
+    type: MESSAGE.CREATE,
     payload: data,
     meta: {
       analytics: [
         {
           eventType: EventTypes.track,
           eventPayload: {
-            event: MESSAGE.POST,
+            event: MESSAGE.CREATE,
           },
         },
       ],
