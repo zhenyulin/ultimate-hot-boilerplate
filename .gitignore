@@ -1,5 +1,6 @@
 # dependencies
 node_modules/
+flow-typed/npm/
 
 # build
 dist/
@@ -16,5 +17,8 @@ data/
 
 # dot files
 .DS_Store
-.env
+*.env*
 package-lock.json
+
+# log files
+*.log
