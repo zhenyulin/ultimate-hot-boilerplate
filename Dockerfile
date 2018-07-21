@@ -23,9 +23,9 @@ RUN yarn --pure-lockfile \
 
 # Bundle app source and remove src
 ADD . /home/app/
-RUN yarn build \
+RUN make build \
   && rm -rf client server config test
 
 USER app
 EXPOSE 3000
-CMD yarn serve
+CMD make serve

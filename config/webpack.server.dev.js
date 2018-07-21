@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const StartServerPlugin = require('start-server-webpack-plugin');
+const FlowtypePlugin = require('flowtype-loader/plugin');
 
 module.exports = {
   mode: 'development',
@@ -31,6 +32,21 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'flowtype-loader',
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          fix: true,
+        },
+      },
       {
         test: /\.js?$/,
         use: 'babel-loader',
@@ -68,6 +84,7 @@ module.exports = {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
+    new FlowtypePlugin(),
   ],
   stats: {
     modules: false,

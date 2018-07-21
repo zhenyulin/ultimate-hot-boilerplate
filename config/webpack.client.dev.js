@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -23,6 +24,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          fix: true,
+        },
+      },
       {
         test: /\.js$/,
         use: ['babel-loader'],
@@ -53,6 +63,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
       },
+    }),
+    new StyleLintPlugin({
+      configBasedir: path.resolve('.'),
+      files: '**/*.js',
     }),
   ],
   stats: {
