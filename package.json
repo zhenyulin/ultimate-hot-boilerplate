@@ -68,7 +68,7 @@
     "flowtype-loader": "^0.2.2",
     "html-loader": "^0.5.5",
     "jest": "^23.4.1",
-    "morgan": "^1.9.0",
+    "morgan": "^1.9.1",
     "nodemon": "^1.18.3",
     "prettier": "^1.13.7",
     "raf": "^3.4.0",
