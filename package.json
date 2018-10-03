@@ -24,7 +24,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.5.2",
     "redux-immutable": "^4.0.0",
-    "redux-logic": "0.15.0",
+    "redux-logic": "2.0.1",
     "redux-segment": "^1.6.2",
     "reselect": "^3.0.1",
     "rxjs": "^6.2.2",
