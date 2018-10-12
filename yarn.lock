@@ -1569,11 +1569,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
-
-bluebird@^3.5.1:
+bluebird@3.5.1, bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
@@ -1772,9 +1768,9 @@ bser@^2.0.0:
   dependencies:
     node-int64 "^0.4.0"
 
-bson@~1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/bson/-/bson-1.0.4.tgz#93c10d39eaa5b58415cbc4052f3e53e562b0b72c"
+bson@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/bson/-/bson-1.1.0.tgz#bee57d1fb6a87713471af4e32bcae36de814b5b0"
 
 bson@~1.0.5:
   version "1.0.9"
@@ -2209,10 +2205,6 @@ commander@2.16.x, commander@^2.11.0, commander@~2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
 
-commander@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.6.0.tgz#9df7e52fb2a0cb0fb89058ee80c3104225f37e1d"
-
 commander@^2.8.1:
   version "2.12.2"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
@@ -2253,20 +2245,6 @@ concat-stream@^1.5.0, concat-stream@^1.6.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
-
-concurrently@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-3.6.0.tgz#c25e34b156a9d5bd4f256a0d85f6192438ae481f"
-  dependencies:
-    chalk "^2.4.1"
-    commander "2.6.0"
-    date-fns "^1.23.0"
-    lodash "^4.5.1"
-    read-pkg "^3.0.0"
-    rx "2.3.24"
-    spawn-command "^0.0.2-1"
-    supports-color "^3.2.3"
-    tree-kill "^1.1.0"
 
 configstore@^3.0.0:
   version "3.1.1"
@@ -2553,10 +2531,6 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.23.0:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
-
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
@@ -2567,7 +2541,7 @@ debug@2.6.9, debug@^2.1.2, debug@^2.1.3, debug@^2.2.0, debug@^2.3.2, debug@^2.3.
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.0, debug@^3.1.0:
+debug@3.1.0, debug@^3.0.0, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -3719,9 +3693,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.76.0:
-  version "0.76.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.76.0.tgz#eb00036991c3abc106743fcbc7ee321f02aa4faa"
+flow-bin@^0.77.0:
+  version "0.77.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.77.0.tgz#4e5c93929f289a0c28e08fb361a9734944a11297"
 
 flowtype-loader@^0.2.2:
   version "0.2.2"
@@ -5445,9 +5419,9 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
-kareem@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.2.1.tgz#9950809415aa3cde62ab43b4f7b919d99816e015"
+kareem@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.0.tgz#ef33c42e9024dce511eeaf440cd684f3af1fc769"
 
 keypress@0.1.x:
   version "0.1.0"
@@ -5623,7 +5597,7 @@ lodash@4.17.10, lodash@^4.17.10, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
-"lodash@4.6.1 || ^4.16.1", lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1:
+"lodash@4.6.1 || ^4.16.1", lodash@^4.11.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -6063,20 +6037,22 @@ moment@^2.10.3, moment@^2.14.1:
   version "2.19.3"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.3.tgz#bdb99d270d6d7fda78cc0fbace855e27fe7da69f"
 
-mongodb-core@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.1.0.tgz#af91f36fd560ed785f4e61e694432df4d3698aad"
+mongodb-core@3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-3.1.5.tgz#59ca67d7f6cea570d5437624a7afec8d752d477a"
   dependencies:
-    bson "~1.0.4"
+    bson "^1.1.0"
     require_optional "^1.0.1"
+    safe-buffer "^5.1.2"
   optionalDependencies:
     saslprep "^1.0.0"
 
-mongodb@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.1.1.tgz#c018c4b277614e8b1e08426d5bcbe1a7e5cdbd74"
+mongodb@3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.1.6.tgz#6054641973b5bf5b5ae1c67dcbcf8fa88280273d"
   dependencies:
-    mongodb-core "3.1.0"
+    mongodb-core "3.1.5"
+    safe-buffer "^5.1.2"
 
 mongoose-findoneorcreate@^1.0.0:
   version "1.0.0"
@@ -6086,21 +6062,22 @@ mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
 
-mongoose@^5.2.4:
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.2.4.tgz#52b3385bee9420cf6bbd7e4ebfb211523c37a9e3"
+mongoose@^5.3.3:
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.3.3.tgz#5abc7abe47f8a81b06b3a296232cc411eb5b9917"
   dependencies:
     async "2.6.1"
     bson "~1.0.5"
-    kareem "2.2.1"
+    kareem "2.3.0"
     lodash.get "4.4.2"
-    mongodb "3.1.1"
-    mongodb-core "3.1.0"
+    mongodb "3.1.6"
+    mongodb-core "3.1.5"
     mongoose-legacy-pluralize "1.0.2"
-    mpath "0.4.1"
-    mquery "3.0.0"
+    mpath "0.5.1"
+    mquery "3.2.0"
     ms "2.0.0"
     regexp-clone "0.0.1"
+    safe-buffer "5.1.2"
     sliced "1.0.1"
 
 morgan@^1.9.0:
@@ -6124,18 +6101,19 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mpath@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.4.1.tgz#ed10388430380bf7bbb5be1391e5d6969cb08e89"
+mpath@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.5.1.tgz#17131501f1ff9e6e4fbc8ffa875aa7065b5775ab"
 
-mquery@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mquery/-/mquery-3.0.0.tgz#e5f387dbabc0b9b69859e550e810faabe0ceabb0"
+mquery@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/mquery/-/mquery-3.2.0.tgz#e276472abd5109686a15eb2a8e0761db813c81cc"
   dependencies:
-    bluebird "3.5.0"
-    debug "2.6.9"
+    bluebird "3.5.1"
+    debug "3.1.0"
     regexp-clone "0.0.1"
-    sliced "0.0.5"
+    safe-buffer "5.1.2"
+    sliced "1.0.1"
 
 ms@2.0.0:
   version "2.0.0"
@@ -7932,10 +7910,6 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
-rx@2.3.24:
-  version "2.3.24"
-  resolved "https://registry.yarnpkg.com/rx/-/rx-2.3.24.tgz#14f950a4217d7e35daa71bbcbe58eff68ea4b2b7"
-
 rxjs@^5.0.3:
   version "5.5.4"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.4.tgz#66a466acb21270b5f441645a1141f95fcae10ee6"
@@ -7958,7 +7932,7 @@ safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, s
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-safe-buffer@^5.1.2:
+safe-buffer@5.1.2, safe-buffer@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
 
@@ -8266,10 +8240,6 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
 spawn-args@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/spawn-args/-/spawn-args-0.2.0.tgz#fb7d0bd1d70fd4316bd9e3dec389e65f9d6361bb"
-
-spawn-command@^0.0.2-1:
-  version "0.0.2-1"
-  resolved "https://registry.yarnpkg.com/spawn-command/-/spawn-command-0.0.2-1.tgz#62f5e9466981c1b796dc5929937e11c9c6921bd0"
 
 spdx-correct@~1.0.0:
   version "1.0.2"
