@@ -43,7 +43,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.2",
-    "envalid": "^4.1.4",
+    "envalid": "^4.2.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-react-16-adapter-setup": "^0.1.0",
