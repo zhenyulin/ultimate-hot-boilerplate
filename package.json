@@ -16,7 +16,7 @@
     "mongoose": "^5.2.4",
     "mongoose-findoneorcreate": "^1.0.0",
     "normalizr": "^3.2.4",
-    "prop-types": "^15.6.2",
+    "prop-types": "^15.7.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
