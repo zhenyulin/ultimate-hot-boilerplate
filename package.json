@@ -56,7 +56,7 @@
     "eslint-loader": "^2.1.0",
     "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-graphql": "^2.0.0",
-    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-import": "^2.19.0",
     "eslint-plugin-jest": "^21.18.0",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
