@@ -13,7 +13,7 @@
     "graphql-request": "^1.6.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
-    "mongoose": "^5.2.4",
+    "mongoose": "^5.8.2",
     "mongoose-findoneorcreate": "^1.0.0",
     "normalizr": "^3.2.4",
     "prop-types": "^15.6.2",
